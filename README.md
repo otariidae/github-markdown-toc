@@ -1,0 +1,20 @@
+# GitHub Markdown Tabele of Contents
+
+Chrome extension to show a table of contents on GitHub
+
+## Install
+You can install the latest version manually.
+
+1. Clone this repository.
+2. Visit chrome://extensions.
+3. Click to check *Developer mode*.
+4. Click *Load unpacked extension...*.
+5. Select the *dist* directory.
+
+For more info, see [Chrome Extension Get Started](https://developer.chrome.com/extensions/getstarted#unpacked) or [Google Chrome FAQ](https://developer.chrome.com/extensions/faq#faq-dev-01).
+
+## Usage
+
+## License
+CC0  
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png "CC0")](http://creativecommons.org/publicdomain/zero/1.0/)

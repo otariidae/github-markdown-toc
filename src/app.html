@@ -1,0 +1,21 @@
+<div class="github-markdown-toc" data-disabled="{{ !isEnabled }}" data-open="{{ isOpen }}">
+  <nav>
+    <ol>
+      {{#each headers as header}}
+        <li class="{{ header.tag }}"><a href="{{ header.link }}">{{ header.text }}</a></li>
+      {{/each}}
+    </ol>
+  </nav>
+  <button type="button" on:click="onBtnClicked()" class="toggle-btn"></button>
+  <script>
+    export default {
+      methods: {
+        onBtnClicked () {
+          if (this.get('isEnabled')) {
+            this.fire('toggle-nav')
+          }
+        }
+      }
+    }
+  </script>
+</div>

@@ -1,0 +1,1 @@
+chrome.runtime.onMessage.addListener(({type:a},{url:b},c)=>{if('is-js-enabled'===a)return chrome.contentSettings.javascript.get({primaryUrl:b},({setting:d})=>{c('allow'===d)}),!0});
