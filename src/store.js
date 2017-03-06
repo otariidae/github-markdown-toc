@@ -5,7 +5,6 @@ class AppStore extends Store {
   constructor (context) {
     super(context)
     this.state = {
-      context,
       isOpen: false,
       isEnabled: false,
       headers: []
