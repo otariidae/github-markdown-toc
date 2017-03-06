@@ -19,8 +19,8 @@ For more info, see [Chrome Extension Get Started](https://developer.chrome.com/e
 Click the button on the top right-hand corner to show or hide the table of contents.
 
 ## Permissions
-This extension uses *https://github.com/\**, *contentSettings* and *tabs*.  
-- *https://github.com/\** is used to run scripts on GitHub.
+This extension uses _https://github.com/*_, *contentSettings* and *tabs*.  
+- _https://github.com/*_ is used to run scripts on GitHub.
 - *contentSettings* and *tabs* are used to know whether JavaScript is enabled in the tab or not.
 
 ## License
