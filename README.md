@@ -14,6 +14,7 @@ You can install the latest version manually.
 For more info, see [Chrome Extension Get Started](https://developer.chrome.com/extensions/getstarted#unpacked) or [Google Chrome FAQ](https://developer.chrome.com/extensions/faq#faq-dev-01).
 
 ## Usage
+Click the button on the top right-hand corner to show or hide the table of contents.
 
 ## License
 CC0  
