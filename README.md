@@ -2,6 +2,8 @@
 
 Chrome extension to show a table of contents on GitHub
 
+![this app on GitHub](doc/screenshot.png)
+
 ## Install
 You can install the latest version manually.
 
