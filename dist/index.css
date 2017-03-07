@@ -79,25 +79,25 @@ body.logged-out .github-markdown-toc .toggle-btn {
 }
 
 .github-markdown-toc .lv1 {
-  padding-left: calc(4px * (1 - 1));
+  padding-left: calc(8px * (1 - 1));
 }
 
 .github-markdown-toc .lv2 {
-  padding-left: calc(4px * (2 - 1));
+  padding-left: calc(8px * (2 - 1));
 }
 
 .github-markdown-toc .lv3 {
-  padding-left: calc(4px * (3 - 1));
+  padding-left: calc(8px * (3 - 1));
 }
 
 .github-markdown-toc .lv4 {
-  padding-left: calc(4px * (4 - 1));
+  padding-left: calc(8px * (4 - 1));
 }
 
 .github-markdown-toc .lv5 {
-  padding-left: calc(4px * (5 - 1));
+  padding-left: calc(8px * (5 - 1));
 }
 
 .github-markdown-toc .lv6 {
-  padding-left: calc(4px * (6 - 1));
+  padding-left: calc(8px * (6 - 1));
 }

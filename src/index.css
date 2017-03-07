@@ -11,7 +11,7 @@
   --toggle-button-arrow-size: 8px;
   --toggle-button-arrow-border: solid 2px var(--md-grey-900);
   --toggle-button-arrow-position: calc((var(--toggle-button-size) - var(--toggle-button-arrow-size)) / 2);
-  --heading-padding: 4px;
+  --heading-padding: 8px;
 }
 
 body {
