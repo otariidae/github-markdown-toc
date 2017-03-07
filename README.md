@@ -1,6 +1,7 @@
 # GitHub Markdown Tabele of Contents
 
-Chrome extension to show a table of contents on GitHub
+Chrome extension to show a table of contents on GitHub.  
+No more scrolling to read long long long documents.
 
 ![this app on GitHub](doc/screenshot.png)
 
