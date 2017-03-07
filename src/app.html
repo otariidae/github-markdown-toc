@@ -7,15 +7,15 @@
     </ol>
   </nav>
   <button type="button" on:click="onBtnClicked()" class="toggle-btn"></button>
-  <script>
-    export default {
-      methods: {
-        onBtnClicked () {
-          if (this.get('isEnabled')) {
-            this.fire('toggle-nav')
-          }
+</div>
+<script>
+  export default {
+    methods: {
+      onBtnClicked () {
+        if (this.get('isEnabled')) {
+          this.fire('toggle-nav')
         }
       }
     }
-  </script>
-</div>
+  }
+</script>
