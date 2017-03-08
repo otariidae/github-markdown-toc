@@ -9,7 +9,7 @@ class AppAction extends Action {
     const type = checkPageType(location.href)
     if (type === 'release') {
       headers = this.fetchReleaseHeader()
-    } else if (type === 'code') {
+    } else if (type === 'code' || type === 'wiki') {
       headers = await this.fetchMarkdownHeader()
     } else {
       headers = []
