@@ -4,7 +4,7 @@ Chrome extension to show a table of contents on GitHub.
 No more scrolling to read long long long documents.
 
 ![this app on GitHub](doc/screenshot.png)  
-*An example of a long readme -- AVA: a nice test runner for Node.js*
+*An example of a long readme with this extension -- AVA: a nice test runner for Node.js*
 
 ## Install
 You can install the latest version manually.
