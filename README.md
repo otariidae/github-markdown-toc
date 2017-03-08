@@ -6,6 +6,12 @@ No more scrolling to read long long long documents.
 ![this app on GitHub](doc/screenshot.png)  
 *An example of a long readme with this extension -- AVA: a nice test runner for Node.js*
 
+Works with:
+- README on the top pages
+- Markdown files
+- Wikis
+- Commented tags in release pages
+
 ## Install
 You can install the latest version manually.
 
