@@ -10,7 +10,6 @@ class AppStore extends Store {
       headers: []
     }
     this.register(key.MOVE_TO_PAGE, this.toPage)
-    this.register(key.MOVE_TO_UNKNOWN, this.toUnknown)
     this.register(key.TOGGLE_NAV, this.toggleNav)
   }
   toPage ({ isAvailable, headers }) {
@@ -18,12 +17,6 @@ class AppStore extends Store {
       headers,
       isEnabled: isAvailable,
       isOpen: isAvailable ? this.state.isOpen : false
-    })
-  }
-  toUnknown () {
-    this.setState({
-      isEnabled: false,
-      isOpen: false
     })
   }
   toggleNav () {

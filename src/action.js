@@ -1,10 +1,12 @@
 const key = require('./action-type.js')
 const { Action } = require('material-flux')
 const checkJSEnabled = require('./check-js-enabled.js')
+const checkPageType = require('./check-page-type.js')
 
 class AppAction extends Action {
-  async moveToPage (type) {
+  async moveToPage () {
     let headers
+    const type = checkPageType(location.href)
     if (type === 'release') {
       headers = this.fetchReleaseHeader()
     } else if (type === 'code') {
@@ -18,9 +20,6 @@ class AppAction extends Action {
       isAvailable
     }
     this.dispatch(key.MOVE_TO_PAGE, data)
-  }
-  moveToUnknown () {
-    this.dispatch(key.MOVE_TO_UNKNOWN)
   }
   toggleNav () {
     this.dispatch(key.TOGGLE_NAV)

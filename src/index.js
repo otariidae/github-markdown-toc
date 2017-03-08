@@ -2,20 +2,10 @@
 
 const App = require('./app.html')
 const AppContext = require('./context.js')
-const checkPageType = require('./check-page-type.js')
 
 const context = new AppContext()
 const dataAttr = 'githubMarkdownTocOpen'
 const body = document.body
-
-function movePage () {
-  const type = checkPageType(location.href)
-  if (type !== 'unknown') {
-    context.action.moveToPage(type)
-  } else {
-    context.action.moveToUnknown()
-  }
-}
 
 const rootElm = document.createElement('github-markdown-toc-container')
 const $app = new App({
@@ -35,6 +25,6 @@ context.store.onChange(() => {
   }
 })
 $app.on('toggle-nav', context.action.toggleNav.bind(context.action))
-window.addEventListener('pjax:end', movePage)
+window.addEventListener('pjax:end', context.action.moveToPage.bind(context.action))
 // init
-movePage()
+context.action.moveToPage()
