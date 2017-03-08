@@ -25,6 +25,9 @@ This extension uses _https://github.com/*_, *contentSettings* and *tabs*.
 - _https://github.com/*_ is used to run scripts on GitHub.
 - *contentSettings* and *tabs* are used to know whether JavaScript is enabled in the tab or not.
 
+## Recommended environment
+- the latest stable version of Google Chrome
+
 ## License
 CC0  
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png "CC0")](http://creativecommons.org/publicdomain/zero/1.0/)
