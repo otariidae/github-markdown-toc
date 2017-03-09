@@ -2,6 +2,7 @@ const key = require('./action-type.js')
 const { Action } = require('material-flux')
 const checkJSEnabled = require('./check-js-enabled.js')
 const checkPageType = require('./check-page-type.js')
+const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
 class AppAction extends Action {
   async moveToPage () {
@@ -9,8 +10,10 @@ class AppAction extends Action {
     const type = checkPageType(location.href)
     if (type === 'release') {
       headers = this.fetchReleaseHeader()
-    } else if (type === 'code' || type === 'wiki') {
+    } else if (type === 'code') {
       headers = await this.fetchMarkdownHeader()
+    } else if (type === 'wiki') {
+      headers = await this.fetchWikiHeader()
     } else {
       headers = []
     }
@@ -42,13 +45,28 @@ class AppAction extends Action {
     })
   }
   async fetchMarkdownHeader () {
-    const isJSEnabled = await checkJSEnabled()
     const readme = document.querySelector('.markdown-body')
     if (!readme) {
       return []
     }
-    const hs = readme.querySelectorAll('h1, h2, h3, h4, h5, h6')
-    return Array.from(hs).map(h => {
+    const hs = readme.querySelectorAll(headerSelector)
+    return await this.getHeaderDataFromMarkdownDOM(hs)
+  }
+  async fetchWikiHeader () {
+    const markdown = document.querySelector('.wiki-body .markdown-body')
+    if (!markdown) {
+      return []
+    }
+    let hs = markdown.querySelectorAll(headerSelector)
+    hs = Array.from(hs).filter(h => {
+      return Boolean(h.textContent.trim())
+    })
+    return await this.getHeaderDataFromMarkdownDOM(hs)
+  }
+  async getHeaderDataFromMarkdownDOM (nodelist) {
+    const isJSEnabled = await checkJSEnabled()
+    const arr = Array.isArray(nodelist) ? nodelist : Array.from(nodelist)
+    return arr.map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
