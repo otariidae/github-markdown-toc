@@ -1,12 +1,12 @@
-<div class="github-markdown-toc" data-disabled="{{ !isEnabled }}" data-open="{{ isOpen }}">
-  <nav>
+<div class="github-markdown-toc" aria-disabled="{{ !isEnabled }}" data-open="{{ isOpen }}">
+  <nav id="github-markdown-toc__nav-panel" aria-hidden="{{ !isOpen }}">
     <ol>
       {{#each headers as header}}
         <li class="{{ header.tag }}"><a href="{{ header.link }}">{{ header.text }}</a></li>
       {{/each}}
     </ol>
   </nav>
-  <button type="button" on:click="onBtnClicked()" class="toggle-btn"></button>
+  <button type="button" on:click="onBtnClicked()" class="toggle-btn" aria-controls="github-markdown-toc__nav-panel" disabled="{{ !isEnabled }}"></button>
 </div>
 <script>
   export default {

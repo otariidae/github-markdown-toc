@@ -49,7 +49,7 @@ body.logged-out .github-markdown-toc .toggle-btn {
   transform: translateX(-2px) rotate(135deg);
 }
 
-.github-markdown-toc[data-disabled=true] .toggle-btn::before {
+.github-markdown-toc .toggle-btn[disabled]::before {
   border-top-color: #bdbdbd;
   border-left-color: #bdbdbd;
 }
