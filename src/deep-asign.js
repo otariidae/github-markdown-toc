@@ -2,11 +2,13 @@ const isPlainObject = require('is-plain-object')
 
 function copyObject (obj) {
   let copy = {}
-  Object.keys(obj).forEach(k => {
-    if (isPlainObject(obj[k])) {
-      copy[k] = copyObject(obj[k])
-    }
-  })
+  if (isPlainObject(obj)) {
+    Object.keys(obj).forEach(k => {
+     if (isPlainObject(obj[k])) {
+        copy[k] = copyObject(obj[k])
+      }
+    })
+  }
   return Object.assign({}, obj, copy)
 }
 
