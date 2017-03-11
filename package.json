@@ -32,6 +32,6 @@
     "lint": "eslint --config standard --env browser --global chrome src",
     "test": "tape test/*.js"
   },
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "CC0-1.0"
 }
