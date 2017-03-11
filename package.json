@@ -6,8 +6,8 @@
     "eslint-config-standard": "^7.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
+    "is-plain-object": "^2.0.1",
     "material-colors": "^1.2.5",
-    "material-flux": "^1.4.0",
     "npm-run-all": "^4.0.1",
     "postcss": "^5.2.14",
     "postcss-cli": "2.6.0",
@@ -15,7 +15,8 @@
     "postcss-for": "^2.1.1",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^1.0.0",
-    "sveltify": "^1.0.3"
+    "sveltify": "^1.0.3",
+    "tiny-emitter": "^1.1.0"
   },
   "name": "github-markdown-toc",
   "scripts": {

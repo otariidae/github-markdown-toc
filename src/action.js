@@ -1,5 +1,4 @@
 const key = require('./action-type.js')
-const { Action } = require('material-flux')
 const checkPageType = require('./check-page-type.js')
 const {
   fetchReleaseHeader,
@@ -7,7 +6,10 @@ const {
   fetchWikiHeader
 } = require('./get-header-data.js')
 
-class AppAction extends Action {
+class AppAction {
+  constructor (dispatcher) {
+    this.dispatcher = dispatcher
+  }
   async moveToPage () {
     let headers
     const type = checkPageType(location.href)
@@ -25,10 +27,10 @@ class AppAction extends Action {
       headers,
       isAvailable
     }
-    this.dispatch(key.MOVE_TO_PAGE, data)
+    this.dispatcher.emit(key.MOVE_TO_PAGE, data)
   }
   toggleNav () {
-    this.dispatch(key.TOGGLE_NAV)
+    this.dispatcher.emit(key.TOGGLE_NAV)
   }
 }
 

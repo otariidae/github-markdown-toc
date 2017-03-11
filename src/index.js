@@ -1,30 +1,34 @@
 'use strict'
 
 const App = require('./app.html')
-const AppContext = require('./context.js')
+const EventEmitter = require('tiny-emitter')
+const AppAction = require('./action.js')
+const AppStore = require('./store.js')
 
-const context = new AppContext()
+const dispatcher = new EventEmitter()
+const action = new AppAction(dispatcher)
+const store = new AppStore(dispatcher)
 const dataAttr = 'githubMarkdownTocOpen'
 const body = document.body
 
 const rootElm = document.createElement('github-markdown-toc-container')
 const $app = new App({
-  data: context.store.getState(),
+  data: store.getState(),
   target: rootElm
 })
 body.appendChild(rootElm)
-context.store.onChange(() => {
-  $app.set(context.store.getState())
+store.onChange(() => {
+  $app.set(store.getState())
 })
-context.store.onChange(() => {
-  const { isOpen } = context.store.getState()
+store.onChange(() => {
+  const { isOpen } = store.getState()
   if (isOpen) {
     body.dataset[dataAttr] = ''
   } else {
     delete body.dataset[dataAttr]
   }
 })
-$app.on('toggle-nav', context.action.toggleNav.bind(context.action))
-window.addEventListener('pjax:end', context.action.moveToPage.bind(context.action))
+$app.on('toggle-nav', action.toggleNav.bind(action))
+window.addEventListener('pjax:end', action.moveToPage.bind(action))
 // init
-context.action.moveToPage()
+action.moveToPage()
