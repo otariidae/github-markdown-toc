@@ -16,6 +16,7 @@
     "postcss-import": "^9.1.0",
     "postcss-nested": "^1.0.0",
     "sveltify": "^1.0.3",
+    "tape": "^4.6.3",
     "tiny-emitter": "^1.1.0"
   },
   "name": "github-markdown-toc",
@@ -28,7 +29,8 @@
     "build:js": "npm-run-all --parallel build:js:bundle build:js:background --serial build:js:minify",
     "build:meta": "cp src/manifest.json dist",
     "build": "npm-run-all clean --parallel build:*",
-    "lint": "eslint --config standard --env browser --global chrome src"
+    "lint": "eslint --config standard --env browser --global chrome src",
+    "test": "tape test/*.js"
   },
   "version": "0.2.1",
   "license": "CC0-1.0"
