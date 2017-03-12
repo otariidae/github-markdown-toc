@@ -23,8 +23,8 @@
   "scripts": {
     "clean": "rm dist/*",
     "build:css": "postcss --use postcss-import --use postcss-for --use postcss-nested --use postcss-custom-properties --output dist/index.css src/index.css",
-    "build:js:bundle": "browserify --transform sveltify src/index.js --outfile dist/index.js",
-    "build:js:minify": "babili dist --out-dir dist",
+    "build:js:bundle": "browserify --transform sveltify src/index.js --outfile dist/index.js --debug",
+    "build:js:minify": "babili dist --out-dir dist --source-maps",
     "build:js:background": "cp src/background.js dist",
     "build:js": "npm-run-all --parallel build:js:bundle build:js:background --serial build:js:minify",
     "build:meta": "cp src/manifest.json dist",
