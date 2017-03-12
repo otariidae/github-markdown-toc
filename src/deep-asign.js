@@ -4,7 +4,7 @@ function copyObject (obj) {
   let copy = {}
   if (isPlainObject(obj)) {
     Object.keys(obj).forEach(k => {
-     if (isPlainObject(obj[k])) {
+      if (isPlainObject(obj[k])) {
         copy[k] = copyObject(obj[k])
       }
     })
