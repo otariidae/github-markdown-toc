@@ -1,5 +1,5 @@
 const key = require('./action-type.js')
-const checkPageType = require('./check-page-type.js')
+const { key: pageKey, checkPageType } = require('./check-page-type.js')
 const {
   fetchReleaseHeader,
   fetchMarkdownHeader,
@@ -13,11 +13,11 @@ class AppAction {
   async moveToPage () {
     let headers
     const type = checkPageType(location.href)
-    if (type === 'release') {
+    if (type === pageKey.RELEASE) {
       headers = fetchReleaseHeader()
-    } else if (type === 'code') {
+    } else if (type === pageKey.CODE) {
       headers = await fetchMarkdownHeader()
-    } else if (type === 'wiki') {
+    } else if (type === pageKey.WIKI) {
       headers = await fetchWikiHeader()
     } else {
       headers = []

@@ -1,14 +1,21 @@
+const key = {
+  RELEASE: Symbol('release'),
+  CODE: Symbol('code'),
+  WIKI: Symbol('wiki'),
+  UNKNOWN: Symbol('unknown')
+}
+
 function checkPageType (url) {
   const { pathname: path } = new URL(url)
   const [, user, project, ...pathes] = path.split('/')
   if (pathes[0] === 'releases' && pathes.length === 1) {
-    return 'release'
+    return key.RELEASE
   } else if (pathes[0] === 'blob' || pathes[0] === 'tree' || (user && project && !pathes.length)) {
-    return 'code'
+    return key.CODE
   } else if (pathes[0] === 'wiki') {
-    return 'wiki'
+    return key.WIKI
   }
-  return 'unknown'
+  return key.UNKNOWN
 }
 
-module.exports = checkPageType
+module.exports = { key, checkPageType }
