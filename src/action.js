@@ -1,3 +1,4 @@
+const { Action } = require('./flux.js')
 const key = require('./action-type.js')
 const { key: pageKey, checkPageType } = require('./check-page-type.js')
 const {
@@ -6,12 +7,9 @@ const {
   fetchWikiHeader
 } = require('./get-header-data.js')
 
-class AppAction {
-  constructor (dispatcher) {
-    this.dispatcher = dispatcher
-  }
+class AppAction extends Action {
   startLoading () {
-    this.dispatcher.emit(key.START_LOADING)
+    this.dispatch(key.START_LOADING)
   }
   async moveToPage () {
     let headers
@@ -30,10 +28,10 @@ class AppAction {
       headers,
       isAvailable
     }
-    this.dispatcher.emit(key.MOVE_TO_PAGE, data)
+    this.dispatch(key.MOVE_TO_PAGE, data)
   }
   toggleNav () {
-    this.dispatcher.emit(key.TOGGLE_NAV)
+    this.dispatch(key.TOGGLE_NAV)
   }
 }
 
