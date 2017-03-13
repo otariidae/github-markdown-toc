@@ -15,6 +15,7 @@ body[data-github-markdown-toc-open] {
   position: fixed;
   width: 30px;
   height: 30px;
+  padding: 0;
   border: none;
   border-radius: 3px;
   background-color: #e0e0e0;
@@ -43,6 +44,17 @@ body.logged-in .github-markdown-toc .toggle-btn {
 body.logged-out .github-markdown-toc .toggle-btn {
   top: calc((72px - 30px) / 2);
   right: calc((72px - 30px) / 2);
+}
+
+.github-markdown-toc[aria-busy=true] .toggle-btn {
+  background-image: url(chrome-extension://__MSG_@@extension_id__/spinner.svg);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.github-markdown-toc[aria-busy=true] .toggle-btn::before {
+  content: none;
 }
 
 .github-markdown-toc[data-open=true] .toggle-btn::before {

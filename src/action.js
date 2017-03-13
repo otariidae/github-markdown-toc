@@ -10,6 +10,9 @@ class AppAction {
   constructor (dispatcher) {
     this.dispatcher = dispatcher
   }
+  startLoading () {
+    this.dispatcher.emit(key.START_LOADING)
+  }
   async moveToPage () {
     let headers
     const type = checkPageType(location.href)

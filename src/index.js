@@ -29,6 +29,7 @@ store.onChange(() => {
   }
 })
 $app.on('toggle-nav', action.toggleNav.bind(action))
+window.addEventListener('pjax:start', action.startLoading.bind(action))
 window.addEventListener('pjax:end', action.moveToPage.bind(action))
 // init
 action.moveToPage()

@@ -30,6 +30,7 @@ body[data-github-markdown-toc-open] {
     position: fixed;
     width: var(--toggle-button-size);
     height: var(--toggle-button-size);
+    padding: 0;
     border: none;
     border-radius: 3px;
     background-color: var(--md-grey-300);
@@ -57,6 +58,17 @@ body[data-github-markdown-toc-open] {
     body.logged-out & {
       top: var(--toggle-button-margin_log-out);
       right: var(--toggle-button-margin_log-out);
+    }
+  }
+
+  &[aria-busy=true] .toggle-btn {
+    background-image: url(chrome-extension://__MSG_@@extension_id__/spinner.svg);
+    background-size: 16px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &::before {
+      content: none;
     }
   }
 

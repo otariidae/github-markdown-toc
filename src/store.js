@@ -8,16 +8,24 @@ class AppStore extends EventEmitter {
     super()
     this.dispatcher = dispatcher
     this.state = {
+      isLoading: false,
       isOpen: false,
       isEnabled: false,
       headers: []
     }
+    this.dispatcher.on(key.START_LOADING, this.loading.bind(this))
     this.dispatcher.on(key.MOVE_TO_PAGE, this.toPage.bind(this))
     this.dispatcher.on(key.TOGGLE_NAV, this.toggleNav.bind(this))
+  }
+  loading () {
+    this.setState({
+      isLoading: true
+    })
   }
   toPage ({ isAvailable, headers }) {
     this.setState({
       headers,
+      isLoading: false,
       isEnabled: isAvailable,
       isOpen: isAvailable ? this.state.isOpen : false
     })

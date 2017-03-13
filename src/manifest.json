@@ -39,5 +39,8 @@
  },
  "permissions": [
    "https://github.com/*", "contentSettings", "tabs"
+ ],
+ "web_accessible_resources": [
+   "spinner.svg"
  ]
 }
