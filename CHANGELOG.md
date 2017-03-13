@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.1
+- Add a loading animation between `pjax:start` and `pjax:end`.
+
+## 0.3.1
+- Use `Symbol` inside `check-page-type.js`
+
 ## 0.3.0
 - Use `aria-*` inside HTML and CSS
 
