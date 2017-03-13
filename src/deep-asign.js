@@ -1,4 +1,4 @@
-const isPlainObject = require('is-plain-object')
+import isPlainObject from 'is-plain-object'
 
 function copyObject (obj) {
   let copy = {}
@@ -17,4 +17,4 @@ function deepAssign (target, ...sources) {
   return Object.assign(target, ...copies)
 }
 
-module.exports = deepAssign
+export default deepAssign

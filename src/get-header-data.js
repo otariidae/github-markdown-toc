@@ -1,4 +1,4 @@
-const checkJSEnabled = require('./check-js-enabled.js')
+import checkJSEnabled from './check-js-enabled.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
 function fetchReleaseHeader () {
@@ -58,7 +58,7 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
   })
 }
 
-module.exports = {
+export {
   fetchReleaseHeader,
   fetchMarkdownHeader,
   fetchWikiHeader

@@ -18,4 +18,4 @@ function checkPageType (url) {
   return key.UNKNOWN
 }
 
-module.exports = { key, checkPageType }
+export { key, checkPageType }

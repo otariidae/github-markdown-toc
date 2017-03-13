@@ -1,5 +1,5 @@
-const { Store } = require('./flux.js')
-const key = require('./action-type.js')
+import { Store } from './flux.js'
+import key from './action-type.js'
 
 class AppStore extends Store {
   constructor (dispatcher) {
@@ -34,4 +34,4 @@ class AppStore extends Store {
   }
 }
 
-module.exports = AppStore
+export default AppStore

@@ -1,7 +1,6 @@
 {
   "devDependencies": {
-    "babili": "^0.0.12",
-    "browserify": "^14.1.0",
+    "babel-preset-babili": "^0.0.12",
     "eslint": "^3.17.0",
     "eslint-config-standard": "^7.0.0",
     "eslint-plugin-promise": "^3.5.0",
@@ -15,7 +14,11 @@
     "postcss-for": "^2.1.1",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^1.0.0",
-    "sveltify": "^1.0.3",
+    "rollup": "^0.41.5",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-svelte": "^1.6.0",
     "tape": "^4.6.3",
     "tiny-emitter": "^1.1.0"
   },
@@ -23,10 +26,9 @@
   "scripts": {
     "clean": "rm dist/*",
     "build:css": "postcss --use postcss-import --use postcss-for --use postcss-nested --use postcss-custom-properties --output dist/index.css src/index.css",
-    "build:js:bundle": "browserify --transform sveltify src/index.js --outfile dist/index.js --debug",
-    "build:js:minify": "babili dist --out-dir dist --source-maps",
+    "build:js:bundle": "rollup -c",
     "build:js:background": "cp src/background.js dist",
-    "build:js": "npm-run-all --parallel build:js:bundle build:js:background --serial build:js:minify",
+    "build:js": "run-p build:js:*",
     "build:meta": "cp src/manifest.json dist",
     "build:image": "cp src/*.svg dist",
     "build": "npm-run-all clean --parallel build:*",

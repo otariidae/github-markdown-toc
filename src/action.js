@@ -1,11 +1,11 @@
-const { Action } = require('./flux.js')
-const key = require('./action-type.js')
-const { key: pageKey, checkPageType } = require('./check-page-type.js')
-const {
+import { Action } from './flux.js'
+import key from './action-type.js'
+import { key as pageKey, checkPageType } from './check-page-type.js'
+import {
   fetchReleaseHeader,
   fetchMarkdownHeader,
   fetchWikiHeader
-} = require('./get-header-data.js')
+} from './get-header-data.js'
 
 class AppAction extends Action {
   startLoading () {
@@ -35,4 +35,4 @@ class AppAction extends Action {
   }
 }
 
-module.exports = AppAction
+export default AppAction

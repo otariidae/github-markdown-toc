@@ -1,9 +1,9 @@
 'use strict'
 
-const App = require('./app.html')
-const EventEmitter = require('tiny-emitter')
-const AppAction = require('./action.js')
-const AppStore = require('./store.js')
+import App from './app.html'
+import EventEmitter from 'tiny-emitter'
+import AppAction from './action.js'
+import AppStore from './store.js'
 
 const dispatcher = new EventEmitter()
 const action = new AppAction(dispatcher)

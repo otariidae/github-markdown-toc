@@ -1,5 +1,5 @@
-const EventEmitter = require('tiny-emitter')
-const deepAssign = require('./deep-asign.js')
+import EventEmitter from 'tiny-emitter'
+import deepAssign from './deep-asign.js'
 const ON_CHANGE = Symbol('on-change')
 
 class Action {
@@ -31,7 +31,7 @@ class Store extends EventEmitter {
   }
 }
 
-module.exports = {
+export {
   Action,
   Store
 }

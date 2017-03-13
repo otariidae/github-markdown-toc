@@ -1,2 +1,11 @@
-chrome.runtime.onMessage.addListener(({type:a},{url:b},c)=>{if('is-js-enabled'===a)return chrome.contentSettings.javascript.get({primaryUrl:b},({setting:d})=>{c('allow'===d)}),!0});
-//# sourceMappingURL=background.js.map
+chrome.runtime.onMessage.addListener(({ type }, { url }, sendResponse) => {
+  if (type === 'is-js-enabled') {
+    chrome.contentSettings.javascript.get({
+      primaryUrl: url
+    }, ({ setting }) => {
+      const state = setting === 'allow'
+      sendResponse(state)
+    })
+    return true
+  }
+})

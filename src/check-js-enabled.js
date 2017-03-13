@@ -6,4 +6,4 @@ function checkJSEnebled () {
   })
 }
 
-module.exports = checkJSEnebled
+export default checkJSEnebled
