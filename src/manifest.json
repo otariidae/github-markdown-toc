@@ -2,7 +2,7 @@
  "manifest_version": 2,
  "name": "GitHub Markdown Table of Contents",
  "description": "Show a table of contents of markdown on GitHub",
- "version": "0.4.1",
+ "version": "0.4.2",
  "content_scripts": [
    {
      "matches": ["https://github.com/*"],
