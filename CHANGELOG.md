@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2
+- Use `rollup` instead of `browserify`
+- Use `ES Modules` instead of `Node.js Modules`
+
+## 0.4.1
+- Code splitting
+- Add some parant classes
+
 ## 0.4.0
 - Add a loading animation between `pjax:start` and `pjax:end`.
 
