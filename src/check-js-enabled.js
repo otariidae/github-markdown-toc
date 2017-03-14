@@ -1,4 +1,4 @@
-function checkJSEnebled () {
+export default function checkJSEnebled () {
   return new Promise(resolve => {
     chrome.runtime.sendMessage({
       type: 'is-js-enabled'
@@ -6,4 +6,3 @@ function checkJSEnebled () {
   })
 }
 
-export default checkJSEnebled

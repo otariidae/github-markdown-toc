@@ -2,7 +2,7 @@ import EventEmitter from 'tiny-emitter'
 import deepAssign from './deep-asign.js'
 const ON_CHANGE = Symbol('on-change')
 
-class Action {
+export class Action {
   constructor (dispatcher) {
     this.dispatcher = dispatcher
   }
@@ -11,7 +11,7 @@ class Action {
   }
 }
 
-class Store extends EventEmitter {
+export class Store extends EventEmitter {
   constructor (dispatcher) {
     super()
     this.dispatcher = dispatcher
@@ -29,9 +29,4 @@ class Store extends EventEmitter {
   onChange (func) {
     this.on(ON_CHANGE, func)
   }
-}
-
-export {
-  Action,
-  Store
 }

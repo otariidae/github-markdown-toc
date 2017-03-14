@@ -1,7 +1,7 @@
 import checkJSEnabled from './check-js-enabled.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
-function fetchReleaseHeader () {
+export function fetchReleaseHeader () {
   const hs = document.querySelectorAll('.release-title')
   if (!hs) {
     return []
@@ -19,7 +19,7 @@ function fetchReleaseHeader () {
   })
 }
 
-async function fetchMarkdownHeader () {
+export async function fetchMarkdownHeader () {
   const readme = document.querySelector('.markdown-body')
   if (!readme) {
     return []
@@ -28,7 +28,7 @@ async function fetchMarkdownHeader () {
   return await getHeaderDataFromMarkdownDOM(hs)
 }
 
-async function fetchWikiHeader () {
+export async function fetchWikiHeader () {
   const markdown = document.querySelector('.wiki-body .markdown-body')
   if (!markdown) {
     return []
@@ -56,10 +56,4 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
       text
     }
   })
-}
-
-export {
-  fetchReleaseHeader,
-  fetchMarkdownHeader,
-  fetchWikiHeader
 }

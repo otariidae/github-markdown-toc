@@ -1,11 +1,11 @@
-const key = {
+export const key = {
   RELEASE: Symbol('release'),
   CODE: Symbol('code'),
   WIKI: Symbol('wiki'),
   UNKNOWN: Symbol('unknown')
 }
 
-function checkPageType (url) {
+export default function checkPageType (url) {
   const { pathname: path } = new URL(url)
   const [, user, project, ...pathes] = path.split('/')
   if (pathes[0] === 'releases' && pathes.length === 1) {
@@ -17,5 +17,3 @@ function checkPageType (url) {
   }
   return key.UNKNOWN
 }
-
-export { key, checkPageType }

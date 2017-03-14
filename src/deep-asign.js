@@ -12,9 +12,7 @@ function copyObject (obj) {
   return Object.assign({}, obj, copy)
 }
 
-function deepAssign (target, ...sources) {
+export default function deepAssign (target, ...sources) {
   const copies = sources.map(source => copyObject(source))
   return Object.assign(target, ...copies)
 }
-
-export default deepAssign

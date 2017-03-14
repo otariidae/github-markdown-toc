@@ -1,13 +1,18 @@
 import { Action } from './flux.js'
-import key from './action-type.js'
-import { key as pageKey, checkPageType } from './check-page-type.js'
+import checkPageType, { key as pageKey } from './check-page-type.js'
 import {
   fetchReleaseHeader,
   fetchMarkdownHeader,
   fetchWikiHeader
 } from './get-header-data.js'
 
-class AppAction extends Action {
+export const key = {
+  START_LOADING: Symbol('start-loading'),
+  MOVE_TO_PAGE: Symbol('move-to-page'),
+  TOGGLE_NAV: Symbol('toggle-nav')
+}
+
+export default class AppAction extends Action {
   startLoading () {
     this.dispatch(key.START_LOADING)
   }
@@ -34,5 +39,3 @@ class AppAction extends Action {
     this.dispatch(key.TOGGLE_NAV)
   }
 }
-
-export default AppAction

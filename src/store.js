@@ -1,7 +1,7 @@
 import { Store } from './flux.js'
-import key from './action-type.js'
+import { key } from './action.js'
 
-class AppStore extends Store {
+export default class AppStore extends Store {
   constructor (dispatcher) {
     super(dispatcher)
     this.state = {
@@ -33,5 +33,3 @@ class AppStore extends Store {
     })
   }
 }
-
-export default AppStore

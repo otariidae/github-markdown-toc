@@ -8,6 +8,7 @@ import AppStore from './store.js'
 const dispatcher = new EventEmitter()
 const action = new AppAction(dispatcher)
 const store = new AppStore(dispatcher)
+
 const dataAttr = 'githubMarkdownTocOpen'
 const body = document.body
 
