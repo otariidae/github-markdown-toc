@@ -14,6 +14,7 @@
     "postcss-for": "^2.1.1",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^1.0.0",
+    "reify": "^0.4.16",
     "rollup": "^0.41.5",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
@@ -33,7 +34,7 @@
     "build:image": "cp src/*.svg dist",
     "build": "npm-run-all clean --parallel build:*",
     "lint": "eslint --config standard --env browser --global chrome src",
-    "test": "tape test/*.js"
+    "test": "tape --require reify test/*.js"
   },
   "version": "0.4.2",
   "license": "CC0-1.0"

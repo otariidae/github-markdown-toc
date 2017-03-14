@@ -1,5 +1,5 @@
-const test = require('tape')
-const deepAssign = require('../src/deep-asign.js')
+import test from 'tape'
+import deepAssign from '../src/deep-asign.js'
 
 test('deep-assign', t => {
   const target = {
