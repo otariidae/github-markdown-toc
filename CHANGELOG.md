@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.4.1
+## 0.4.0
 - Add a loading animation between `pjax:start` and `pjax:end`.
 
 ## 0.3.1
