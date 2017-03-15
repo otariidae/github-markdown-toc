@@ -1,4 +1,7 @@
 # GitHub Markdown Tabele of Contents
+[![CircleCI](https://img.shields.io/circleci/project/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://circleci.com/gh/otariidae/github-markdown-toc)
+[![GitHub tag](https://img.shields.io/github/tag/otariidae/github-markdown-toc.svg?style=flat-square)](https://github.com/otariidae/github-markdown-toc/releases)
+[![CC0-1.0](https://img.shields.io/badge/license-CC0-blue.svg?style=flat-square)](http://creativecommons.org/publicdomain/zero/1.0/)
 
 Chrome extension to show a table of contents on GitHub.  
 No more scrolling to read long long long documents.
