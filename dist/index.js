@@ -11,7 +11,7 @@ var index$3=function(b){return null!=b&&'object'==typeof b&&!Array.isArray(b)};
 
 function isObjectObject(a){return!0===index$3(a)&&'[object Object]'===Object.prototype.toString.call(a)}var index$2=function(b){var c,d;return!1!==isObjectObject(b)&&(c=b.constructor,'function'==typeof c)&&(d=c.prototype,!1!==isObjectObject(d)&&!1!==d.hasOwnProperty('isPrototypeOf'))};
 
-function copyObject(a){let b={};return index$2(a)&&Object.keys(a).forEach((c)=>{index$2(a[c])&&(b[c]=copyObject(a[c]));}),Object.assign({},a,b)}function deepAssign(a,...b){const c=b.map((d)=>copyObject(d));return Object.assign(a,...c)}
+function copyObject(a){let b={};return Object.entries(a).forEach(([c,d])=>{index$2(d)&&(b[c]=copyObject(d));}),Object.assign({},a,b)}function deepAssign(a,...b){const c=b.map((d)=>index$2(d)?copyObject(d):d);return Object.assign(a,...c)}
 
 const ON_CHANGE=Symbol('on-change');class Action{constructor(a){this.dispatcher=a;}dispatch(a,b){this.dispatcher.emit(a,b);}}class Store extends index$1{constructor(a){super(),this.dispatcher=a;}setState(a){this.state=deepAssign({},this.state,a),this.emit(ON_CHANGE);}getState(){return deepAssign({},this.state)}register(a,b){this.dispatcher.on(a,b);}onChange(a){this.on(ON_CHANGE,a);}}
 
