@@ -1,3 +1,6 @@
+/**
+ * @returns {boolean}
+ */
 export default function checkJSEnebled () {
   return new Promise(resolve => {
     chrome.runtime.sendMessage({

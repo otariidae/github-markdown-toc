@@ -1,3 +1,6 @@
+/**
+ * @type {Object.<string, Symbol>}
+ */
 export const key = {
   RELEASE: Symbol('release'),
   CODE: Symbol('code'),
@@ -5,6 +8,10 @@ export const key = {
   UNKNOWN: Symbol('unknown')
 }
 
+/**
+ * @param {string} url
+ * @returns {Symbol}
+ */
 export default function checkPageType (url) {
   const { pathname: path } = new URL(url)
   const [, user, project, ...pathes] = path.split('/')

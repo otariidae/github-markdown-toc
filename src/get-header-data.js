@@ -1,6 +1,9 @@
 import checkJSEnabled from './check-js-enabled.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
+/**
+ * @returns {Array<HeaderObject>}
+ */
 export function fetchReleaseHeader () {
   const hs = document.querySelectorAll('.release-title')
   if (!hs) {
@@ -19,6 +22,9 @@ export function fetchReleaseHeader () {
   })
 }
 
+/**
+ * @returns {Array<HeaderObject>}
+ */
 export async function fetchMarkdownHeader () {
   const readme = document.querySelector('.markdown-body')
   if (!readme) {
@@ -28,6 +34,9 @@ export async function fetchMarkdownHeader () {
   return await getHeaderDataFromMarkdownDOM(hs)
 }
 
+/**
+ * @returns {Array<HeaderObject>}
+ */
 export async function fetchWikiHeader () {
   const markdown = document.querySelector('.wiki-body .markdown-body')
   if (!markdown) {
@@ -40,6 +49,17 @@ export async function fetchWikiHeader () {
   return await getHeaderDataFromMarkdownDOM(hs)
 }
 
+/**
+ * @typedef {Object} HeaderObject
+ * @property {string} link
+ * @property {string} tag
+ * @property {string} text
+ */
+
+/**
+ * @param {NodeList|Element[]} nodelist
+ * @returns {Array<HeaderObject>}
+ */
 async function getHeaderDataFromMarkdownDOM (nodelist) {
   const isJSEnabled = await checkJSEnabled()
   const arr = Array.isArray(nodelist) ? nodelist : Array.from(nodelist)
@@ -50,6 +70,9 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
     const link = isJSEnabled ? href : id
     const tag = h.tagName.replace('H', 'lv')
     const text = h.textContent.trim()
+    /**
+     * @type {HeaderObject}
+     */
     return {
       link,
       tag,
