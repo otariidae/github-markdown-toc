@@ -1,17 +1,15 @@
 import isPlainObject from 'is-plain-object'
 
 /**
- * @param {*} obj
+ * @param {Object} obj
  */
 function copyObject (obj) {
   let copy = {}
-  if (isPlainObject(obj)) {
-    Object.keys(obj).forEach(k => {
-      if (isPlainObject(obj[k])) {
-        copy[k] = copyObject(obj[k])
-      }
-    })
-  }
+  Object.entries(obj).forEach(([k, v]) => {
+    if (isPlainObject(v)) {
+      copy[k] = copyObject(v)
+    }
+  })
   return Object.assign({}, obj, copy)
 }
 
@@ -21,6 +19,8 @@ function copyObject (obj) {
  * @returns {Object}
  */
 export default function deepAssign (target, ...sources) {
-  const copies = sources.map(source => copyObject(source))
+  const copies = sources.map(source =>
+    isPlainObject(source) ? copyObject(source) : source
+  )
   return Object.assign(target, ...copies)
 }
