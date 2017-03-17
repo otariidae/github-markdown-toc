@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.4.4
+- Add _login?*_ to *exclude_matches*
+- Use `*` for all urls in *exclude_matches*
+
+## 0.4.3
+- Add JSDoc comments
+- Use `reify` to run tests with `ES modules`
+- Add *author* and *homepage_url* to `package.json`
+- Add *repository* and *bugs* to `manifest.json`
+
 ## 0.4.2
 - Use `rollup` instead of `browserify`
 - Use `ES Modules` instead of `Node.js Modules`
