@@ -10,6 +10,7 @@
      "matches": ["https://github.com/*"],
      "exclude_matches": [
        "https://github.com/login/*",
+       "https://github.com/login?*",
        "https://github.com/join/*",
        "https://github.com/join?*",
        "https://github.com/sessions/*",
