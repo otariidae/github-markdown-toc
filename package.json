@@ -38,5 +38,9 @@
     "release": "npm-run-all --parallel lint test --serial build"
   },
   "version": "0.4.2",
-  "license": "CC0-1.0"
+  "license": "CC0-1.0",
+  "repository": "otariidae/github-markdown-toc",
+  "bugs": {
+    "url": "https://github.com/otariidae/github-markdown-toc/issues"
+  }
 }
