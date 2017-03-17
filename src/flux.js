@@ -1,5 +1,5 @@
 import EventEmitter from 'tiny-emitter'
-import deepAssign from './deep-asign.js'
+import deepAssign from './deep-assign.js'
 const ON_CHANGE = Symbol('on-change')
 
 export class Action {
