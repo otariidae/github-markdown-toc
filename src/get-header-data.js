@@ -1,10 +1,11 @@
 import checkJSEnabled from './check-js-enabled.js'
+import checkPageType, { key } from './check-page-type.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
 /**
  * @returns {Array<HeaderObject>}
  */
-export function fetchReleaseHeader () {
+function fetchReleaseHeader () {
   const hs = document.querySelectorAll('.release-title')
   if (!hs) {
     return []
@@ -25,7 +26,7 @@ export function fetchReleaseHeader () {
 /**
  * @returns {Array<HeaderObject>}
  */
-export async function fetchMarkdownHeader () {
+async function fetchMarkdownHeader () {
   const readme = document.querySelector('.markdown-body')
   if (!readme) {
     return []
@@ -37,7 +38,7 @@ export async function fetchMarkdownHeader () {
 /**
  * @returns {Array<HeaderObject>}
  */
-export async function fetchWikiHeader () {
+async function fetchWikiHeader () {
   const markdown = document.querySelector('.wiki-body .markdown-body')
   if (!markdown) {
     return []
@@ -79,4 +80,20 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
       text
     }
   })
+}
+
+/**
+ * @returns {Array<HeaderObject>}
+ */
+export default async function fetchHeader () {
+  const type = checkPageType(location.href)
+  if (type === key.RELEASE) {
+    return fetchReleaseHeader()
+  } else if (type === key.CODE) {
+    return await fetchMarkdownHeader()
+  } else if (type === key.WIKI) {
+    return await fetchWikiHeader()
+  } else {
+    return []
+  }
 }

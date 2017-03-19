@@ -1,10 +1,5 @@
 import { Action } from './flux.js'
-import checkPageType, { key as pageKey } from './check-page-type.js'
-import {
-  fetchReleaseHeader,
-  fetchMarkdownHeader,
-  fetchWikiHeader
-} from './get-header-data.js'
+import fetchHeader from './get-header-data.js'
 
 export const key = {
   START_LOADING: Symbol('start-loading'),
@@ -17,17 +12,7 @@ export default class AppAction extends Action {
     this.dispatch(key.START_LOADING)
   }
   async moveToPage () {
-    let headers
-    const type = checkPageType(location.href)
-    if (type === pageKey.RELEASE) {
-      headers = fetchReleaseHeader()
-    } else if (type === pageKey.CODE) {
-      headers = await fetchMarkdownHeader()
-    } else if (type === pageKey.WIKI) {
-      headers = await fetchWikiHeader()
-    } else {
-      headers = []
-    }
+    const headers = await fetchHeader()
     const isAvailable = Boolean(headers.length)
     const data = {
       headers,
