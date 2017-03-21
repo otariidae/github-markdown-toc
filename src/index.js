@@ -13,13 +13,13 @@ const dataAttr = 'githubMarkdownTocOpen'
 const body = document.body
 
 const rootElm = document.createElement('github-markdown-toc-container')
-const $app = new App({
+const app = new App({
   data: store.getState(),
   target: rootElm
 })
 body.appendChild(rootElm)
 store.onChange(() => {
-  $app.set(store.getState())
+  app.set(store.getState())
 })
 store.onChange(() => {
   const { isOpen } = store.getState()
@@ -29,7 +29,7 @@ store.onChange(() => {
     delete body.dataset[dataAttr]
   }
 })
-$app.on('toggle-nav', action.toggleNav.bind(action))
+app.on('toggle-nav', action.toggleNav.bind(action))
 window.addEventListener('pjax:start', action.startLoading.bind(action))
 window.addEventListener('pjax:end', action.moveToPage.bind(action))
 // init
