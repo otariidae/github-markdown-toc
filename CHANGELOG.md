@@ -1,5 +1,14 @@
 # Changelog
 
+##0.5.1
+- Change flux state API
+- Rename a variable
+
+##0.5.0
+- Design change
+- Update dependeceis
+- Refactor
+
 ## 0.4.4
 - Add _login?*_ to *exclude_matches*
 - Use `*` for all urls in *exclude_matches*
