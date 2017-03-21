@@ -125,7 +125,7 @@ body[data-github-markdown-toc-open] {
   }
 
   @for $i from 1 to 6 {
-    .lv$(i) {
+    [data-level="$(i)"] {
       padding-left: calc(12px + var(--heading-padding) * ($(i) - 1));
     }
   }

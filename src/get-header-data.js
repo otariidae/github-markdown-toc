@@ -12,12 +12,10 @@ function fetchReleaseHeader () {
   }
   return Array.from(hs).map(h => {
     const { href: link } = h.querySelector('a')
-    // all level is 1
-    const tag = 'lv1'
     const text = h.textContent.trim()
     return {
       link,
-      tag,
+      level: 1,
       text
     }
   })
@@ -53,7 +51,7 @@ async function fetchWikiHeader () {
 /**
  * @typedef {Object} HeaderObject
  * @property {string} link
- * @property {string} tag
+ * @property {number} level
  * @property {string} text
  */
 
@@ -69,14 +67,14 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
     id = `#${id}`
     href = new URL(href).hash
     const link = isJSEnabled ? href : id
-    const tag = h.tagName.replace('H', 'lv')
+    const level = Number(h.tagName[1])
     const text = h.textContent.trim()
     /**
      * @type {HeaderObject}
      */
     return {
       link,
-      tag,
+      level,
       text
     }
   })
