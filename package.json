@@ -26,7 +26,7 @@
   "name": "github-markdown-toc",
   "scripts": {
     "clean": "rm dist/*",
-    "build:css": "postcss --use postcss-import --use postcss-for --use postcss-nested --use postcss-custom-properties --output dist/index.css src/index.css",
+    "build:css": "postcss --use postcss-import --use postcss-for --use postcss-nested --use postcss-custom-properties --output dist/index.css --map annotation src/index.css",
     "build:js:bundle": "rollup -c",
     "build:js:background": "cp src/background.js dist",
     "build:js": "run-p build:js:*",
