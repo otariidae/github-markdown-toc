@@ -13,7 +13,7 @@ function isObjectObject(a){return!0===index$3(a)&&'[object Object]'===Object.pro
 
 function copyObject(a){let b={};return Object.entries(a).forEach(([c,d])=>{index$2(d)&&(b[c]=copyObject(d));}),Object.assign({},a,b)}function deepAssign(a,...b){const c=b.map((d)=>index$2(d)?copyObject(d):d);return Object.assign(a,...c)}
 
-const ON_CHANGE=Symbol('on-change');class Action{constructor(a){this.dispatcher=a;}dispatch(a,b){this.dispatcher.emit(a,b);}}class Store extends index$1{constructor(a){super(),this.dispatcher=a;}setState(a){this.state=deepAssign({},this.state,a),this.emit(ON_CHANGE);}getState(){return deepAssign({},this.state)}register(a,b){this.dispatcher.on(a,b);}onChange(a){this.on(ON_CHANGE,a);}}
+const ON_CHANGE=Symbol('on-change');class Action{constructor(a){this._dispatcher=a;}dispatch(a,b){this._dispatcher.emit(a,b);}}class Store extends index$1{constructor(a){super(),this._state={},this._dispatcher=a;}setState(a){this._state=deepAssign({},this._state,a),this.emit(ON_CHANGE);}getState(){return deepAssign({},this._state)}register(a,b){this._dispatcher.on(a,b);}onChange(a){this.on(ON_CHANGE,a);}}
 
 function checkJSEnebled(){return new Promise((a)=>{chrome.runtime.sendMessage({type:'is-js-enabled'},a);})}
 

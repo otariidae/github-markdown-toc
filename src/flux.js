@@ -4,7 +4,7 @@ const ON_CHANGE = Symbol('on-change')
 
 export class Action {
   constructor (dispatcher) {
-    this.dispatcher = dispatcher
+    this._dispatcher = dispatcher
   }
   /**
    * Emit a event with data
@@ -12,34 +12,35 @@ export class Action {
    * @param {*} data
    */
   dispatch (key, data) {
-    this.dispatcher.emit(key, data)
+    this._dispatcher.emit(key, data)
   }
 }
 
 export class Store extends EventEmitter {
   constructor (dispatcher) {
     super()
-    this.dispatcher = dispatcher
+    this._state = {}
+    this._dispatcher = dispatcher
   }
   /**
    * @param {Object} data
    */
   setState (data) {
-    this.state = deepAssign({}, this.state, data)
+    this._state = deepAssign({}, this._state, data)
     this.emit(ON_CHANGE)
   }
   /**
    * @returns {Object}
    */
   getState () {
-    return deepAssign({}, this.state)
+    return deepAssign({}, this._state)
   }
   /**
    * @param {Sybol} key
    * @param {function} func
    */
   register (key, func) {
-    this.dispatcher.on(key, func)
+    this._dispatcher.on(key, func)
   }
   /**
    * @param {function} func
