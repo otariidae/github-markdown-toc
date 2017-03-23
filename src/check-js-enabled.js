@@ -1,5 +1,5 @@
 /**
- * @returns {boolean}
+ * @returns {Promise<boolean, Error>}
  */
 export default function checkJSEnebled () {
   return new Promise(resolve => {

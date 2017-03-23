@@ -3,7 +3,7 @@ import checkPageType, { key } from './check-page-type.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
 /**
- * @returns {Array<HeaderObject>}
+ * @returns {HeaderList}
  */
 function fetchReleaseHeader () {
   const hs = document.querySelectorAll('.release-title')
@@ -13,6 +13,9 @@ function fetchReleaseHeader () {
   return Array.from(hs).map(h => {
     const { href: link } = h.querySelector('a')
     const text = h.textContent.trim()
+    /**
+     * @type {HeaderObject}
+     */
     return {
       link,
       level: 1,
@@ -22,7 +25,7 @@ function fetchReleaseHeader () {
 }
 
 /**
- * @returns {Array<HeaderObject>}
+ * @returns {Promise<HeaderList, Error>}
  */
 async function fetchMarkdownHeader () {
   const readme = document.querySelector('.markdown-body')
@@ -34,7 +37,7 @@ async function fetchMarkdownHeader () {
 }
 
 /**
- * @returns {Array<HeaderObject>}
+ * @returns {Promise<HeaderList, Error>}
  */
 async function fetchWikiHeader () {
   const markdown = document.querySelector('.wiki-body .markdown-body')
@@ -56,8 +59,12 @@ async function fetchWikiHeader () {
  */
 
 /**
+ * @typedef {HeaderObject[]} HeaderList
+ */
+
+/**
  * @param {NodeList|Element[]} nodelist
- * @returns {Array<HeaderObject>}
+ * @returns {Promise<HeaderList, Error>}
  */
 async function getHeaderDataFromMarkdownDOM (nodelist) {
   const isJSEnabled = await checkJSEnabled()
@@ -81,7 +88,7 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
 }
 
 /**
- * @returns {Array<HeaderObject>}
+ * @returns {HeaderList}
  */
 export default async function fetchHeader () {
   const type = checkPageType(location.href)

@@ -3,7 +3,11 @@ import deepAssign from './deep-assign.js'
 const ON_CHANGE = Symbol('on-change')
 
 export class Action {
+  /**
+   * @param {EventEmitter} dispatcher 
+   */
   constructor (dispatcher) {
+    /** @private */
     this._dispatcher = dispatcher
   }
   /**
@@ -17,9 +21,14 @@ export class Action {
 }
 
 export class Store extends EventEmitter {
+  /**
+   * @param {EventEmitter} dispatcher 
+   */
   constructor (dispatcher) {
     super()
+    /** @private */
     this._state = {}
+    /** @private */
     this._dispatcher = dispatcher
   }
   /**

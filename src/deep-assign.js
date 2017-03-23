@@ -2,6 +2,7 @@ import isPlainObject from 'is-plain-object'
 
 /**
  * @param {Object} obj
+ * @returns {Object}
  */
 function copyObject (obj) {
   let copy = {}
@@ -15,7 +16,7 @@ function copyObject (obj) {
 
 /**
  * @param {*} target
- * @param {*[]} sources
+ * @param {...*} sources
  * @returns {Object}
  */
 export default function deepAssign (target, ...sources) {
