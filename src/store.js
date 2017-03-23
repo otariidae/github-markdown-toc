@@ -24,12 +24,12 @@ export default class AppStore extends Store {
       headers,
       isLoading: false,
       isEnabled: isAvailable,
-      isOpen: isAvailable ? this.state.isOpen : false
+      isOpen: isAvailable ? this.getState().isOpen : false
     })
   }
   toggleNav () {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.getState().isOpen
     })
   }
 }
