@@ -4,12 +4,12 @@ import { key } from './action.js'
 export default class AppStore extends Store {
   constructor (dispatcher) {
     super(dispatcher)
-    this.state = {
+    this.setState({
       isLoading: false,
       isOpen: false,
       isEnabled: false,
       headers: []
-    }
+    })
     this.register(key.START_LOADING, this.loading.bind(this))
     this.register(key.MOVE_TO_PAGE, this.toPage.bind(this))
     this.register(key.TOGGLE_NAV, this.toggleNav.bind(this))
