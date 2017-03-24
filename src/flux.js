@@ -4,7 +4,7 @@ const ON_CHANGE = Symbol('on-change')
 
 export class Action {
   /**
-   * @param {EventEmitter} dispatcher 
+   * @param {EventEmitter} dispatcher
    */
   constructor (dispatcher) {
     /** @private */
@@ -22,7 +22,7 @@ export class Action {
 
 export class Store extends EventEmitter {
   /**
-   * @param {EventEmitter} dispatcher 
+   * @param {EventEmitter} dispatcher
    */
   constructor (dispatcher) {
     super()
