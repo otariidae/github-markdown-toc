@@ -14,14 +14,13 @@
     "postcss-for": "^2.1.1",
     "postcss-import": "^9.1.0",
     "postcss-nested": "^1.0.0",
-    "reify": "^0.4.16",
+    "reify": "^0.5.7",
     "rollup": "^0.41.6",
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^2.0.0",
     "rollup-plugin-svelte": "^1.6.1",
-    "tape": "^4.6.3",
-    "tiny-emitter": "^1.1.0"
+    "tape": "^4.6.3"
   },
   "name": "github-markdown-toc",
   "scripts": {

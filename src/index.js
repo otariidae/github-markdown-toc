@@ -1,11 +1,11 @@
 'use strict'
 
 import App from './app.html'
-import EventEmitter from 'tiny-emitter'
+import { Dispatcher } from './flux.js'
 import AppAction from './action.js'
 import AppStore from './store.js'
 
-const dispatcher = new EventEmitter()
+const dispatcher = new Dispatcher()
 const action = new AppAction(dispatcher)
 const store = new AppStore(dispatcher)
 

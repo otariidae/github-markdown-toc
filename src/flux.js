@@ -1,4 +1,4 @@
-import EventEmitter from 'tiny-emitter'
+import EventEmitter from './event-emitter.js'
 import deepAssign from './deep-assign.js'
 const ON_CHANGE = Symbol('on-change')
 
@@ -58,3 +58,5 @@ export class Store extends EventEmitter {
     this.on(ON_CHANGE, func)
   }
 }
+
+export const Dispatcher = EventEmitter

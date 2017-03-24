@@ -1,6 +1,5 @@
 import test from 'tape'
-import { Action, Store } from '../src/flux.js'
-import EventEmitter from 'tiny-emitter'
+import { Action, Store, Dispatcher } from '../src/flux.js'
 
 const key = {
   BAR: Symbol('bar'),
@@ -28,7 +27,7 @@ test('flux-action', t => {
   const testData = {
     baz: true
   }
-  const dispatcher = new EventEmitter()
+  const dispatcher = new Dispatcher()
   const action = new TestAction(dispatcher)
   dispatcher.on(key.BAR, data => {
     t.deepEqual(data, testData)
@@ -41,7 +40,7 @@ test('flux-store', t => {
   const testData = {
     piyo: false
   }
-  const dispatcher = new EventEmitter()
+  const dispatcher = new Dispatcher()
   const store = new TestStore(dispatcher)
   store.onChange(() => {
     const state = store.getState()
