@@ -7,21 +7,7 @@ const headerSelector = 'h1, h2, h3, h4, h5, h6'
  */
 function fetchReleaseHeader () {
   const hs = document.querySelectorAll('.release-title')
-  if (!hs) {
-    return []
-  }
-  return Array.from(hs).map(h => {
-    const { href: link } = h.querySelector('a')
-    const text = h.textContent.trim()
-    /**
-     * @type {HeaderObject}
-     */
-    return {
-      link,
-      level: 1,
-      text
-    }
-  })
+  return getHeaderDataFromReleaseDOM(hs)
 }
 
 /**
@@ -44,10 +30,7 @@ async function fetchWikiHeader () {
   if (!markdown) {
     return []
   }
-  let hs = markdown.querySelectorAll(headerSelector)
-  hs = Array.from(hs).filter(h => {
-    return Boolean(h.textContent.trim())
-  })
+  const hs = markdown.querySelectorAll(headerSelector)
   return await getHeaderDataFromMarkdownDOM(hs)
 }
 
@@ -63,12 +46,34 @@ async function fetchWikiHeader () {
  */
 
 /**
- * @param {NodeList|Element[]} nodelist
+ * @param {NodeList} nodelist
  * @returns {Promise<HeaderList, Error>}
+ */
+function getHeaderDataFromReleaseDOM (nodelist) {
+  let arr = Array.from(nodelist)
+  arr = validateHeaders(arr)
+  return arr.map(h => {
+    const { href: link } = h.querySelector('a')
+    const text = h.textContent.trim()
+    /**
+     * @type {HeaderObject}
+     */
+    return {
+      link,
+      level: 1,
+      text
+    }
+  })
+}
+
+/**
+ * @param {NodeList} nodelist
+ * @returns {HeaderList}
  */
 async function getHeaderDataFromMarkdownDOM (nodelist) {
   const isJSEnabled = await checkJSEnabled()
-  const arr = Array.isArray(nodelist) ? nodelist : Array.from(nodelist)
+  let arr = Array.from(nodelist)
+  arr = validateHeaders(arr)
   return arr.map(h => {
     let { id, href } = h.querySelector('.anchor')
     id = `#${id}`
@@ -84,6 +89,16 @@ async function getHeaderDataFromMarkdownDOM (nodelist) {
       level,
       text
     }
+  })
+}
+
+/**
+ * @param {Element[]} arr
+ * @returns {Element[]}
+ */
+function validateHeaders (arr) {
+  return arr.filter(h => {
+    return Boolean(h.textContent.trim())
   })
 }
 
