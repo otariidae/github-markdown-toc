@@ -36,7 +36,7 @@
     "test": "tape --require reify test/*.js",
     "release": "npm-run-all --parallel lint test --serial build"
   },
-  "version": "0.5.4",
+  "version": "0.5.5",
   "license": "CC0-1.0",
   "repository": "otariidae/github-markdown-toc",
   "bugs": {
