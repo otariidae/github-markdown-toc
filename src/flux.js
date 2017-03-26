@@ -45,7 +45,7 @@ export class Store extends EventEmitter {
     return deepAssign({}, this._state)
   }
   /**
-   * @param {Sybol} key
+   * @param {Symbol} key
    * @param {function} func
    */
   register (key, func) {
@@ -56,6 +56,13 @@ export class Store extends EventEmitter {
    */
   onChange (func) {
     this.on(ON_CHANGE, func)
+  }
+  /**
+   * @param {function} func
+   * @returns {boolean}
+   */
+  removeChangeListener (func) {
+    return this.off(ON_CHANGE, func)
   }
 }
 
