@@ -37,16 +37,27 @@ test('flux-action', t => {
 })
 
 test('flux-store', t => {
-  const testData = {
-    piyo: false
-  }
-  const dispatcher = new Dispatcher()
-  const store = new TestStore(dispatcher)
-  store.onChange(() => {
-    const state = store.getState()
-    t.deepEqual(state, testData)
-    t.notOk(Object.is(state, testData))
+  t.test('onChange', t => {
+    const testData = {
+      piyo: false
+    }
+    const dispatcher = new Dispatcher()
+    const store = new TestStore(dispatcher)
+    store.onChange(() => {
+      const state = store.getState()
+      t.deepEqual(state, testData)
+      t.notOk(Object.is(state, testData))
+      t.end()
+    })
+    dispatcher.emit(key.HOGE, testData)
+  })
+  t.test('removeChangeListener', t => {
+    const dispatcher = new Dispatcher()
+    const store = new TestStore(dispatcher)
+    const func = () => {}
+    store.onChange(func)
+    t.ok(store.removeChangeListener(func))
     t.end()
   })
-  dispatcher.emit(key.HOGE, testData)
+  t.end()
 })
