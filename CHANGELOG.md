@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.5.4
+- Use an original event emitter
+
+## 0.5.3
+- Add `_` to private variables
+- Refactor
+- Improve JSDoc
+
+## 0.5.2
+- Use `.map` file instead of inline CSS source map
+
 ## 0.5.1
 - Change flux state API
 - Rename a variable
