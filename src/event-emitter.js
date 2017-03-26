@@ -19,12 +19,13 @@ export default class EventEmitter {
   /**
    * @param {string|Symbol} type
    * @param {function} handler
+   * @returns {boolean}
    */
   off (type, handler) {
     if (!this._handlers.has(type)) {
-      return
+      return false
     }
-    this._handlers.get(type).delete(handler)
+    return this._handlers.get(type).delete(handler)
   }
   /**
    * @param {string|Symbol} type
