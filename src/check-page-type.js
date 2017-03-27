@@ -14,12 +14,12 @@ export const key = {
  */
 export default function checkPageType (url) {
   const { pathname: path } = new URL(url)
-  const [, user, project, ...pathes] = path.split('/')
-  if (pathes[0] === 'releases' && pathes.length === 1) {
+  const [, user, project, ...paths] = path.split('/')
+  if (paths[0] === 'releases' && paths.length === 1) {
     return key.RELEASE
-  } else if (pathes[0] === 'blob' || pathes[0] === 'tree' || (user && project && !pathes.length)) {
+  } else if (paths[0] === 'blob' || paths[0] === 'tree' || (user && project && !paths.length)) {
     return key.CODE
-  } else if (pathes[0] === 'wiki') {
+  } else if (paths[0] === 'wiki') {
     return key.WIKI
   }
   return key.UNKNOWN
