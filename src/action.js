@@ -1,4 +1,4 @@
-import { Action } from './flux.js'
+import { Action } from '../modules/flux/index.js'
 import fetchHeader from './get-header-data.js'
 
 export const key = {

@@ -1,4 +1,4 @@
-import { Store } from './flux.js'
+import { Store } from '../modules/flux/index.js'
 import { key } from './action.js'
 
 export default class AppStore extends Store {

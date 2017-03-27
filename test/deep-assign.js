@@ -1,5 +1,5 @@
 import test from 'tape'
-import deepAssign from '../src/deep-assign.js'
+import deepAssign from '../modules/deep-assign/index.js'
 
 test('deep-assign', t => {
   const target = {

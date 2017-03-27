@@ -1,5 +1,5 @@
-import EventEmitter from './event-emitter.js'
-import deepAssign from './deep-assign.js'
+import EventEmitter from '../event-emitter/index.js'
+import deepAssign from '../deep-assign/index.js'
 const ON_CHANGE = Symbol('on-change')
 
 export class Action {

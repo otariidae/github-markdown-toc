@@ -1,7 +1,7 @@
 'use strict'
 
 import App from './app.html'
-import { Dispatcher } from './flux.js'
+import { Dispatcher } from '../modules/flux/index.js'
 import AppAction from './action.js'
 import AppStore from './store.js'
 
