@@ -9,17 +9,42 @@ export const key = {
 }
 
 /**
+ * @param {string[])
+ * @returns {boolean}
+ */
+function isReleasePage ([, , type, ...paths]) {
+  return type === 'releases' && paths.length === 0
+}
+
+/**
+ * @param {string[]}
+ * @returns {boolean}
+ */
+function isCodePage ([user, project, type]) {
+  return type === 'blob' || type === 'tree' || (user && project && !type)
+}
+
+/**
+ * @param {string[]}
+ * @returns {boolean}
+ */
+function isWikiPage ([, , type]) {
+  return type === 'wiki'
+}
+
+/**
  * @param {string} url
  * @returns {Symbol}
  */
 export default function checkPageType (url) {
   const { pathname: path } = new URL(url)
-  const [, user, project, ...paths] = path.split('/')
-  if (paths[0] === 'releases' && paths.length === 1) {
+  // the first element is empty
+  const [, ...paths] = path.split('/')
+  if (isReleasePage(paths)) {
     return key.RELEASE
-  } else if (paths[0] === 'blob' || paths[0] === 'tree' || (user && project && !paths.length)) {
+  } else if (isCodePage(paths)) {
     return key.CODE
-  } else if (paths[0] === 'wiki') {
+  } else if (isWikiPage(paths)) {
     return key.WIKI
   }
   return key.UNKNOWN
