@@ -1,5 +1,5 @@
 import checkJSEnabled from './check-js-enabled.js'
-import checkPageType, { key } from './check-page-type.js'
+import PageType from './page-type.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
 
 /**
@@ -106,12 +106,12 @@ function validateHeaders (arr) {
  * @returns {HeaderList}
  */
 export default async function fetchHeader () {
-  const type = checkPageType(location.href)
-  if (type === key.RELEASE) {
+  const pagetype = new PageType(location.href)
+  if (pagetype.isReleasePage()) {
     return fetchReleaseHeader()
-  } else if (type === key.CODE) {
+  } else if (pagetype.isCodePage()) {
     return await fetchMarkdownHeader()
-  } else if (type === key.WIKI) {
+  } else if (pagetype.isWikiPage()) {
     return await fetchWikiHeader()
   } else {
     return []
