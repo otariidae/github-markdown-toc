@@ -29,12 +29,15 @@
     "build:js:bundle": "rollup -c",
     "build:js:background": "cp src/background.js dist",
     "build:js": "run-p build:js:*",
-    "build:meta": "cp src/manifest.json dist",
+    "build:meta": "node --require reify lib/manifest.js",
     "build:image": "cp src/*.svg dist",
     "build": "npm-run-all clean --parallel build:*",
     "lint": "eslint --config standard --env browser --global chrome src",
     "test": "tape --require reify test/*.js",
-    "release": "npm-run-all --parallel lint test --serial build"
+    "release": "npm-run-all --parallel lint test --serial build",
+    "git:add:meta": "git add dist/manifest.json",
+    "preversion": "run-p lint test",
+    "version": "run-s build:meta git:add:meta"
   },
   "version": "0.5.5",
   "license": "CC0-1.0",
