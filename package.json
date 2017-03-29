@@ -39,7 +39,7 @@
     "preversion": "run-p lint test",
     "version": "run-s build:meta git:add:meta"
   },
-  "version": "0.5.5",
+  "version": "0.5.6",
   "license": "CC0-1.0",
   "repository": "otariidae/github-markdown-toc",
   "bugs": {
