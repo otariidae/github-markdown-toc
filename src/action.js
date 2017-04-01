@@ -1,3 +1,4 @@
+'use strict'
 import { Action } from '../modules/flux/index.js'
 import fetchHeader from './get-header-data.js'
 
