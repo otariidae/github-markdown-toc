@@ -1,3 +1,4 @@
+'use strict'
 import PageType from './check-page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 

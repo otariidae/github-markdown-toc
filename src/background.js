@@ -1,3 +1,4 @@
+'use strict'
 chrome.runtime.onMessage.addListener(({ type }, { url }, sendResponse) => {
   if (type === 'is-js-enabled') {
     chrome.contentSettings.javascript.get({
