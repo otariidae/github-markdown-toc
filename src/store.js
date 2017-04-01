@@ -1,4 +1,3 @@
-'use strict'
 import { Store } from '../modules/flux/index.js'
 import { key } from './action.js'
 

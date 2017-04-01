@@ -1,4 +1,3 @@
-'use strict'
 import checkJSEnabled from './check-js-enabled.js'
 import PageType from './page-type.js'
 const headerSelector = 'h1, h2, h3, h4, h5, h6'
