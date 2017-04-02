@@ -1,6 +1,9 @@
-'use strict'
-import PageType from './check-page-type.js'
+import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
+
+/*
+  WIP
+*/
 
 /**
  * @typedef {Object} HeaderObject
@@ -16,7 +19,7 @@ import checkJSEnabled from './check-js-enabled.js'
 /**
  * @abstract
  */
-export class GitHubPage {
+export default class GitHubPage {
   constructor () {
     /** @private */
     this.headerSelector = 'h1, h2, h3, h4, h5, h6'
@@ -30,7 +33,7 @@ export class GitHubPage {
     return []
   }
   validateHeaders () {
-    this.headers.filter(h => {
+    this.headers = this.headers.filter(h => {
       return Boolean(h.textContent.trim())
     })
   }
@@ -52,21 +55,16 @@ export class GitHubPage {
 }
 
 class ReleasePage extends GitHubPage {
+  constructor () {
+    super()
+    this.headers = Array.from(document.querySelectorAll('.release-title'))
+    this.validateHeaders()
+  }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
-    const hs = document.querySelectorAll('.release-title')
-    return this.fromDOM(hs)
-  }
-  /**
-   * @param {NodeList} nodelist
-   * @returns {Promise<HeaderList, Error>}
-   */
-  fromDOM (nodelist) {
-    let arr = Array.from(nodelist)
-    arr = this.validateHeaders(arr)
-    return arr.map(h => {
+    return this.headers.map(h => {
       const { href: link } = h.querySelector('a')
       const text = h.textContent.trim()
       /**
@@ -82,26 +80,22 @@ class ReleasePage extends GitHubPage {
 }
 
 class CodePage extends GitHubPage {
+  constructor () {
+    super()
+    const readme = document.querySelector('.markdown-body')
+    if (!readme) {
+      this.headers = []
+    } else {
+      this.headers = Array.from(readme.querySelectorAll(this.headerSelector))
+    }
+    this.validateHeaders()
+  }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
-    const readme = document.querySelector('.markdown-body')
-    if (!readme) {
-      return []
-    }
-    const hs = readme.querySelectorAll(this.headerSelector)
-    return await this.fromDOM(hs)
-  }
-  /**
-   * @param {NodeList} nodelist
-   * @returns {Promise<HeaderList, Error>}
-   */
-  async fromDOM (nodelist) {
     const isJSEnabled = await checkJSEnabled()
-    let arr = Array.from(nodelist)
-    arr = this.validateHeaders(arr)
-    return arr.map(h => {
+    return this.headers.map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
@@ -121,26 +115,22 @@ class CodePage extends GitHubPage {
 }
 
 class WikiPage extends GitHubPage {
+  constructor () {
+    super()
+    const markdown = document.querySelector('.wiki-body .markdown-body')
+    if (!markdown) {
+      this.headers = []
+    } else {
+      this.headers = Array.from(markdown.querySelectorAll(this.headerSelector))
+    }
+    this.validateHeaders()
+  }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
-    const markdown = document.querySelector('.wiki-body .markdown-body')
-    if (!markdown) {
-      return []
-    }
-    const hs = markdown.querySelectorAll(this.headerSelector)
-    return await this.fromDOM(hs)
-  }
-  /**
-   * @param {NodeList} nodelist
-   * @returns {Promise<HeaderList, Error>}
-   */
-  async fromDOM (nodelist) {
     const isJSEnabled = await checkJSEnabled()
-    let arr = Array.from(nodelist)
-    arr = this.validateHeaders(arr)
-    return arr.map(h => {
+    return this.headers.map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
