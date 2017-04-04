@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.7
+- Use `GitHubPage` class and its subclasses instead of functions  
+  `get-header-data.js` -> `page.js`
+- Add `use strict` to entry points
+
+## 0.5.6
+- Use `PageType` class instead of functions  
+  `check-page-type.js` -> `page-type.js`
+
+## 0.5.5
+- `eventemitter#off` returns boolean
+- Add `store#removeChangeListener`
+
 ## 0.5.4
 - Use an original event emitter
 
