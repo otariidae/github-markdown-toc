@@ -22,7 +22,7 @@ import checkJSEnabled from './check-js-enabled.js'
 export default class GitHubPage {
   constructor () {
     /** @private */
-    this.headerSelector = 'h1, h2, h3, h4, h5, h6'
+    this._headerSelector = 'h1, h2, h3, h4, h5, h6'
     /** @type {Element[]} */
     this.headers = []
   }
@@ -32,7 +32,10 @@ export default class GitHubPage {
   async getHeaderList () {
     return []
   }
-  validateHeaders () {
+  /**
+   * @private
+   */
+  _validateHeaders () {
     this.headers = this.headers.filter(h => {
       return Boolean(h.textContent.trim())
     })
@@ -42,15 +45,10 @@ export default class GitHubPage {
    */
   static createFromUrl (url) {
     const pagetype = new PageType(url)
-    if (pagetype.isReleasePage()) {
-      return new ReleasePage()
-    } else if (pagetype.isCodePage()) {
-      return new CodePage()
-    } else if (pagetype.isWikiPage()) {
-      return new WikiPage()
-    } else if (pagetype.isUnknownPage()) {
-      return new UnknownPage()
-    }
+    if (pagetype.isReleasePage()) return new ReleasePage()
+    if (pagetype.isCodePage()) return new CodePage()
+    if (pagetype.isWikiPage()) return new WikiPage()
+    return new UnknownPage()
   }
 }
 
@@ -58,7 +56,7 @@ class ReleasePage extends GitHubPage {
   constructor () {
     super()
     this.headers = Array.from(document.querySelectorAll('.release-title'))
-    this.validateHeaders()
+    this._validateHeaders()
   }
   /**
    * @returns {Promise<HeaderList, Error>}
@@ -83,12 +81,10 @@ class CodePage extends GitHubPage {
   constructor () {
     super()
     const readme = document.querySelector('.markdown-body')
-    if (!readme) {
-      this.headers = []
-    } else {
-      this.headers = Array.from(readme.querySelectorAll(this.headerSelector))
+    if (readme) {
+      this.headers = Array.from(readme.querySelectorAll(this._headerSelector))
     }
-    this.validateHeaders()
+    this._validateHeaders()
   }
   /**
    * @returns {Promise<HeaderList, Error>}
@@ -118,12 +114,10 @@ class WikiPage extends GitHubPage {
   constructor () {
     super()
     const markdown = document.querySelector('.wiki-body .markdown-body')
-    if (!markdown) {
-      this.headers = []
-    } else {
-      this.headers = Array.from(markdown.querySelectorAll(this.headerSelector))
+    if (markdown) {
+      this.headers = Array.from(markdown.querySelectorAll(this._headerSelector))
     }
-    this.validateHeaders()
+    this._validateHeaders()
   }
   /**
    * @returns {Promise<HeaderList, Error>}

@@ -22,6 +22,12 @@ export default class PageType {
     }
   }
   /**
+   * @returns {Symbol}
+   */
+  getType () {
+    return this._type
+  }
+  /**
    * @returns {boolean}
    */
   isReleasePage () {
