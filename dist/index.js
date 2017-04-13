@@ -7,11 +7,9 @@ var template=function(){return{methods:{onBtnClicked(){this.get('isEnabled')&&th
 
 class EventEmitter$1{constructor(){this._handlers=new Map;}on(a,b){this._handlers.has(a)||this._handlers.set(a,new Set),this._handlers.get(a).add(b);}off(a,b){return!!this._handlers.has(a)&&this._handlers.get(a).delete(b)}emit(a,b){this._handlers.has(a)&&this._handlers.get(a).forEach((c)=>c(b));}}
 
-var index$1=function(b){return null!=b&&'object'==typeof b&&!Array.isArray(b)};
+function isPlainObject(a){if(!a)return!1;const b=Object.getPrototypeOf(a);return'[object Object]'===Object.prototype.toString.call(a)&&(b===Object.getPrototypeOf({})||null===b)}
 
-function isObjectObject(a){return!0===index$1(a)&&'[object Object]'===Object.prototype.toString.call(a)}var index=function(b){var c,d;return!1!==isObjectObject(b)&&(c=b.constructor,'function'==typeof c)&&(d=c.prototype,!1!==isObjectObject(d)&&!1!==d.hasOwnProperty('isPrototypeOf'))};
-
-function copyObject(a){let b={};return Object.entries(a).forEach(([c,d])=>{index(d)&&(b[c]=copyObject(d));}),Object.assign({},a,b)}function deepAssign(a,...b){const c=b.map((d)=>index(d)?copyObject(d):d);return Object.assign(a,...c)}
+function copyObject(a){let b={};return Object.entries(a).forEach(([c,d])=>{isPlainObject(d)&&(b[c]=copyObject(d));}),Object.assign({},a,b)}function deepAssign(a,...b){const c=b.map((d)=>isPlainObject(d)?copyObject(d):d);return Object.assign(a,...c)}
 
 const ON_CHANGE=Symbol('on-change');class Action{constructor(a){this._dispatcher=a;}dispatch(a,b){this._dispatcher.emit(a,b);}}class Store extends EventEmitter$1{constructor(a){super(),this._state={},this._dispatcher=a;}setState(a){this._state=deepAssign({},this._state,a),this.emit(ON_CHANGE);}getState(){return deepAssign({},this._state)}register(a,b){this._dispatcher.on(a,b);}onChange(a){this.on(ON_CHANGE,a);}removeChangeListener(a){return this.off(ON_CHANGE,a)}}const Dispatcher=EventEmitter$1;
 
