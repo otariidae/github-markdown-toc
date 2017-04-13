@@ -7,7 +7,6 @@
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
-    "is-plain-object": "^2.0.1",
     "material-colors": "^1.2.5",
     "npm-run-all": "^4.0.1",
     "postcss": "^5.2.14",
