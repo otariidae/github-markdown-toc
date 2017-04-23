@@ -1,3 +1,7 @@
+/**
+ * @param {*} obj
+ * @returns {Boolean}
+ */
 export default function isPlainObject (obj) {
   if (!obj) {
     return false
