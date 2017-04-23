@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.8
+- Use an original 'is-plain-object' module
+- Update dependecies
+
 ## 0.5.7
 - Use `GitHubPage` class and its subclasses instead of functions  
   `get-header-data.js` -> `page.js`
@@ -30,7 +34,7 @@
 
 ## 0.5.0
 - Design change
-- Update dependeceis
+- Update dependecies
 - Refactor
 
 ## 0.4.4
