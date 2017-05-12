@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.5.8
-- Use an original 'is-plain-object' module
+- Use an original `is-plain-object` module
 - Update dependecies
 
 ## 0.5.7
