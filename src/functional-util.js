@@ -1,6 +1,6 @@
 /**
  * @param {string|Symbol} property
- * @returns {function(object: Object): *} propInner
+ * @returns {function(object: Object)}
  */
 export function prop (property) {
   return function propInner (object) {
@@ -9,7 +9,7 @@ export function prop (property) {
 }
 
 /**
- * @param {function} map
+ * @param {function} fun
  * @returns {function(arr: Array): Array}
  */
 export function map (fun) {
