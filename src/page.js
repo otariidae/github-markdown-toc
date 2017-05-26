@@ -124,7 +124,7 @@ class WikiPage extends GitHubPage {
   constructor () {
     super()
     const markdown = document.querySelector('.wiki-body .markdown-body')
-    this.headers = markdown ? querySelectorAllArray(this._headerSelector)(document) : this.headers
+    this.headers = markdown ? querySelectorAllArray(this._headerSelector)(markdown) : this.headers
   }
   /**
    * @returns {Promise<HeaderList, Error>}
