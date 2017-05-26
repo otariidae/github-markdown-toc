@@ -1,3 +1,4 @@
+import { map } from './functional-util.js'
 import { createHeader, querySelectorAllArray, filterEmptyText, selectAllHeaderElement } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'

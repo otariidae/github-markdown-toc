@@ -1,3 +1,5 @@
+import { prop, filter, pipe } from './functional-util.js'
+
 /**
  * @typedef {Object} HeaderObject
  * @property {string} link
