@@ -45,7 +45,6 @@ export function querySelectorAllArray (query) {
 
 export const hasText = pipe(prop('textContent'), Boolean)
 
-export const filterEmptyText = fun => pipe(filter(hasText), fun)
+export const filterEmptyText = filter(hasText)
 
 export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
-
