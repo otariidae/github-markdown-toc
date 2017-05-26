@@ -28,7 +28,6 @@ function createHeader (link, level, text) {
 }
 
 /**
- * Impure function
  * @param {string} query
  * @returns {function(root: Element): NodeList}
  */
@@ -39,7 +38,6 @@ function querySelectorAll (query) {
 }
 
 /**
- * Impure function
  * @param {string} query
  * @returns {function(root: Element): Element[]}
  */
