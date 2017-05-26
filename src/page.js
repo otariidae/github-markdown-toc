@@ -1,55 +1,6 @@
-import { prop, map, filter, pipe } from './functional-util.js'
+import { createHeader, querySelectorAllArray, filterEmptyText, selectAllHeaderElement } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
-
-/**
- * @typedef {Object} HeaderObject
- * @property {string} link
- * @property {number} level
- * @property {string} text
- */
-
-/**
- * @typedef {HeaderObject[]} HeaderList
- */
-
-/**
- * @param {string} link
- * @param {number} level
- * @param {string} text
- * @returns {HeaderObject}
- */
-function createHeader (link, level, text) {
-  return {
-    link,
-    level,
-    text
-  }
-}
-
-/**
- * @param {string} query
- * @returns {function(root: Element): NodeList}
- */
-function querySelectorAll (query) {
-  return function querySelectorAllInner (root) {
-    return root.querySelectorAll(query)
-  }
-}
-
-/**
- * @param {string} query
- * @returns {function(root: Element): Element[]}
- */
-function querySelectorAllArray (query) {
-  return pipe(querySelectorAll(query), Array.from)
-}
-
-const hasEmptyText = pipe(prop('textContent'), Boolean)
-
-const filterEmptyText = fun => pipe(filter(hasEmptyText), fun)
-
-const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
 
 /**
  * @abstract
