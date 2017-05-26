@@ -1,9 +1,6 @@
+import { prop, map, filter, pipe } from './functional-util.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
-
-/*
-  WIP
-*/
 
 /**
  * @typedef {Object} HeaderObject
@@ -15,6 +12,44 @@ import checkJSEnabled from './check-js-enabled.js'
 /**
  * @typedef {HeaderObject[]} HeaderList
  */
+
+/**
+ * @param {string} link
+ * @param {number} level
+ * @param {string} text
+ * @returns {HeaderObject}
+ */
+function createHeader (link, level, text) {
+  return {
+    link,
+    level,
+    text
+  }
+}
+
+/**
+ * Impure function
+ * @param {string} query
+ * @returns {function(root: Element): NodeList}
+ */
+function querySelectorAll (query) {
+  return function querySelectorAllInner (root) {
+    return root.querySelectorAll(query)
+  }
+}
+
+/**
+ * Impure function
+ * @param {string} query
+ * @returns {function(root: Element): Element[]}
+ */
+function querySelectorAllArray (query) {
+  return pipe(querySelectorAll(query), Array.from)
+}
+
+const hasEmptyText = pipe(prop('textContent'), Boolean)
+
+const filterEmptyText = fun => pipe(filter(hasEmptyText), fun)
 
 /**
  * @abstract
@@ -30,15 +65,7 @@ export default class GitHubPage {
    * @returns {Promise<Array>}
    */
   async getHeaderList () {
-    return []
-  }
-  /**
-   * @private
-   */
-  _validateHeaders () {
-    this.headers = this.headers.filter(h => {
-      return Boolean(h.textContent.trim())
-    })
+    return this.headers
   }
   /**
    * @param {string} url
@@ -55,25 +82,18 @@ export default class GitHubPage {
 class ReleasePage extends GitHubPage {
   constructor () {
     super()
-    this.headers = Array.from(document.querySelectorAll('.release-title'))
-    this._validateHeaders()
+    this.headers = querySelectorAllArray('.release-title')(document)
   }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
-    return this.headers.map(h => {
+    return filterEmptyText(map(h => {
       const { href: link } = h.querySelector('a')
+      const level = 1
       const text = h.textContent.trim()
-      /**
-       * @type {HeaderObject}
-       */
-      return {
-        link,
-        level: 1,
-        text
-      }
-    })
+      return createHeader(link, level, text)
+    }))(this.headers)
   }
 }
 
@@ -81,32 +101,22 @@ class CodePage extends GitHubPage {
   constructor () {
     super()
     const readme = document.querySelector('.markdown-body')
-    if (readme) {
-      this.headers = Array.from(readme.querySelectorAll(this._headerSelector))
-    }
-    this._validateHeaders()
+    this.headers = readme ? querySelectorAllArray(this._headerSelector)(readme) : this.headers
   }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
     const isJSEnabled = await checkJSEnabled()
-    return this.headers.map(h => {
+    return filterEmptyText(map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
-      /**
-       * @type {HeaderObject}
-       */
-      return {
-        link,
-        level,
-        text
-      }
-    })
+      return createHeader(link, level, text)
+    }))(this.headers)
   }
 }
 
@@ -114,32 +124,22 @@ class WikiPage extends GitHubPage {
   constructor () {
     super()
     const markdown = document.querySelector('.wiki-body .markdown-body')
-    if (markdown) {
-      this.headers = Array.from(markdown.querySelectorAll(this._headerSelector))
-    }
-    this._validateHeaders()
+    this.headers = markdown ? querySelectorAllArray(this._headerSelector)(document) : this.headers
   }
   /**
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
     const isJSEnabled = await checkJSEnabled()
-    return this.headers.map(h => {
+    return filterEmptyText(map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
-      /**
-       * @type {HeaderObject}
-       */
-      return {
-        link,
-        level,
-        text
-      }
-    })
+      return createHeader(link, level, text)
+    }))(this.headers)
   }
 }
 
