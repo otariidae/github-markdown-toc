@@ -49,13 +49,13 @@ const hasEmptyText = pipe(prop('textContent'), Boolean)
 
 const filterEmptyText = fun => pipe(filter(hasEmptyText), fun)
 
+const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
+
 /**
  * @abstract
  */
 export default class GitHubPage {
   constructor () {
-    /** @private */
-    this._headerSelector = 'h1, h2, h3, h4, h5, h6'
     /** @type {Element[]} */
     this.headers = []
   }
@@ -99,7 +99,7 @@ class CodePage extends GitHubPage {
   constructor () {
     super()
     const readme = document.querySelector('.markdown-body')
-    this.headers = readme ? querySelectorAllArray(this._headerSelector)(readme) : this.headers
+    this.headers = readme ? selectAllHeaderElement(readme) : this.headers
   }
   /**
    * @returns {Promise<HeaderList, Error>}
@@ -122,7 +122,7 @@ class WikiPage extends GitHubPage {
   constructor () {
     super()
     const markdown = document.querySelector('.wiki-body .markdown-body')
-    this.headers = markdown ? querySelectorAllArray(this._headerSelector)(markdown) : this.headers
+    this.headers = markdown ? selectAllHeaderElement(markdown) : this.headers
   }
   /**
    * @returns {Promise<HeaderList, Error>}
