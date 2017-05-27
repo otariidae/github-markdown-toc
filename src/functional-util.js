@@ -31,7 +31,7 @@ export function filter (fun) {
 /**
  * @param {function} f
  * @param {function} g
- * @returns {funcion(...args)}
+ * @returns {function(...args)}
  */
 function _pipe (f, g) {
   return function (...args) {
