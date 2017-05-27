@@ -46,3 +46,13 @@ function _pipe (f, g) {
 export function pipe (...funs) {
   return funs.reduce(_pipe)
 }
+
+/**
+ * @param {function} fun
+ * @returns {function(arg: Array)}
+ */
+export function apply (fun) {
+  return function applyInner (arg) {
+    return fun(...arg)
+  }
+}

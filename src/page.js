@@ -1,5 +1,5 @@
-import { map, pipe } from './functional-util.js'
-import { createHeader, querySelectorAllArray, filterEmptyText, selectAllHeaderElement } from './functions.js'
+import { map } from './functional-util.js'
+import { createHeaders, querySelectorAllArray, selectAllHeaderElement } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -38,12 +38,12 @@ class ReleasePage extends GitHubPage {
    * @returns {Promise<HeaderList, Error>}
    */
   async getHeaderList () {
-    return pipe(filterEmptyText, (map(h => {
+    return createHeaders(map(h => {
       const { href: link } = h.querySelector('a')
       const level = 1
       const text = h.textContent.trim()
-      return createHeader(link, level, text)
-    })))(this.headers)
+      return [link, level, text]
+    }))(this.headers)
   }
 }
 
@@ -58,15 +58,15 @@ class CodePage extends GitHubPage {
    */
   async getHeaderList () {
     const isJSEnabled = await checkJSEnabled()
-    return pipe(filterEmptyText, (map(h => {
+    return createHeaders(map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
-      return createHeader(link, level, text)
-    })))(this.headers)
+      return [link, level, text]
+    }))(this.headers)
   }
 }
 
@@ -81,15 +81,15 @@ class WikiPage extends GitHubPage {
    */
   async getHeaderList () {
     const isJSEnabled = await checkJSEnabled()
-    return pipe(filterEmptyText, (map(h => {
+    return createHeaders(map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
-      return createHeader(link, level, text)
-    })))(this.headers)
+      return [link, level, text]
+    }))(this.headers)
   }
 }
 

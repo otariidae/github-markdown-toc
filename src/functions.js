@@ -1,4 +1,4 @@
-import { prop, filter, pipe } from './functional-util.js'
+import { prop, map, filter, pipe, apply } from './functional-util.js'
 
 /**
  * @typedef {Object} HeaderObject
@@ -56,6 +56,10 @@ export const hasText = pipe(prop('textContent'), Boolean)
  * @returns {Node[]}
  */
 export const filterEmptyText = filter(hasText)
+
+export function createHeaders (...fun) {
+  return pipe(filterEmptyText, ...fun, map(apply(createHeader)))
+}
 
 /**
  * @function

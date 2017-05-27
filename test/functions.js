@@ -1,6 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
-import { createHeader, querySelectorAll, querySelectorAllArray, hasText, filterEmptyText, selectAllHeaderElement } from '../src/functions.js'
+import { map } from '../src/functional-util.js'
+import { createHeader, querySelectorAll, querySelectorAllArray, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
 
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
@@ -88,6 +89,18 @@ test(({test}) => {
     t.ok(result[0] instanceof Element)
     t.equal(result.length, 1)
     t.equal(result[0].id, 'foo')
+    t.end()
+  })
+
+  test('createHeaders', t => {
+    const elements = Array.from(document.getElementsByTagName('p'))
+    const f = createHeaders(map(p => {
+      return ['#example', 1, p.textContent]
+    }))
+    const result = f(elements)
+
+    t.equal(typeof f, 'function')
+    t.deepEqual(result, [{ link: '#example', level: 1, text: 'bar' }])
     t.end()
   })
 })

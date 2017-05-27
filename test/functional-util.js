@@ -1,5 +1,5 @@
 import test from 'tape'
-import { prop, map, filter, pipe } from '../src/functional-util.js'
+import { prop, map, filter, pipe, apply } from '../src/functional-util.js'
 
 test('prop', t => {
   const obj = {
@@ -34,5 +34,10 @@ test('filter', t => {
   const g = filter(f)
   t.equal(typeof g, 'function')
   t.deepEqual(g([1, 2, 3, 4, 5]), [2, 4])
+  t.end()
+})
+
+test('apply', t => {
+  t.equal(apply(Math.max)([-1, 2, -3, 42, -50]), 42)
   t.end()
 })
