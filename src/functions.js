@@ -43,8 +43,23 @@ export function querySelectorAllArray (query) {
   return pipe(querySelectorAll(query), Array.from)
 }
 
+/**
+ * @function
+ * @param {Node}
+ * @returns {boolean}
+ */
 export const hasText = pipe(prop('textContent'), Boolean)
 
+/**
+ * @function
+ * @param {Node[]}
+ * @returns {Node[]}
+ */
 export const filterEmptyText = filter(hasText)
 
+/**
+ * @function
+ * @param {Element}
+ * @returns {Element[]}
+ */
 export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
