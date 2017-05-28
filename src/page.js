@@ -12,10 +12,17 @@ export default class GitHubPage {
     this.headers = []
   }
   /**
-   * @returns {Promise<Array>}
+   * @returns {Promise<HeaderList>}
    */
   async getHeaderList () {
-    return this.headers
+    return createHeaders(await this.elementsToArray())(this.headers)
+  }
+  /**
+   * @private
+   * @returns {Promise<function: Array, Error>}
+   */
+  async elementsToArray () {
+    return () => []
   }
   /**
    * @param {string} url
@@ -35,15 +42,16 @@ class ReleasePage extends GitHubPage {
     this.headers = querySelectorAllArray('.release-title')(document)
   }
   /**
-   * @returns {Promise<HeaderList, Error>}
+   * @private
+   * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async getHeaderList () {
-    return createHeaders(map(h => {
+  async elementsToArray () {
+    return map(h => {
       const { href: link } = h.querySelector('a')
       const level = 1
       const text = h.textContent.trim()
       return [link, level, text]
-    }))(this.headers)
+    })
   }
 }
 
@@ -54,11 +62,12 @@ class CodePage extends GitHubPage {
     this.headers = readme ? selectAllHeaderElement(readme) : this.headers
   }
   /**
-   * @returns {Promise<HeaderList, Error>}
+   * @private
+   * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async getHeaderList () {
+  async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
-    return createHeaders(map(h => {
+    return map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
@@ -66,7 +75,7 @@ class CodePage extends GitHubPage {
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
       return [link, level, text]
-    }))(this.headers)
+    })
   }
 }
 
@@ -77,11 +86,12 @@ class WikiPage extends GitHubPage {
     this.headers = markdown ? selectAllHeaderElement(markdown) : this.headers
   }
   /**
-   * @returns {Promise<HeaderList, Error>}
+   * @private
+   * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async getHeaderList () {
+  async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
-    return createHeaders(map(h => {
+    return map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
       href = new URL(href).hash
@@ -89,7 +99,7 @@ class WikiPage extends GitHubPage {
       const level = Number(h.tagName[1])
       const text = h.textContent.trim()
       return [link, level, text]
-    }))(this.headers)
+    })
   }
 }
 
