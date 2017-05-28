@@ -57,6 +57,10 @@ export const hasText = pipe(prop('textContent'), Boolean)
  */
 export const filterEmptyText = filter(hasText)
 
+/**
+ * @param {...function} fun
+ * @returns {function(root: Element): HeaderList}
+ */
 export function createHeaders (...fun) {
   return pipe(filterEmptyText, ...fun, map(apply(createHeader)))
 }
