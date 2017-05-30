@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../src/functional-util.js'
-import { createHeader, querySelectorAll, querySelectorAllArray, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
+import { createHeader, querySelectorAll, querySelectorAllArray, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, urlHash } from '../src/functions.js'
 
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
@@ -103,4 +103,40 @@ test(({test}) => {
     t.deepEqual(result, [{ link: '#example', level: 1, text: 'bar' }])
     t.end()
   })
+})
+
+test('trimmedText', t => {
+  const { window } = new JSDOM(`
+    <p>foo </p>
+    <p>  bar</p>
+    <p>   </p>
+  `)
+  const {
+    document
+   } = window
+  const [foo, bar, space] = document.getElementsByTagName('p')
+
+  t.equal(trimmedText(foo), 'foo')
+  t.equal(trimmedText(bar), 'bar')
+  t.equal(trimmedText(space), '')
+  t.end()
+})
+
+test('headerLevel', t => {
+  const { window } = new JSDOM(`
+      <h1 id="foo">foo</h1>
+      <h2 id="bar">bar</h2>
+      <h3 id="baz">baz</h3>
+  `)
+  const {
+    document
+   } = window
+  const foo = document.getElementById('foo')
+  const bar = document.getElementById('bar')
+  const baz = document.getElementById('baz')
+
+  t.equal(headerLevel(foo), 1)
+  t.equal(headerLevel(bar), 2)
+  t.equal(headerLevel(baz), 3)
+  t.end()
 })

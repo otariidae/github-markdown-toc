@@ -44,6 +44,28 @@ export function querySelectorAllArray (query) {
 }
 
 /**
+ * @param {string} str
+ * @returns {string}
+ */
+function trim (str) {
+  return str.trim()
+}
+
+/**
+ * @function
+ * @param {Node}
+ * @returns {string}
+ */
+export const trimmedText = pipe(prop('textContent'), trim)
+
+/**
+ * @function
+ * @param {Node}
+ * @returns {number}
+ */
+export const headerLevel = pipe(prop('tagName'), prop(1), Number)
+
+/**
  * @function
  * @param {Node}
  * @returns {boolean}

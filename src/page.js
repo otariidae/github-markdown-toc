@@ -1,5 +1,5 @@
 import { map } from './functional-util.js'
-import { createHeaders, querySelectorAllArray, selectAllHeaderElement } from './functions.js'
+import { createHeaders, querySelectorAllArray, selectAllHeaderElement, trimmedText, headerLevel } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -49,7 +49,7 @@ class ReleasePage extends GitHubPage {
     return map(h => {
       const { href: link } = h.querySelector('a')
       const level = 1
-      const text = h.textContent.trim()
+      const text = trimmedText(h)
       return [link, level, text]
     })
   }
@@ -72,8 +72,8 @@ class CodePage extends GitHubPage {
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
-      const level = Number(h.tagName[1])
-      const text = h.textContent.trim()
+      const level = headerLevel(h)
+      const text = trimmedText(h)
       return [link, level, text]
     })
   }
@@ -96,8 +96,8 @@ class WikiPage extends GitHubPage {
       id = `#${id}`
       href = new URL(href).hash
       const link = isJSEnabled ? href : id
-      const level = Number(h.tagName[1])
-      const text = h.textContent.trim()
+      const level = headerLevel(h)
+      const text = trimmedText(h)
       return [link, level, text]
     })
   }
