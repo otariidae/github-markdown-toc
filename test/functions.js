@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../src/functional-util.js'
-import { createHeader, querySelectorAll, querySelectorAllArray, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, urlHash } from '../src/functions.js'
+import { createHeader, querySelectorAll, querySelectorAllArray, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
 
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
