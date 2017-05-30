@@ -70,7 +70,6 @@ class CodePage extends GitHubPage {
     return map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
-      href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = headerLevel(h)
       const text = trimmedText(h)
@@ -94,7 +93,6 @@ class WikiPage extends GitHubPage {
     return map(h => {
       let { id, href } = h.querySelector('.anchor')
       id = `#${id}`
-      href = new URL(href).hash
       const link = isJSEnabled ? href : id
       const level = headerLevel(h)
       const text = trimmedText(h)
