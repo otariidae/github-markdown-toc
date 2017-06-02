@@ -1,5 +1,5 @@
-import { map } from './functional-util.js'
-import { createHeaders, querySelectorAllArray, selectAllHeaderElement, trimmedText, headerLevel } from './functions.js'
+import { prop, map, pipe } from './functional-util.js'
+import { createHeaders, querySelectorAllArray, selectAllHeaderElement, hash, trimmedText, headerLevel } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -47,7 +47,7 @@ class ReleasePage extends GitHubPage {
    */
   async elementsToArray () {
     return map(h => {
-      const { href: link } = h.querySelector('a')
+      const link = prop('href')(h.querySelector('a'))
       const level = 1
       const text = trimmedText(h)
       return [link, level, text]
@@ -68,8 +68,9 @@ class CodePage extends GitHubPage {
   async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
     return map(h => {
-      let { id, href } = h.querySelector('.anchor')
-      id = `#${id}`
+      const a = h.querySelector('.anchor')
+      const id = pipe(prop('id'), hash)(a)
+      const href = prop('href')(a)
       const link = isJSEnabled ? href : id
       const level = headerLevel(h)
       const text = trimmedText(h)
@@ -91,8 +92,9 @@ class WikiPage extends GitHubPage {
   async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
     return map(h => {
-      let { id, href } = h.querySelector('.anchor')
-      id = `#${id}`
+      const a = h.querySelector('.anchor')
+      const id = pipe(prop('id'), hash)(a)
+      const href = prop('href')(a)
       const link = isJSEnabled ? href : id
       const level = headerLevel(h)
       const text = trimmedText(h)

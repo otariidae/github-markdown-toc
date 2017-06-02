@@ -47,6 +47,14 @@ export function querySelectorAllArray (query) {
  * @param {string} str
  * @returns {string}
  */
+export function hash (str) {
+  return `#${str}`
+}
+
+/**
+ * @param {string} str
+ * @returns {string}
+ */
 function trim (str) {
   return str.trim()
 }
