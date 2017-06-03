@@ -56,3 +56,13 @@ export function apply (fun) {
     return fun(...arg)
   }
 }
+
+/**
+ * @param {*} arg
+ * @returns {function}
+ */
+export function always (arg) {
+  return function alwaysInner () {
+    return arg
+  }
+}

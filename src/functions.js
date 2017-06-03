@@ -27,6 +27,16 @@ export function createHeader (link, level, text) {
 
 /**
  * @param {string} query
+ * @returns {function(Element): Node}
+ */
+export function querySelector (query) {
+  return function querySelectorInnner (root) {
+    return root.querySelector(query)
+  }
+}
+
+/**
+ * @param {string} query
  * @returns {function(root: Element): NodeList}
  */
 export function querySelectorAll (query) {
@@ -116,3 +126,14 @@ export function createHeaders (...fun) {
  * @returns {Element[]}
  */
 export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
+
+/**
+ * @param {function(Element, ...*): string} link
+ * @param {function(Element, ...*): number} level
+ * @param {function(Element, ...*): string} text
+ * @param {Object} [option]
+ * @returns {function(Element): (string|number)[]}
+ */
+export function element2Array (link, level, text, ...options) {
+  return element => [link, level, text].map(fun => fun(element, ...options))
+}

@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../src/functional-util.js'
-import { createHeader, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
+import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array } from '../src/functions.js'
 
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
@@ -25,6 +25,15 @@ test(({ test }) => {
     Element,
     document
    } = window
+
+  test('querySelector', t => {
+    const f = querySelector('h1')
+    const result = f(document)
+
+    t.equal(typeof f, 'function')
+    t.ok(result instanceof Element)
+    t.end()
+  })
 
   test('querySelectorAll', t => {
     const f = querySelectorAll('h1, h2')
@@ -175,5 +184,35 @@ test('headerLevel', t => {
   t.equal(headerLevel(foo), 1)
   t.equal(headerLevel(bar), 2)
   t.equal(headerLevel(baz), 3)
+  t.end()
+})
+
+test('element2Array', t => {
+  const { window } = new JSDOM(`
+    <p id="foo" tabindex="42">
+      baz
+    </p>
+  `)
+  const {
+    document
+   } = window
+  const f = element2Array(
+    () => 'foo',
+    () => 42,
+    () => 'baz'
+  )
+  const g = element2Array(
+    elm => elm.id,
+    elm => Number(elm.getAttribute('tabindex')),
+    elm => elm.textContent.trim()
+  )
+  const root = document.getElementById('foo')
+  const resultF = f(root)
+  const resultG = g(root)
+
+  t.equal(typeof f, 'function')
+  t.equal(typeof g, 'function')
+  t.deepEqual(resultF, ['foo', 42, 'baz'])
+  t.deepEqual(resultG, ['foo', 42, 'baz'])
   t.end()
 })
