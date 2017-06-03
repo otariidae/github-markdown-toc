@@ -22,52 +22,54 @@ test(({ test }) => {
   `)
   const {
     NodeList,
-    Element,
     document
   } = window
+  const foo = document.querySelector('h1')
+  const bar = document.querySelector('h2')
 
   test('querySelector', t => {
     const f = querySelector('h1')
     const result = f(document)
 
     t.equal(typeof f, 'function')
-    t.ok(result instanceof Element)
+    t.ok(Object.is(result, foo))
     t.end()
   })
 
   test('querySelectorAll', t => {
     const f = querySelectorAll('h1, h2')
     const result = f(document)
+    const [_foo, _bar] = result
 
     t.equal(typeof f, 'function')
     t.ok(result instanceof NodeList)
     t.equal(result.length, 2)
-    t.ok(result[0] instanceof Element)
-    t.ok(result[1] instanceof Element)
-    t.equal(result[0].textContent, 'foo')
-    t.equal(result[1].textContent, 'bar')
+    t.ok(Object.is(_foo, foo))
+    t.ok(Object.is(_bar, bar))
     t.end()
   })
 
   test('querySelectorAllArray', t => {
     const f = querySelectorAllArray('h1, h2')
     const result = f(document)
+    const [_foo, _bar] = result
 
     t.equal(typeof f, 'function')
     t.ok(result instanceof Array)
     t.equal(result.length, 2)
-    t.ok(result[0] instanceof Element)
-    t.ok(result[1] instanceof Element)
-    t.equal(result[0].textContent, 'foo')
-    t.equal(result[1].textContent, 'bar')
+    t.ok(Object.is(_foo, foo))
+    t.ok(Object.is(_bar, bar))
     t.end()
   })
 
   test('selectAllHeaderElement', t => {
     const result = selectAllHeaderElement(document)
+    const [_foo, _bar] = result
 
     t.ok(result instanceof Array)
     t.equal(result.length, 2)
+    t.ok(Object.is(_foo, foo))
+    t.ok(Object.is(_bar, bar))
     t.end()
   })
 })
@@ -81,31 +83,26 @@ test(({test}) => {
     Element,
     document
   } = window
-
+  const elements = Array.from(document.body.children)
+  const [foo, baz] = elements
   test('hasText', t => {
-    const foo = document.getElementById('foo')
-    const baz = document.getElementById('baz')
-
     t.ok(hasText(foo))
     t.notOk(hasText(baz))
     t.end()
   })
 
   test('filterEmptyText', t => {
-    const elements = Array.from(document.getElementsByTagName('p'))
     const result = filterEmptyText(elements)
+    const [_foo] = result
 
-    t.ok(result[0] instanceof Element)
+    t.ok(foo instanceof Element)
     t.equal(result.length, 1)
-    t.equal(result[0].id, 'foo')
+    t.ok(Object.is(_foo, foo))
     t.end()
   })
 
   test('createHeaders', t => {
-    const elements = Array.from(document.getElementsByTagName('p'))
-    const f = createHeaders(map(p => {
-      return ['#example', 1, p.textContent]
-    }))
+    const f = createHeaders(map(p => ['#example', 1, p.textContent]))
     const result = f(elements)
 
     t.equal(typeof f, 'function')
@@ -114,9 +111,6 @@ test(({test}) => {
   })
 
   test('id2link', t => {
-    const foo = document.getElementById('foo')
-    const baz = document.getElementById('baz')
-
     t.equal(id2link(foo), '#foo')
     t.equal(id2link(baz), '#baz')
     t.end()
@@ -124,7 +118,7 @@ test(({test}) => {
 })
 
 test('hrefOrID', t => {
-  const { window } = new JSDOM(`
+  const frag = JSDOM.fragment(`
     <h2>
       <a id="user-content-license" class="anchor" href="#license"></a>
       License
@@ -132,10 +126,7 @@ test('hrefOrID', t => {
   `, {
     url: 'https://example.com'
   })
-  const {
-    document
-  } = window
-  const a = document.querySelector('.anchor')
+  const a = frag.querySelector('.anchor')
   const f = hrefOrID(true)
   const g = hrefOrID(false)
 
@@ -152,15 +143,12 @@ test('hash', t => {
 })
 
 test('trimmedText', t => {
-  const { window } = new JSDOM(`
+  const frag = JSDOM.fragment(`
     <p>foo </p>
     <p>  bar</p>
     <p>   </p>
   `)
-  const {
-    document
-  } = window
-  const [foo, bar, space] = document.getElementsByTagName('p')
+  const [foo, bar, space] = frag.children
 
   t.equal(trimmedText(foo), 'foo')
   t.equal(trimmedText(bar), 'bar')
@@ -169,17 +157,12 @@ test('trimmedText', t => {
 })
 
 test('headerLevel', t => {
-  const { window } = new JSDOM(`
-      <h1 id="foo">foo</h1>
-      <h2 id="bar">bar</h2>
-      <h3 id="baz">baz</h3>
+  const frag = JSDOM.fragment(`
+      <h1>foo</h1>
+      <h2>bar</h2>
+      <h3>baz</h3>
   `)
-  const {
-    document
-  } = window
-  const foo = document.getElementById('foo')
-  const bar = document.getElementById('bar')
-  const baz = document.getElementById('baz')
+  const [foo, bar, baz] = frag.children
 
   t.equal(headerLevel(foo), 1)
   t.equal(headerLevel(bar), 2)
@@ -188,14 +171,11 @@ test('headerLevel', t => {
 })
 
 test('element2Array', t => {
-  const { window } = new JSDOM(`
+  const frag = JSDOM.fragment(`
     <p id="foo" tabindex="42">
       baz
     </p>
   `)
-  const {
-    document
-  } = window
   const f = element2Array(
     () => 'foo',
     () => 42,
@@ -206,7 +186,7 @@ test('element2Array', t => {
     elm => Number(elm.getAttribute('tabindex')),
     elm => elm.textContent.trim()
   )
-  const root = document.getElementById('foo')
+  const root = frag.firstElementChild
   const resultF = f(root)
   const resultG = g(root)
 
