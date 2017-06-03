@@ -24,7 +24,7 @@ test(({ test }) => {
     NodeList,
     Element,
     document
-   } = window
+  } = window
 
   test('querySelector', t => {
     const f = querySelector('h1')
@@ -80,7 +80,7 @@ test(({test}) => {
   const {
     Element,
     document
-   } = window
+  } = window
 
   test('hasText', t => {
     const foo = document.getElementById('foo')
@@ -159,7 +159,7 @@ test('trimmedText', t => {
   `)
   const {
     document
-   } = window
+  } = window
   const [foo, bar, space] = document.getElementsByTagName('p')
 
   t.equal(trimmedText(foo), 'foo')
@@ -176,7 +176,7 @@ test('headerLevel', t => {
   `)
   const {
     document
-   } = window
+  } = window
   const foo = document.getElementById('foo')
   const bar = document.getElementById('bar')
   const baz = document.getElementById('baz')
@@ -195,7 +195,7 @@ test('element2Array', t => {
   `)
   const {
     document
-   } = window
+  } = window
   const f = element2Array(
     () => 'foo',
     () => 42,
