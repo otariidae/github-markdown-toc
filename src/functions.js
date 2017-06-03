@@ -52,6 +52,21 @@ export function hash (str) {
 }
 
 /**
+ * @function
+ * @param {Element}
+ * @returns {string}
+ */
+export const id2link = pipe(prop('id'), hash)
+
+/**
+ * @param {boolean} isHref
+ * @returns {function(HTMLAnchorElement): string}
+ */
+export function hrefOrID (isHref) {
+  return isHref ? prop('hash') : id2link
+}
+
+/**
  * @param {string} str
  * @returns {string}
  */

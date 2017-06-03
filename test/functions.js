@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../src/functional-util.js'
-import { createHeader, querySelectorAll, querySelectorAllArray, hash, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
+import { createHeader, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement } from '../src/functions.js'
 
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
@@ -103,6 +103,38 @@ test(({test}) => {
     t.deepEqual(result, [{ link: '#example', level: 1, text: 'bar' }])
     t.end()
   })
+
+  test('id2link', t => {
+    const foo = document.getElementById('foo')
+    const baz = document.getElementById('baz')
+
+    t.equal(id2link(foo), '#foo')
+    t.equal(id2link(baz), '#baz')
+    t.end()
+  })
+})
+
+test('hrefOrID', t => {
+  const { window } = new JSDOM(`
+    <h2>
+      <a id="user-content-license" class="anchor" href="#license"></a>
+      License
+    </h2>
+  `, {
+    url: 'https://example.com'
+  })
+  const {
+    document
+  } = window
+  const a = document.querySelector('.anchor')
+  const f = hrefOrID(true)
+  const g = hrefOrID(false)
+
+  t.equal(typeof f, 'function')
+  t.equal(typeof g, 'function')
+  t.equal(f(a), '#license')
+  t.equal(g(a), '#user-content-license')
+  t.end()
 })
 
 test('hash', t => {
