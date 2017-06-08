@@ -6,7 +6,23 @@ import checkJSEnabled from './check-js-enabled.js'
 /**
  * @abstract
  */
-export default class GitHubPage {
+export default class PageFactory {
+  /**
+   * @param {string} url
+   */
+  static createFromUrl (url) {
+    const pagetype = new PageType(url)
+    if (pagetype.isReleasePage()) return new ReleasePage()
+    if (pagetype.isCodePage()) return new CodePage()
+    if (pagetype.isWikiPage()) return new WikiPage()
+    return new UnknownPage()
+  }
+}
+
+/**
+ * @abstract
+ */
+export class GitHubPage {
   /**
    * @returns {Promise<HeaderList>}
    */
@@ -27,19 +43,9 @@ export default class GitHubPage {
   async elementsToArray () {
     return () => []
   }
-  /**
-   * @param {string} url
-   */
-  static createFromUrl (url) {
-    const pagetype = new PageType(url)
-    if (pagetype.isReleasePage()) return new ReleasePage()
-    if (pagetype.isCodePage()) return new CodePage()
-    if (pagetype.isWikiPage()) return new WikiPage()
-    return new UnknownPage()
-  }
 }
 
-class ReleasePage extends GitHubPage {
+export class ReleasePage extends GitHubPage {
   /**
    * @private
    * @returns {Element[]}
@@ -60,7 +66,7 @@ class ReleasePage extends GitHubPage {
   }
 }
 
-class CodePage extends GitHubPage {
+export class CodePage extends GitHubPage {
   /**
    * @private
    * @returns {Element[]}
@@ -83,7 +89,7 @@ class CodePage extends GitHubPage {
   }
 }
 
-class WikiPage extends GitHubPage {
+export class WikiPage extends GitHubPage {
   /**
    * @private
    * @returns {Element[]}
@@ -106,5 +112,5 @@ class WikiPage extends GitHubPage {
   }
 }
 
-class UnknownPage extends GitHubPage {
+export class UnknownPage extends GitHubPage {
 }

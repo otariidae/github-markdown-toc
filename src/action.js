@@ -1,5 +1,5 @@
 import { Action } from '../modules/flux/index.js'
-import GitHubPage from './page.js'
+import pageFactory from './page.js'
 
 export const key = {
   START_LOADING: Symbol('start-loading'),
@@ -12,7 +12,7 @@ export default class AppAction extends Action {
     this.dispatch(key.START_LOADING)
   }
   async moveToPage () {
-    const page = GitHubPage.createFromUrl(location.href)
+    const page = pageFactory.createFromUrl(location.href)
     const headers = await page.getHeaderList()
     const isAvailable = Boolean(headers.length)
     const data = {
