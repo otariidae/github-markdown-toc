@@ -1,5 +1,4 @@
 import { Action } from '../modules/flux/index.js'
-// import fetchHeader from './get-header-data.js'
 import GitHubPage from './page.js'
 
 export const key = {
