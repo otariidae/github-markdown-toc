@@ -85,6 +85,7 @@ class CodePage extends GitHubPage {
 
 class WikiPage extends GitHubPage {
   /**
+   * @private
    * @returns {Element[]}
    */
   getHeaders (root) {
