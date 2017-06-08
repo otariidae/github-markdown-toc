@@ -7,15 +7,18 @@ import checkJSEnabled from './check-js-enabled.js'
  * @abstract
  */
 export default class GitHubPage {
-  constructor () {
-    /** @type {Element[]} */
-    this.headers = []
-  }
   /**
    * @returns {Promise<HeaderList>}
    */
   async getHeaderList () {
-    return createHeaders(await this.elementsToArray())(this.headers)
+    return createHeaders(await this.elementsToArray())(this.getHeaders)
+  }
+  /**
+   * @private
+   * @returns
+   */
+  getHeaders () {
+    return []
   }
   /**
    * @private
@@ -37,9 +40,12 @@ export default class GitHubPage {
 }
 
 class ReleasePage extends GitHubPage {
-  constructor () {
-    super()
-    this.headers = querySelectorAllArray('.release-title')(document)
+  /**
+   * @private
+   * @returns {Element[]}
+   */
+  getHeaders (root) {
+    return querySelectorAllArray('.release-title')(root)
   }
   /**
    * @private
@@ -55,10 +61,13 @@ class ReleasePage extends GitHubPage {
 }
 
 class CodePage extends GitHubPage {
-  constructor () {
-    super()
-    const readme = document.querySelector('.markdown-body')
-    this.headers = readme ? selectAllHeaderElement(readme) : this.headers
+  /**
+   * @private
+   * @returns {Element[]}
+   */
+  getHeaders (root) {
+    const readme = root.querySelector('.markdown-body')
+    return readme ? selectAllHeaderElement(readme) : []
   }
   /**
    * @private
@@ -75,10 +84,12 @@ class CodePage extends GitHubPage {
 }
 
 class WikiPage extends GitHubPage {
-  constructor () {
-    super()
-    const markdown = document.querySelector('.wiki-body .markdown-body')
-    this.headers = markdown ? selectAllHeaderElement(markdown) : this.headers
+  /**
+   * @returns {Element[]}
+   */
+  getHeaders (root) {
+    const markdown = root.querySelector('.wiki-body .markdown-body')
+    return markdown ? selectAllHeaderElement(markdown) : []
   }
   /**
    * @private
