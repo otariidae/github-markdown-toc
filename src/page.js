@@ -11,7 +11,7 @@ export default class GitHubPage {
    * @returns {Promise<HeaderList>}
    */
   async getHeaderList () {
-    return createHeaders(await this.elementsToArray())(this.getHeaders)
+    return createHeaders(await this.elementsToArray())(this.getHeaders(document))
   }
   /**
    * @private
