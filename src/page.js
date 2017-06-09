@@ -31,7 +31,7 @@ export class GitHubPage {
   }
   /**
    * @private
-   * @returns
+   * @returns Array
    */
   getHeaders () {
     return []
