@@ -196,3 +196,21 @@ test('element2Array', t => {
   t.deepEqual(resultG, ['foo', 42, 'baz'])
   t.end()
 })
+
+test('markdownElement2Array', t => {
+  const frag = JSDOM.fragment(`
+    <h1>
+      <a id="user-content-license" class="anchor" href="#license"></a>
+      License
+    </h1>
+  `)
+  const h = frag.firstElementChild
+  const f = markdownElement2Array(true)
+  const g = markdownElement2Array(false)
+
+  t.equal(typeof f, 'function')
+  t.equal(typeof g, 'function')
+  t.deepEqual(f(h), ['#license', 1, 'License'])
+  t.deepEqual(g(h), ['#user-content-license', 1, 'License'])
+  t.end()
+})

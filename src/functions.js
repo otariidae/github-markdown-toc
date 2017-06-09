@@ -137,3 +137,15 @@ export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5,
 export function element2Array (link, level, text, ...options) {
   return element => [link, level, text].map(fun => fun(element, ...options))
 }
+
+/**
+ * @param {boolean} isJSEnabled
+ * @returns {function(Element): (string|number)[]}
+ */
+export function markdownElement2Array (isJSEnabled) {
+  return element2Array(
+    pipe(querySelector('.anchor'), hrefOrID(isJSEnabled)),
+    headerLevel,
+    trimmedText
+  )
+}

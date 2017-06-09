@@ -1,5 +1,5 @@
 import { prop, map, pipe, always } from './functional-util.js'
-import { createHeaders, querySelector, querySelectorAllArray, selectAllHeaderElement, trimmedText, headerLevel, hrefOrID, element2Array } from './functions.js'
+import { createHeaders, querySelector, querySelectorAllArray, selectAllHeaderElement, trimmedText, element2Array, markdownElement2Array } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -81,11 +81,7 @@ export class CodePage extends GitHubPage {
    */
   async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
-    return map(element2Array(
-      pipe(querySelector('.anchor'), hrefOrID(isJSEnabled)),
-      headerLevel,
-      trimmedText
-    ))
+    return map(markdownElement2Array(isJSEnabled))
   }
 }
 
@@ -104,11 +100,7 @@ export class WikiPage extends GitHubPage {
    */
   async elementsToArray () {
     const isJSEnabled = await checkJSEnabled()
-    return map(element2Array(
-      pipe(querySelector('.anchor'), hrefOrID(isJSEnabled)),
-      headerLevel,
-      trimmedText
-    ))
+    return map(markdownElement2Array(isJSEnabled))
   }
 }
 
