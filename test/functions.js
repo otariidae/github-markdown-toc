@@ -3,6 +3,12 @@ import { JSDOM } from 'jsdom'
 import { map } from '../src/functional-util.js'
 import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array, markdownElement2Array } from '../src/functions.js'
 
+// shared classes
+const {
+  NodeList,
+  Element
+} = (new JSDOM('')).window
+
 test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
     link: 'foo',
@@ -13,23 +19,19 @@ test('createHeader', t => {
 })
 
 test(({ test }) => {
-  const { window } = new JSDOM(`
+  const frag = JSDOM.fragment(`
     <article class="markdown-body">
       <h1>foo</h1>
       <h2>bar</h2>
       <p>baz</p>
     </article>
   `)
-  const {
-    NodeList,
-    document
-  } = window
-  const foo = document.querySelector('h1')
-  const bar = document.querySelector('h2')
+  const foo = frag.querySelector('h1')
+  const bar = frag.querySelector('h2')
 
   test('querySelector', t => {
     const f = querySelector('h1')
-    const result = f(document)
+    const result = f(frag)
 
     t.equal(typeof f, 'function')
     t.ok(Object.is(result, foo))
@@ -38,7 +40,7 @@ test(({ test }) => {
 
   test('querySelectorAll', t => {
     const f = querySelectorAll('h1, h2')
-    const result = f(document)
+    const result = f(frag)
     const [_foo, _bar] = result
 
     t.equal(typeof f, 'function')
@@ -51,7 +53,7 @@ test(({ test }) => {
 
   test('querySelectorAllArray', t => {
     const f = querySelectorAllArray('h1, h2')
-    const result = f(document)
+    const result = f(frag)
     const [_foo, _bar] = result
 
     t.equal(typeof f, 'function')
@@ -63,7 +65,7 @@ test(({ test }) => {
   })
 
   test('selectAllHeaderElement', t => {
-    const result = selectAllHeaderElement(document)
+    const result = selectAllHeaderElement(frag)
     const [_foo, _bar] = result
 
     t.ok(result instanceof Array)
@@ -74,16 +76,12 @@ test(({ test }) => {
   })
 })
 
-test(({test}) => {
-  const { window } = new JSDOM(`
+test(({ test }) => {
+  const frag = JSDOM.fragment(`
     <p id="foo">bar</p>
     <p id="baz"></p>
   `)
-  const {
-    Element,
-    document
-  } = window
-  const elements = Array.from(document.body.children)
+  const elements = Array.from(frag.children)
   const [foo, baz] = elements
   test('hasText', t => {
     t.ok(hasText(foo))
@@ -123,9 +121,7 @@ test('hrefOrID', t => {
       <a id="user-content-license" class="anchor" href="#license"></a>
       License
     </h2>
-  `, {
-    url: 'https://example.com'
-  })
+  `)
   const a = frag.querySelector('.anchor')
   const f = hrefOrID(true)
   const g = hrefOrID(false)
