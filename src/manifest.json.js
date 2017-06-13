@@ -1,3 +1,5 @@
+const github = 'https://github.com'
+
 export default ({ version, excludes }) => {
   return {
     manifest_version: 2,
@@ -5,20 +7,16 @@ export default ({ version, excludes }) => {
     description: 'Show a table of contents of markdown on GitHub',
     version: version,
     author: 'otariidae',
-    homepage_url: 'https://github.com/otariidae/github-markdown-toc',
+    homepage_url: `${github}/otariidae/github-markdown-toc`,
     content_scripts: [
       {
-        matches: ['https://github.com/*'],
+        matches: [`${github}/*`],
         exclude_matches: excludes
-                           .map(item => {
-                             return [
-                               `https://github.com/${item}/*`,
-                               `https://github.com/${item}?*`
-                             ]
-                           })
-                           .reduce((a, b) => {
-                             return a.concat(b)
-                           }),
+                           .map(item => [
+                             `${github}/${item}/*`,
+                             `${github}/${item}?*`
+                           ])
+                           .reduce((a, b) => a.concat(b)),
         css: ['index.css'],
         js: ['index.js']
       }
@@ -28,7 +26,7 @@ export default ({ version, excludes }) => {
       persistent: false
     },
     permissions: [
-      'https://github.com/*', 'contentSettings', 'tabs'
+      `${github}/*`, 'contentSettings', 'tabs'
     ],
     web_accessible_resources: [
       'spinner.svg'
