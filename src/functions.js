@@ -1,4 +1,4 @@
-import { prop, map, filter, pipe, apply } from './functional-util.js'
+import { prop, map, filter, pipe, apply } from '../modules/functional-util/index.js'
 
 /**
  * @typedef {Object} HeaderObject

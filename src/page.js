@@ -1,4 +1,4 @@
-import { prop, map, pipe, always } from './functional-util.js'
+import { prop, map, pipe, always } from '../modules/functional-util/index.js'
 import { createHeaders, querySelector, querySelectorAllArray, selectAllHeaderElement, trimmedText, element2Array, markdownElement2Array } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'

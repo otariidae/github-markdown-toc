@@ -1,6 +1,6 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
-import { map } from '../src/functional-util.js'
+import { map } from '../modules/functional-util/index.js'
 import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array, markdownElement2Array } from '../src/functions.js'
 
 // shared classes
