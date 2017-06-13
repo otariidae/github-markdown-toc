@@ -52,7 +52,7 @@ test('ReleasePage', t => {
   const headers = page.getHeaders(frag)
 
   t.ok(page instanceof GitHubPage)
-  t.ok(headers instanceof Array)
+  t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 3)
   t.end()
@@ -88,7 +88,7 @@ test('Code Page', t => {
   const headers = page.getHeaders(frag)
 
   t.ok(page instanceof GitHubPage)
-  t.ok(headers instanceof Array)
+  t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 4)
   t.end()
@@ -129,7 +129,7 @@ test('Wiki Page', t => {
   const headers = page.getHeaders(frag)
 
   t.ok(page instanceof GitHubPage)
-  t.ok(headers instanceof Array)
+  t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 4)
   t.end()

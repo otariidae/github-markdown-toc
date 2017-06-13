@@ -57,7 +57,7 @@ test(({ test }) => {
     const [_foo, _bar] = result
 
     t.equal(typeof f, 'function')
-    t.ok(result instanceof Array)
+    t.ok(Array.isArray(result))
     t.equal(result.length, 2)
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
@@ -68,7 +68,7 @@ test(({ test }) => {
     const result = selectAllHeaderElement(frag)
     const [_foo, _bar] = result
 
-    t.ok(result instanceof Array)
+    t.ok(Array.isArray(result))
     t.equal(result.length, 2)
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
