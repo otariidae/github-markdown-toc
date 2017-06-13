@@ -1,4 +1,4 @@
-import { prop, map, filter, pipe, apply } from '../modules/functional-util/index.js'
+import { prop, map, filter, pipe, apply, always } from '../modules/functional-util/index.js'
 
 /**
  * @typedef {Object} HeaderObject
@@ -128,6 +128,18 @@ export function createHeaders (...fun) {
 export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
 
 /**
+ * @param {string} query
+ * @returns {function(Element): Element[]}
+ */
+export function selectAllHeaderElementFrom (query) {
+  return function selectAllHeaderElementFromInner (root) {
+    const element = root.querySelector(query)
+    if (!element) return []
+    return selectAllHeaderElement(element)
+  }
+}
+
+/**
  * @param {function(Element, ...*): string} link
  * @param {function(Element, ...*): number} level
  * @param {function(Element, ...*): string} text
@@ -136,6 +148,18 @@ export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5,
  */
 export function element2Array (link, level, text, ...options) {
   return element => [link, level, text].map(fun => fun(element, ...options))
+}
+
+/**
+ * @param {number} level
+ * @returns {function(Element): (string|number)[]}
+ */
+export function element2ArrayAnchorAndFlatLevel (level) {
+  return element2Array(
+    pipe(querySelector('a'), prop('href')),
+    always(level),
+    trimmedText
+  )
 }
 
 /**

@@ -1,5 +1,5 @@
-import { prop, map, pipe, always } from '../modules/functional-util/index.js'
-import { createHeaders, querySelector, querySelectorAllArray, selectAllHeaderElement, trimmedText, element2Array, markdownElement2Array } from './functions.js'
+import { map } from '../modules/functional-util/index.js'
+import { createHeaders, querySelectorAllArray, selectAllHeaderElementFrom, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -58,11 +58,7 @@ export class ReleasePage extends GitHubPage {
    * @returns {Promise<function(Element[]): Array, Error>}
    */
   async elementsToArray () {
-    return map(element2Array(
-      pipe(querySelector('a'), prop('href')),
-      always(1),
-      trimmedText
-    ))
+    return map(element2ArrayAnchorAndFlatLevel(1))
   }
 }
 
@@ -72,8 +68,7 @@ export class CodePage extends GitHubPage {
    * @returns {Element[]}
    */
   getHeaders (root) {
-    const readme = root.querySelector('.markdown-body')
-    return readme ? selectAllHeaderElement(readme) : []
+    return selectAllHeaderElementFrom('.markdown-body')(root)
   }
   /**
    * @private
@@ -91,8 +86,7 @@ export class WikiPage extends GitHubPage {
    * @returns {Element[]}
    */
   getHeaders (root) {
-    const markdown = root.querySelector('.wiki-body .markdown-body')
-    return markdown ? selectAllHeaderElement(markdown) : []
+    return selectAllHeaderElementFrom('.wiki-body .markdown-body')(root)
   }
   /**
    * @private

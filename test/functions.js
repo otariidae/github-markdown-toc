@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
-import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array, markdownElement2Array } from '../src/functions.js'
+import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
 
 // shared classes
 const {
@@ -190,6 +190,23 @@ test('element2Array', t => {
   t.equal(typeof g, 'function')
   t.deepEqual(resultF, ['foo', 42, 'baz'])
   t.deepEqual(resultG, ['foo', 42, 'baz'])
+  t.end()
+})
+
+test('element2ArrayAnchorAndFlatLevel', t => {
+  const frag = JSDOM.fragment(`
+    <h1>
+      <a href="/tag/v1.0.0">1.0.0</a>
+    </h1>
+  `)
+  const h = frag.firstElementChild
+  const f = element2ArrayAnchorAndFlatLevel(1)
+  const g = element2ArrayAnchorAndFlatLevel(42)
+
+  t.equal(typeof f, 'function')
+  t.equal(typeof g, 'function')
+  t.deepEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
+  t.deepEqual(g(h), ['/tag/v1.0.0', 42, '1.0.0'])
   t.end()
 })
 
