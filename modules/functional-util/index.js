@@ -3,9 +3,7 @@
  * @returns {function(object: Object)}
  */
 export function prop (property) {
-  return function propInner (object) {
-    return object[property]
-  }
+  return object => object[property]
 }
 
 /**
@@ -13,9 +11,7 @@ export function prop (property) {
  * @returns {function(arr: Array): Array}
  */
 export function map (fun) {
-  return function mapInner (arr) {
-    return arr.map(fun)
-  }
+  return arr => arr.map(fun)
 }
 
 /**
@@ -23,9 +19,7 @@ export function map (fun) {
  * @returns {function(arr: Array): Array}
  */
 export function filter (fun) {
-  return function filterInner (arr) {
-    return arr.filter(fun)
-  }
+  return arr => arr.filter(fun)
 }
 
 /**
@@ -34,9 +28,7 @@ export function filter (fun) {
  * @returns {function(...args)}
  */
 function _pipe (f, g) {
-  return function (...args) {
-    return g(f(...args))
-  }
+  return (...args) => g(f(...args))
 }
 
 /**
@@ -52,9 +44,7 @@ export function pipe (...funs) {
  * @returns {function(arg: Array)}
  */
 export function apply (fun) {
-  return function applyInner (arg) {
-    return fun(...arg)
-  }
+  return arg => fun(...arg)
 }
 
 /**
@@ -62,7 +52,5 @@ export function apply (fun) {
  * @returns {function}
  */
 export function always (arg) {
-  return function alwaysInner () {
-    return arg
-  }
+  return () => arg
 }

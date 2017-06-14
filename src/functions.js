@@ -30,9 +30,7 @@ export function createHeader (link, level, text) {
  * @returns {function(Element): Node}
  */
 export function querySelector (query) {
-  return function querySelectorInnner (root) {
-    return root.querySelector(query)
-  }
+  return root => root.querySelector(query)
 }
 
 /**
@@ -40,9 +38,7 @@ export function querySelector (query) {
  * @returns {function(root: Element): NodeList}
  */
 export function querySelectorAll (query) {
-  return function querySelectorAllInner (root) {
-    return root.querySelectorAll(query)
-  }
+  return root => root.querySelectorAll(query)
 }
 
 /**
@@ -132,7 +128,7 @@ export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5,
  * @returns {function(Element): Element[]}
  */
 export function selectAllHeaderElementFrom (query) {
-  return function selectAllHeaderElementFromInner (root) {
+  return root => {
     const element = root.querySelector(query)
     if (!element) return []
     return selectAllHeaderElement(element)
