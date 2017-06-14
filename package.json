@@ -20,7 +20,8 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-svelte": "^2.0.1",
-    "tape": "^4.6.3"
+    "tape": "^4.6.3",
+    "yazl": "^2.4.2"
   },
   "name": "github-markdown-toc",
   "scripts": {
@@ -38,7 +39,7 @@
     "git:add:meta": "git add dist/manifest.json",
     "preversion": "run-p lint test",
     "version": "run-s build:meta git:add:meta",
-    "zip": "git archive HEAD:dist/ --output github-markdown-toc.zip"
+    "zip": "node --require reify lib/zip.js"
   },
   "version": "0.6.0",
   "license": "CC0-1.0",
