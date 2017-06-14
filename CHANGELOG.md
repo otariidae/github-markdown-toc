@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+- Functional programming
+- Refactor
+
 ## 0.5.8
 - Use an original `is-plain-object` module
 - Update dependecies
