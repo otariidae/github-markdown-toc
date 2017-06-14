@@ -1,6 +1,6 @@
 /**
  * @param {*} obj
- * @returns {Boolean}
+ * @returns {boolean}
  */
 export default function isPlainObject (obj) {
   if (!obj) {

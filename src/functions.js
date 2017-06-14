@@ -1,7 +1,7 @@
 import { prop, map, filter, pipe, apply, always } from '../modules/functional-util/index.js'
 
 /**
- * @typedef {Object} HeaderObject
+ * @typedef {object} HeaderObject
  * @property {string} link
  * @property {number} level
  * @property {string} text
@@ -35,7 +35,7 @@ export function querySelector (query) {
 
 /**
  * @param {string} query
- * @returns {function(root: Element): NodeList}
+ * @returns {function(Element): NodeList}
  */
 export function querySelectorAll (query) {
   return root => root.querySelectorAll(query)
@@ -43,7 +43,7 @@ export function querySelectorAll (query) {
 
 /**
  * @param {string} query
- * @returns {function(root: Element): Element[]}
+ * @returns {function(Element): Element[]}
  */
 export function querySelectorAllArray (query) {
   return pipe(querySelectorAll(query), Array.from)
@@ -110,7 +110,7 @@ export const filterEmptyText = filter(hasText)
 
 /**
  * @param {...function} fun
- * @returns {function(root: Element): HeaderList}
+ * @returns {function(Element): HeaderList}
  */
 export function createHeaders (...fun) {
   return pipe(filterEmptyText, ...fun, map(apply(createHeader)))
@@ -119,7 +119,7 @@ export function createHeaders (...fun) {
 /**
  * @function
  * @param {Element}
- * @returns {Element[]}
+ * @returns {HTMLHeadingElement[]}
  */
 export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
 
@@ -139,7 +139,7 @@ export function selectAllHeaderElementFrom (query) {
  * @param {function(Element, ...*): string} link
  * @param {function(Element, ...*): number} level
  * @param {function(Element, ...*): string} text
- * @param {Object} [option]
+ * @param {object} [options]
  * @returns {function(Element): (string|number)[]}
  */
 export function element2Array (link, level, text, ...options) {

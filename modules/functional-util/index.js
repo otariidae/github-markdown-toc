@@ -1,6 +1,6 @@
 /**
  * @param {string|Symbol} property
- * @returns {function(object: Object)}
+ * @returns {function(object)}
  */
 export function prop (property) {
   return object => object[property]
@@ -8,7 +8,7 @@ export function prop (property) {
 
 /**
  * @param {function} fun
- * @returns {function(arr: Array): Array}
+ * @returns {function(Array): Array}
  */
 export function map (fun) {
   return arr => arr.map(fun)
@@ -16,7 +16,7 @@ export function map (fun) {
 
 /**
  * @param {function: boolean} fun
- * @returns {function(arr: Array): Array}
+ * @returns {function(Array): Array}
  */
 export function filter (fun) {
   return arr => arr.filter(fun)
@@ -41,7 +41,7 @@ export function pipe (...funs) {
 
 /**
  * @param {function} fun
- * @returns {function(arg: Array)}
+ * @returns {function(Array)}
  */
 export function apply (fun) {
   return arg => fun(...arg)
