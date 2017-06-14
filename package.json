@@ -40,7 +40,7 @@
     "version": "run-s build:meta git:add:meta",
     "zip": "git archive HEAD:dist/ --output github-markdown-toc.zip"
   },
-  "version": "0.5.8",
+  "version": "0.6.0",
   "license": "CC0-1.0",
   "repository": "otariidae/github-markdown-toc",
   "bugs": {
