@@ -1,8 +1,8 @@
 import isPlainObject from '../is-plain-object/index.js'
 
 /**
- * @param {Object} obj
- * @returns {Object}
+ * @param {object} obj
+ * @returns {object}
  */
 function copyObject (obj) {
   let copy = {}
@@ -17,7 +17,7 @@ function copyObject (obj) {
 /**
  * @param {*} target
  * @param {...*} sources
- * @returns {Object}
+ * @returns {object}
  */
 export default function deepAssign (target, ...sources) {
   const copies = sources.map(source =>

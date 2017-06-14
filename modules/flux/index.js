@@ -32,14 +32,14 @@ export class Store extends EventEmitter {
     this._dispatcher = dispatcher
   }
   /**
-   * @param {Object} data
+   * @param {object} data
    */
   setState (data) {
     this._state = deepAssign({}, this._state, data)
     this.emit(ON_CHANGE)
   }
   /**
-   * @returns {Object}
+   * @returns {object}
    */
   getState () {
     return deepAssign({}, this._state)
