@@ -43,6 +43,7 @@
   },
   "version": "0.6.0",
   "license": "CC0-1.0",
+  "private": true,
   "repository": "otariidae/github-markdown-toc",
   "bugs": {
     "url": "https://github.com/otariidae/github-markdown-toc/issues"
