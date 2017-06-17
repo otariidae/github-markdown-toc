@@ -5,12 +5,12 @@ import isPlainObject from '../is-plain-object/index.js'
  * @returns {object}
  */
 function copyObject (obj) {
-  let copy = {}
-  Object.entries(obj).forEach(([k, v]) => {
+  const copy = Object.entries(obj).reduce((copy, [k, v]) => {
     if (isPlainObject(v)) {
       copy[k] = copyObject(v)
     }
-  })
+    return copy
+  }, {})
   return Object.assign({}, obj, copy)
 }
 
