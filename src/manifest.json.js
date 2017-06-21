@@ -12,11 +12,11 @@ export default ({ version, excludes }) => {
       {
         matches: [`${github}/*`],
         exclude_matches: excludes
-                           .map(item => [
-                             `${github}/${item}/*`,
-                             `${github}/${item}?*`
-                           ])
-                           .reduce((a, b) => a.concat(b)),
+          .map(item => [
+            `${github}/${item}/*`,
+            `${github}/${item}?*`
+          ])
+          .reduce((a, b) => a.concat(b)),
         css: ['index.css'],
         js: ['index.js']
       }
