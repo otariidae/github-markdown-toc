@@ -39,7 +39,7 @@
     "version": "npm run build:meta",
     "zip": "node --require reify lib/zip.js"
   },
-  "version": "0.6.0",
+  "version": "0.7.0",
   "license": "CC0-1.0",
   "private": true,
   "repository": "otariidae/github-markdown-toc",
