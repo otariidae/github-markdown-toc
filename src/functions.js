@@ -1,10 +1,12 @@
-import { prop, map, filter, pipe, apply, always } from '../modules/functional-util/index.js'
+import { prop, filter, pipe, apply, always } from '../modules/functional-util/index.js'
 
 /**
  * @typedef {object} HeaderObject
  * @property {string} link
  * @property {number} level
  * @property {string} text
+ * @property {?HeaderObject} parent
+ * @property {?HeaderList} children
  */
 
 /**
@@ -21,7 +23,9 @@ export function createHeader (link, level, text) {
   return {
     link,
     level,
-    text
+    text,
+    children: [],
+    parent: null
   }
 }
 
@@ -109,11 +113,52 @@ export const hasText = pipe(prop('textContent'), Boolean)
 export const filterEmptyText = filter(hasText)
 
 /**
+ * @param {object} current
+ * @param {object} previous
+ * @returns {Object}
+ */
+function findParent (current, previous) {
+  if (current.level > previous.level) {
+    return previous
+  } else if (current.level === previous.level) {
+    return previous.parent
+  } else {
+    return findParent(current, previous.parent)
+  }
+}
+
+/**
+ * an inpure function
+ * @param {HeaderObject} parent
+ * @param {HeaderObject} child
+ */
+function appendChild (parent, child) {
+  child.parent = parent
+  parent.children.push(child)
+}
+
+/**
+ * @param {Array} arr
+ * @returns {object}
+ */
+export function createTree (arr) {
+  const root = createHeader(null, 0, null)
+  arr
+    .map(apply(createHeader))
+    .reduce((previous, current) => {
+      const parent = findParent(current, previous)
+      appendChild(parent, current)
+      return current
+    }, root)
+  return root
+}
+
+/**
  * @param {...function} fun
  * @returns {function(Element): HeaderList}
  */
 export function createHeaders (...fun) {
-  return pipe(filterEmptyText, ...fun, map(apply(createHeader)))
+  return pipe(filterEmptyText, ...fun, createTree)
 }
 
 /**

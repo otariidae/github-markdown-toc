@@ -1,14 +1,11 @@
 <div class="github-markdown-toc" aria-disabled="{{ !isEnabled }}" aria-busy="{{ isLoading }}" data-open="{{ isOpen }}">
   <nav id="github-markdown-toc__nav-panel" aria-hidden="{{ !isOpen }}">
-    <ol>
-      {{#each headers as header}}
-      <li data-level="{{ header.level }}"><a href="{{ header.link }}">{{ header.text }}</a></li>
-      {{/each}}
-    </ol>
+    <Item root='{{ header }}'/>
   </nav>
   <button type="button" on:click="onBtnClicked()" class="toggle-btn" aria-controls="github-markdown-toc__nav-panel" disabled="{{ !isEnabled }}"></button>
 </div>
 <script>
+  import Item from './tree-list.html'
   export default {
     methods: {
       onBtnClicked () {
@@ -16,6 +13,9 @@
           this.fire('toggle-nav')
         }
       }
+    },
+    components: {
+      Item
     }
   }
 </script>

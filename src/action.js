@@ -13,10 +13,10 @@ export default class AppAction extends Action {
   }
   async moveToPage () {
     const page = pageFactory.createFromUrl(location.href)
-    const headers = await page.getHeaderList()
-    const isAvailable = Boolean(headers.length)
+    const header = await page.getHeaderList()
+    const isAvailable = Boolean(header.children.length)
     const data = {
-      headers,
+      header,
       isAvailable
     }
     this.dispatch(key.MOVE_TO_PAGE, data)

@@ -8,7 +8,9 @@ export default class AppStore extends Store {
       isLoading: false,
       isOpen: false,
       isEnabled: false,
-      headers: []
+      header: {
+        children: []
+      }
     })
     this.register(key.START_LOADING, this.loading.bind(this))
     this.register(key.MOVE_TO_PAGE, this.toPage.bind(this))
@@ -19,9 +21,9 @@ export default class AppStore extends Store {
       isLoading: true
     })
   }
-  toPage ({ isAvailable, headers }) {
+  toPage ({ isAvailable, header }) {
     this.setState({
-      headers,
+      header,
       isLoading: false,
       isEnabled: isAvailable,
       isOpen: isAvailable ? this.getState().isOpen : false

@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
-import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
+import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createTree, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
 
 // shared classes
 const {
@@ -13,7 +13,9 @@ test('createHeader', t => {
   t.deepEqual(createHeader('foo', 42, 'bar'), {
     link: 'foo',
     level: 42,
-    text: 'bar'
+    text: 'bar',
+    parent: null,
+    children: []
   })
   t.end()
 })
@@ -64,6 +66,39 @@ test(({ test }) => {
     t.end()
   })
 
+test('createTree', t => {
+  const a = [
+    ['https://example.com', 1, 'foo'],
+    ['https://example.com', 2, 'goo'],
+    ['https://example.com', 1, 'hoo']
+  ]
+  const result = createTree(a)
+
+  t.equal(result.children[0].text, 'foo')
+  t.equal(result.children[0].children[0].text, 'goo')
+  t.equal(result.children[1].text, 'hoo')
+  t.end()
+})
+
+test('createHeaders', t => {
+  const frag = JSDOM.fragment(`
+    <h1>foo</h1>
+    <h3>bar</h3>
+    <h2>baz</h2>
+  `)
+  const elements = Array.from(frag.children)
+  const f = createHeaders(map(p => ['#example', headerLevel(p), p.textContent]))
+  const result = f(elements)
+
+  t.equal(typeof f, 'function')
+  t.deepEqual(result.children.length, 1)
+  t.deepEqual(result.children[0].children.length, 2)
+  t.deepEqual(result.children[0].text, 'foo')
+  t.deepEqual(result.children[0].children[0].text, 'bar')
+  t.deepEqual(result.children[0].children[1].text, 'baz')
+  t.end()
+})
+
   test('selectAllHeaderElement', t => {
     const result = selectAllHeaderElement(frag)
     const [_foo, _bar] = result
@@ -96,15 +131,6 @@ test(({ test }) => {
     t.ok(foo instanceof Element)
     t.equal(result.length, 1)
     t.ok(Object.is(_foo, foo))
-    t.end()
-  })
-
-  test('createHeaders', t => {
-    const f = createHeaders(map(p => ['#example', 1, p.textContent]))
-    const result = f(elements)
-
-    t.equal(typeof f, 'function')
-    t.deepEqual(result, [{ link: '#example', level: 1, text: 'bar' }])
     t.end()
   })
 

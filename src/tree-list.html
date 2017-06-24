@@ -1,0 +1,10 @@
+<ol>
+  {{#each root.children as item}}
+  <li>
+    <a href="{{ item.link }}">{{ item.text }}</a>
+    {{#if item.children.length !== 0}}
+    <:Self root='{{ item }}'/>
+    {{/if}}
+  </li>
+  {{/each}}
+</ol>
