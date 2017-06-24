@@ -35,9 +35,8 @@
     "lint": "eslint src lib modules",
     "test": "tape --require reify test/*.js modules/*/test.js",
     "release": "npm-run-all --parallel lint test --serial build zip",
-    "git:add:meta": "git add dist/manifest.json",
     "preversion": "run-p lint test",
-    "version": "run-s build:meta git:add:meta",
+    "version": "npm run build:meta",
     "zip": "node --require reify lib/zip.js"
   },
   "version": "0.6.0",
