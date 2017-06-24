@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0
+### Breaking
+- Use the nested DOM structure instead of the flat list items
+- More readable font
+  - `font-size: 13px` -> `14px`
+  - `line-height: 1.2` -> `1.25`
+- Remove `background-color` when list items were hovered
+
 ## 0.6.0
 - Functional programming
 - Refactor
