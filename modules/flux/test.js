@@ -1,5 +1,5 @@
 import test from 'tape'
-import { Action, Store, Dispatcher } from '../modules/flux/index.js'
+import { Action, Store, Dispatcher } from './index.js'
 
 const key = {
   BAR: Symbol('bar'),

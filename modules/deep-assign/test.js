@@ -1,5 +1,5 @@
 import test from 'tape'
-import deepAssign from '../modules/deep-assign/index.js'
+import deepAssign from './index.js'
 
 test('deep-assign', t => {
   t.test('', t => {

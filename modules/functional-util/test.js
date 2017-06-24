@@ -1,5 +1,5 @@
 import test from 'tape'
-import { prop, map, filter, pipe, apply, always } from '../modules/functional-util/index.js'
+import { prop, map, filter, pipe, apply, always } from './index.js'
 
 test('prop', t => {
   const obj = {

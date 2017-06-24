@@ -1,2 +1,3 @@
 dist
 test
+modules/**/test.js

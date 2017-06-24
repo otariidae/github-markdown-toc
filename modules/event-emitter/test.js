@@ -1,5 +1,5 @@
 import test from 'tape'
-import EventEmitter from '../modules/event-emitter/index.js'
+import EventEmitter from './index.js'
 
 test('event-emitter', t => {
   t.test('on', t => {

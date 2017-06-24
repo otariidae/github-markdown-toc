@@ -1,5 +1,5 @@
 import test from 'tape'
-import isPlainObj from '../modules/is-plain-object/index.js'
+import isPlainObj from './index.js'
 
 test('is-plain-object', t => {
 
