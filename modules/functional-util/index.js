@@ -2,55 +2,41 @@
  * @param {string|Symbol} property
  * @returns {function(object)}
  */
-export function prop (property) {
-  return object => object[property]
-}
+export const prop = property => object => object[property]
 
 /**
  * @param {function} fun
  * @returns {function(Array): Array}
  */
-export function map (fun) {
-  return arr => arr.map(fun)
-}
+export const map = fun => arr => arr.map(fun)
 
 /**
  * @param {function: boolean} fun
  * @returns {function(Array): Array}
  */
-export function filter (fun) {
-  return arr => arr.filter(fun)
-}
+export const filter = fun => arr => arr.filter(fun)
 
 /**
  * @param {function} f
  * @param {function} g
  * @returns {function(...args)}
  */
-function _pipe (f, g) {
-  return (...args) => g(f(...args))
-}
+const _pipe = (f, g) => (...args) => g(f(...args))
 
 /**
  * @param {...function} funs
  * @returns {function}
  */
-export function pipe (...funs) {
-  return funs.reduce(_pipe)
-}
+export const pipe = (...funs) => funs.reduce(_pipe)
 
 /**
  * @param {function} fun
  * @returns {function(Array)}
  */
-export function apply (fun) {
-  return arg => fun(...arg)
-}
+export const apply = fun => arg => fun(...arg)
 
 /**
  * @param {*} arg
  * @returns {function}
  */
-export function always (arg) {
-  return () => arg
-}
+export const always = arg => () => arg
