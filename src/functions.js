@@ -6,7 +6,7 @@ import { prop, filter, pipe, apply, always } from '../modules/functional-util/in
  * @property {number} level
  * @property {string} text
  * @property {?HeaderObject} parent
- * @property {?HeaderList} children
+ * @property {HeaderList} children
  */
 
 /**
