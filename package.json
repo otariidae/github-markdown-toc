@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "codecov": "^2.2.0",
     "eslint": "^4.1.1",
     "eslint-config-standard": "^10.2.0",
     "eslint-plugin-import": "^2.6.0",
@@ -9,6 +10,7 @@
     "jsdom": "^11.0.0",
     "material-colors": "^1.2.5",
     "npm-run-all": "^4.0.1",
+    "nyc": "^11.0.3",
     "postcss-cli": "^4.1.0",
     "postcss-custom-properties": "^6.1.0",
     "postcss-import": "^10.0.0",
@@ -34,6 +36,10 @@
     "build": "npm-run-all clean --parallel build:*",
     "lint": "eslint src lib modules",
     "test": "tape --require reify test/*.js modules/*/test.js",
+    "precov": "nyc npm test",
+    "cov": "nyc report --reporter=text-lcov > coverage.lcov",
+    "precodecov": "npm run cov",
+    "codecov": "codecov",
     "release": "npm-run-all --parallel lint test --serial build zip",
     "preversion": "run-p lint test",
     "version": "npm run build:meta",

@@ -3,3 +3,6 @@ node_modules
 dist
 .reify-cache
 github-markdown-toc.zip
+.nyc_output
+coverage
+coverage.lcov
