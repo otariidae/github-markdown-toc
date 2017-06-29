@@ -18,6 +18,8 @@ test('event-emitter', t => {
     }
     emitter.on(type, func)
     t.ok(emitter.off(type, func))
+    t.notOk(emitter.off(type, () => {}))
+    t.notOk(emitter.off('undefined type', () => {}))
     t.end()
   })
   t.test('emit', t => {
