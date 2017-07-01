@@ -2,7 +2,7 @@ import test from 'tape'
 import deepAssign from './index.js'
 
 test('deep-assign', t => {
-  t.test('', t => {
+  t.test('basic use', t => {
     const target = {
       hoge: 'fuga'
     }

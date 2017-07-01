@@ -5,8 +5,7 @@ test('event-emitter', t => {
   t.test('on', t => {
     const emitter = new EventEmitter()
     const type = 'foo'
-    const func = () => {
-    }
+    const func = () => {}
     emitter.on(type, func)
     t.ok(emitter._handlers.get(type).has(func))
     t.end()
@@ -14,8 +13,7 @@ test('event-emitter', t => {
   t.test('off', t => {
     const emitter = new EventEmitter()
     const type = 'foo'
-    const func = () => {
-    }
+    const func = () => {}
     emitter.on(type, func)
     t.ok(emitter.off(type, func))
     t.notOk(emitter.off(type, () => {}))
@@ -26,7 +24,7 @@ test('event-emitter', t => {
     const emitter = new EventEmitter()
     const type = 'foo'
     const data = 'baz'
-    const func = (arg) => {
+    const func = arg => {
       t.equal(arg, data)
       t.end()
     }
