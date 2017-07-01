@@ -1,4 +1,17 @@
 /**
+ * @param {function} fun
+ * @returns {function}
+ */
+export function curry1 (fun) {
+  return (...arg) => {
+    if (arg.length < fun.length) return fun.bind(null, ...arg)
+    return fun(...arg)
+  }
+}
+
+// export const part
+
+/**
  * @param {function} f
  * @param {function} g
  * @returns {function(...args)}
@@ -22,3 +35,4 @@ export const apply = fun => arg => fun(...arg)
  * @returns {function}
  */
 export const always = arg => () => arg
+
