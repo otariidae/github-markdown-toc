@@ -1,7 +1,7 @@
 import test from 'tape'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
-import { createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createTree, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
+import { Header, HeaderRoot, createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createTree, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
 
 // shared classes
 const {
@@ -10,13 +10,7 @@ const {
 } = (new JSDOM('')).window
 
 test('createHeader', t => {
-  t.deepEqual(createHeader('foo', 42, 'bar'), {
-    link: 'foo',
-    level: 42,
-    text: 'bar',
-    parent: null,
-    children: []
-  })
+  t.deepEqual(createHeader('foo', 42, 'bar'), new Header('foo', 42, 'bar'))
   t.end()
 })
 
@@ -74,6 +68,8 @@ test('createTree', t => {
   ]
   const result = createTree(a)
 
+  t.ok(result instanceof HeaderRoot)
+  t.ok(result.children.every(item => item instanceof Header))
   t.equal(result.children[0].text, 'foo')
   t.equal(result.children[0].children[0].text, 'goo')
   t.equal(result.children[1].text, 'hoo')
@@ -91,6 +87,9 @@ test('createHeaders', t => {
   const result = f(elements)
 
   t.equal(typeof f, 'function')
+  t.ok(result instanceof Header)
+  t.ok(result.children.every(item => item instanceof Header))
+  t.ok(result.children[0].children.every(item => item instanceof Header))
   t.deepEqual(result.children.length, 1)
   t.deepEqual(result.children[0].children.length, 2)
   t.deepEqual(result.children[0].text, 'foo')

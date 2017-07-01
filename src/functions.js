@@ -1,32 +1,43 @@
 import { prop, filter, pipe, apply, always } from '../modules/functional-util/index.js'
 
-/**
- * @typedef {object} HeaderObject
- * @property {string} link
- * @property {number} level
- * @property {string} text
- * @property {?HeaderObject} parent
- * @property {HeaderList} children
- */
+export class Header {
+  /**
+   * @param {string} link
+   * @param {number} level
+   * @param {string} text
+   */
+  constructor (link = '', level = 1, text = '') {
+    this.link = link
+    this.level = level
+    this.text = text
+    this.parent = null
+    this.children = []
+  }
+  /**
+   * @param {Header} child
+   * @returns {Header}
+   */
+  appendChild (child) {
+    this.children.push(child)
+    child.parent = this
+    return child
+  }
+}
 
-/**
- * @typedef {HeaderObject[]} HeaderList
- */
+export class HeaderRoot extends Header {
+  constructor () {
+    super(null, 0, null)
+  }
+}
 
 /**
  * @param {string} link
  * @param {number} level
  * @param {string} text
- * @returns {HeaderObject}
+ * @returns {Header}
  */
 export function createHeader (link, level, text) {
-  return {
-    link,
-    level,
-    text,
-    children: [],
-    parent: null
-  }
+  return new Header(link, level, text)
 }
 
 /**
@@ -128,34 +139,23 @@ function findParent (current, previous) {
 }
 
 /**
- * an inpure function
- * @param {HeaderObject} parent
- * @param {HeaderObject} child
- */
-function appendChild (parent, child) {
-  child.parent = parent
-  parent.children.push(child)
-}
-
-/**
  * @param {Array} arr
- * @returns {object}
+ * @returns {HeaderRoot}
  */
 export function createTree (arr) {
-  const root = createHeader(null, 0, null)
+  const root = new HeaderRoot()
   arr
     .map(apply(createHeader))
     .reduce((previous, current) => {
       const parent = findParent(current, previous)
-      appendChild(parent, current)
-      return current
+      return parent.appendChild(current)
     }, root)
   return root
 }
 
 /**
  * @param {...function} fun
- * @returns {function(Element): HeaderList}
+ * @returns {function(Element): HeaderRoot}
  */
 export function createHeaders (...fun) {
   return pipe(filterEmptyText, ...fun, createTree)
