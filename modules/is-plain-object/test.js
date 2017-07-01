@@ -1,30 +1,58 @@
-import test from 'tape'
+import { describe, it as test } from 'kocha'
+import t from 'assert'
 import isPlainObj from './index.js'
 
-test('is-plain-object', t => {
+describe('is-plain-object', () => {
 
   class Foo {
   }
 
-  t.ok(isPlainObj({}))
-  t.ok(isPlainObj(Object.create(null)))
-  t.ok(isPlainObj(new Proxy({}, {})))
-
-  t.notOk(isPlainObj())
-  t.notOk(isPlainObj('string'))
-  t.notOk(isPlainObj(new String('string')))
-  t.notOk(isPlainObj(42))
-  t.notOk(isPlainObj(NaN))
-  t.notOk(isPlainObj(new Number(42)))
-  t.notOk(isPlainObj([]))
-  t.notOk(isPlainObj(/regexp/))
-  t.notOk(isPlainObj(true))
-  t.notOk(isPlainObj(false))
-  t.notOk(isPlainObj(null))
-  t.notOk(isPlainObj(undefined))
-  t.notOk(isPlainObj(new Error()))
-  t.notOk(isPlainObj(new Date()))
-  t.notOk(isPlainObj(() => {}))
-  t.notOk(isPlainObj(new Foo()))
-  t.end()
+  test('{}', () => {
+    t.ok(isPlainObj({}))
+  })
+  test('Object.create(null)', () => {
+    t.ok(isPlainObj(Object.create(null)))
+  })
+  test('proxy', () => {
+    t.ok(isPlainObj(new Proxy({}, {})))
+  })
+  test('no argument', () => {
+    t.ifError(isPlainObj())
+  })
+  test('string', () => {
+    t.ifError(isPlainObj('string'))
+    t.ifError(isPlainObj(new String('string')))
+  })
+  test('number', () => {
+    t.ifError(isPlainObj(42))
+    t.ifError(isPlainObj(new Number(42)))
+    t.ifError(isPlainObj(NaN))
+  })
+  test('array', () => {
+    t.ifError(isPlainObj([]))
+  })
+  test('regexp', () => {
+    t.ifError(isPlainObj(/regexp/))
+  })
+  test('booelan', () => {
+    t.ifError(isPlainObj(true))
+    t.ifError(isPlainObj(false))
+  })
+  test('null', () => {
+    t.ifError(isPlainObj(null))
+  })
+  test('undefined', () => {
+    t.ifError(isPlainObj(undefined))
+  })
+  test('function', () => {
+    t.ifError(isPlainObj(() => {}))
+    t.ifError(isPlainObj(Foo))
+  })
+  test('class instance', () => {
+    t.ifError(isPlainObj(new Foo()))
+  })
+  test('other build-in objects', () => {
+    t.ifError(isPlainObj(new Error()))
+    t.ifError(isPlainObj(new Date()))
+  })
 })

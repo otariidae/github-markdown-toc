@@ -1,35 +1,39 @@
-import test from 'tape'
+import { describe, it as test } from 'kocha'
+import t from 'assert'
 import EventEmitter from './index.js'
 
-test('event-emitter', t => {
-  t.test('on', t => {
+describe('event-emitter', () => {
+  test('on', () => {
     const emitter = new EventEmitter()
     const type = 'foo'
     const func = () => {}
     emitter.on(type, func)
     t.ok(emitter._handlers.get(type).has(func))
-    t.end()
   })
-  t.test('off', t => {
+  describe('off', () => {
     const emitter = new EventEmitter()
-    const type = 'foo'
-    const func = () => {}
-    emitter.on(type, func)
-    t.ok(emitter.off(type, func))
-    t.notOk(emitter.off(type, () => {}))
-    t.notOk(emitter.off('undefined type', () => {}))
-    t.end()
+
+    test('defined type', () => {
+      const type = 'foo'
+      const func = () => {}
+      emitter.on(type, func)
+      t.ok(emitter.off(type, func))
+      t.ifError(emitter.off(type, () => {}))
+    })
+    test('undefined type', () => {
+      t.ifError(emitter.off('undefined type', () => {}))
+    })
   })
-  t.test('emit', t => {
+  test('emit', done => {
     const emitter = new EventEmitter()
     const type = 'foo'
     const data = 'baz'
     const func = arg => {
       t.equal(arg, data)
-      t.end()
+      done()
     }
     emitter.on(type, func)
     emitter.emit(type, data)
   })
-  t.end()
 })
+

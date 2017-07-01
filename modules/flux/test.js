@@ -1,4 +1,5 @@
-import test from 'tape'
+import { describe, it as test } from 'kocha'
+import t from 'assert'
 import { Action, Store, Dispatcher } from './index.js'
 
 const key = {
@@ -23,41 +24,42 @@ class TestStore extends Store {
   }
 }
 
-test('flux-action', t => {
-  const testData = {
-    baz: true
-  }
-  const dispatcher = new Dispatcher()
-  const action = new TestAction(dispatcher)
-  dispatcher.on(key.BAR, data => {
-    t.deepEqual(data, testData)
-    t.end()
-  })
-  action.foo(testData)
-})
-
-test('flux-store', t => {
-  t.test('onChange', t => {
+describe('flux', () => {
+  test('action', done => {
     const testData = {
-      piyo: false
+      baz: true
     }
     const dispatcher = new Dispatcher()
-    const store = new TestStore(dispatcher)
-    store.onChange(() => {
-      const state = store.getState()
-      t.deepEqual(state, testData)
-      t.notOk(Object.is(state, testData))
-      t.end()
+    const action = new TestAction(dispatcher)
+    dispatcher.on(key.BAR, data => {
+      t.deepEqual(data, testData)
+      done()
     })
-    dispatcher.emit(key.HOGE, testData)
+    action.foo(testData)
   })
-  t.test('removeChangeListener', t => {
-    const dispatcher = new Dispatcher()
-    const store = new TestStore(dispatcher)
-    const func = () => {}
-    store.onChange(func)
-    t.ok(store.removeChangeListener(func))
-    t.end()
+
+  describe('store', () => {
+    test('onChange', done => {
+      const testData = {
+        piyo: false
+      }
+      const dispatcher = new Dispatcher()
+      const store = new TestStore(dispatcher)
+      store.onChange(() => {
+        const state = store.getState()
+        t.deepEqual(state, testData)
+        t.ifError(Object.is(state, testData))
+        done()
+      })
+      dispatcher.emit(key.HOGE, testData)
+    })
+    test('removeChangeListener', done => {
+      const dispatcher = new Dispatcher()
+      const store = new TestStore(dispatcher)
+      const func = () => {}
+      store.onChange(func)
+      t.ok(store.removeChangeListener(func))
+      done()
+    })
   })
-  t.end()
 })

@@ -1,4 +1,5 @@
-import test from 'tape'
+import { describe, it as test } from 'kocha'
+import t from 'assert'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
 import { Header, HeaderRoot, createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createTree, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
@@ -9,9 +10,8 @@ const {
   Element
 } = (new JSDOM('')).window
 
-test('createHeader', t => {
+test('createHeader', () => {
   t.deepEqual(createHeader('foo', 42, 'bar'), new Header('foo', 42, 'bar'))
-  t.end()
 })
 
 {
@@ -25,16 +25,15 @@ test('createHeader', t => {
   const foo = frag.querySelector('h1')
   const bar = frag.querySelector('h2')
 
-  test('querySelector', t => {
+  test('querySelector', () => {
     const f = querySelector('h1')
     const result = f(frag)
 
     t.equal(typeof f, 'function')
     t.ok(Object.is(result, foo))
-    t.end()
   })
 
-  test('querySelectorAll', t => {
+  test('querySelectorAll', () => {
     const f = querySelectorAll('h1, h2')
     const result = f(frag)
     const [_foo, _bar] = result
@@ -44,10 +43,9 @@ test('createHeader', t => {
     t.equal(result.length, 2)
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
-    t.end()
   })
 
-  test('querySelectorAllArray', t => {
+  test('querySelectorAllArray', () => {
     const f = querySelectorAllArray('h1, h2')
     const result = f(frag)
     const [_foo, _bar] = result
@@ -57,10 +55,9 @@ test('createHeader', t => {
     t.equal(result.length, 2)
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
-    t.end()
   })
 
-  test('createTree', t => {
+  test('createTree', () => {
     const a = [
       ['https://example.com', 1, 'foo'],
       ['https://example.com', 2, 'goo'],
@@ -73,10 +70,9 @@ test('createHeader', t => {
     t.equal(result.children[0].text, 'foo')
     t.equal(result.children[0].children[0].text, 'goo')
     t.equal(result.children[1].text, 'hoo')
-    t.end()
   })
 
-  test('createHeaders', t => {
+  test('createHeaders', () => {
     const frag = JSDOM.fragment(`
       <h1>foo</h1>
       <h3>bar</h3>
@@ -95,10 +91,9 @@ test('createHeader', t => {
     t.deepEqual(result.children[0].text, 'foo')
     t.deepEqual(result.children[0].children[0].text, 'bar')
     t.deepEqual(result.children[0].children[1].text, 'baz')
-    t.end()
   })
 
-  test('selectAllHeaderElement', t => {
+  test('selectAllHeaderElement', () => {
     const result = selectAllHeaderElement(frag)
     const [_foo, _bar] = result
 
@@ -106,7 +101,6 @@ test('createHeader', t => {
     t.equal(result.length, 2)
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
-    t.end()
   })
 }
 
@@ -117,30 +111,27 @@ test('createHeader', t => {
   `)
   const elements = Array.from(frag.children)
   const [foo, baz] = elements
-  test('hasText', t => {
+  test('hasText', () => {
     t.ok(hasText(foo))
-    t.notOk(hasText(baz))
-    t.end()
+    t.ifError(hasText(baz))
   })
 
-  test('filterEmptyText', t => {
+  test('filterEmptyText', () => {
     const result = filterEmptyText(elements)
     const [_foo] = result
 
     t.ok(foo instanceof Element)
     t.equal(result.length, 1)
     t.ok(Object.is(_foo, foo))
-    t.end()
   })
 
-  test('id2link', t => {
+  test('id2link', () => {
     t.equal(id2link(foo), '#foo')
     t.equal(id2link(baz), '#baz')
-    t.end()
   })
 }
 
-test('hrefOrID', t => {
+describe('hrefOrID', () => {
   const frag = JSDOM.fragment(`
     <h2>
       <a id="user-content-license" class="anchor" href="#license"></a>
@@ -148,22 +139,24 @@ test('hrefOrID', t => {
     </h2>
   `)
   const a = frag.querySelector('.anchor')
-  const f = hrefOrID(true)
-  const g = hrefOrID(false)
 
-  t.equal(typeof f, 'function')
-  t.equal(typeof g, 'function')
-  t.equal(f(a), '#license')
-  t.equal(g(a), '#user-content-license')
-  t.end()
+  test('true', () => {
+    const f = hrefOrID(true)
+    t.equal(typeof f, 'function')
+    t.equal(f(a), '#license')
+  })
+  test('false', () => {
+    const g = hrefOrID(false)
+    t.equal(typeof g, 'function')
+    t.equal(g(a), '#user-content-license')
+  })
 })
 
-test('hash', t => {
+test('hash', () => {
   t.equal(hash('foo'), '#foo')
-  t.end()
 })
 
-test('trimmedText', t => {
+describe('trimmedText', () => {
   const frag = JSDOM.fragment(`
     <p>foo </p>
     <p>  bar</p>
@@ -171,13 +164,18 @@ test('trimmedText', t => {
   `)
   const [foo, bar, space] = frag.children
 
-  t.equal(trimmedText(foo), 'foo')
-  t.equal(trimmedText(bar), 'bar')
-  t.equal(trimmedText(space), '')
-  t.end()
+  test('right', () => {
+    t.equal(trimmedText(foo), 'foo')
+  })
+  test('left', () => {
+    t.equal(trimmedText(bar), 'bar')
+  })
+  test('all', () => {
+    t.equal(trimmedText(space), '')
+  })
 })
 
-test('headerLevel', t => {
+test('headerLevel', () => {
   const frag = JSDOM.fragment(`
       <h1>foo</h1>
       <h2>bar</h2>
@@ -188,54 +186,59 @@ test('headerLevel', t => {
   t.equal(headerLevel(foo), 1)
   t.equal(headerLevel(bar), 2)
   t.equal(headerLevel(baz), 3)
-  t.end()
 })
 
-test('element2Array', t => {
+describe('element2Array', () => {
   const frag = JSDOM.fragment(`
     <p id="foo" tabindex="42">
       baz
     </p>
   `)
-  const f = element2Array(
-    () => 'foo',
-    () => 42,
-    () => 'baz'
-  )
-  const g = element2Array(
-    elm => elm.id,
-    elm => Number(elm.getAttribute('tabindex')),
-    elm => elm.textContent.trim()
-  )
   const root = frag.firstElementChild
-  const resultF = f(root)
-  const resultG = g(root)
 
-  t.equal(typeof f, 'function')
-  t.equal(typeof g, 'function')
-  t.deepEqual(resultF, ['foo', 42, 'baz'])
-  t.deepEqual(resultG, ['foo', 42, 'baz'])
-  t.end()
+  test('simple', () => {
+    const f = element2Array(
+      () => 'foo',
+      () => 42,
+      () => 'baz'
+    )
+    const result = f(root)
+    t.equal(typeof f, 'function')
+    t.deepEqual(result, ['foo', 42, 'baz'])
+  })
+  test('basic use', () => {
+    const f = element2Array(
+      elm => elm.id,
+      elm => Number(elm.getAttribute('tabindex')),
+      elm => elm.textContent.trim()
+    )
+    const result = f(root)
+    t.equal(typeof f, 'function')
+    t.deepEqual(result, ['foo', 42, 'baz'])
+  })
 })
 
-test('element2ArrayAnchorAndFlatLevel', t => {
+describe('element2ArrayAnchorAndFlatLevel', () => {
   const frag = JSDOM.fragment(`
     <h1>
       <a href="/tag/v1.0.0">1.0.0</a>
     </h1>
   `)
   const h = frag.firstElementChild
-  const f = element2ArrayAnchorAndFlatLevel(1)
-  const g = element2ArrayAnchorAndFlatLevel(42)
 
-  t.equal(typeof f, 'function')
-  t.equal(typeof g, 'function')
-  t.deepEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
-  t.deepEqual(g(h), ['/tag/v1.0.0', 42, '1.0.0'])
-  t.end()
+  test('1', () => {
+    const f = element2ArrayAnchorAndFlatLevel(1)
+    t.equal(typeof f, 'function')
+    t.deepEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
+  })
+  test('42', () => {
+    const f = element2ArrayAnchorAndFlatLevel(42)
+    t.equal(typeof f, 'function')
+    t.deepEqual(f(h), ['/tag/v1.0.0', 42, '1.0.0'])
+  })
 })
 
-test('markdownElement2Array', t => {
+describe('markdownElement2Array', () => {
   const frag = JSDOM.fragment(`
     <h1>
       <a id="user-content-license" class="anchor" href="#license"></a>
@@ -243,12 +246,16 @@ test('markdownElement2Array', t => {
     </h1>
   `)
   const h = frag.firstElementChild
-  const f = markdownElement2Array(true)
-  const g = markdownElement2Array(false)
 
-  t.equal(typeof f, 'function')
-  t.equal(typeof g, 'function')
-  t.deepEqual(f(h), ['#license', 1, 'License'])
-  t.deepEqual(g(h), ['#user-content-license', 1, 'License'])
-  t.end()
+  test('true', () => {
+    const f = markdownElement2Array(true)
+    t.equal(typeof f, 'function')
+    t.deepEqual(f(h), ['#license', 1, 'License'])
+  })
+  test('false', () => {
+    const g = markdownElement2Array(false)
+    t.equal(typeof g, 'function')
+    t.deepEqual(g(h), ['#user-content-license', 1, 'License'])
+  })
 })
+

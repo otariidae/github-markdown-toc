@@ -1,4 +1,5 @@
-import test from 'tape'
+import { it as test } from 'kocha'
+import t from 'assert'
 import { URL } from 'url'
 import { JSDOM } from 'jsdom'
 import PageFactory, { GitHubPage, ReleasePage, CodePage, WikiPage, UnknownPage } from '../src/page.js'
@@ -8,15 +9,14 @@ const {
   HTMLHeadingElement
 } = (new JSDOM('')).window
 
-test('UnknownPage', t => {
+test('UnknownPage', () => {
   const page = new UnknownPage()
 
   t.ok(page instanceof GitHubPage)
   t.deepEqual(page.getHeaders(), [])
-  t.end()
 })
 
-test('ReleasePage', t => {
+test('ReleasePage', () => {
   const frag = JSDOM.fragment(`
     <div class="release-timeline">
       <div class="release label-latest">
@@ -55,10 +55,9 @@ test('ReleasePage', t => {
   t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 3)
-  t.end()
 })
 
-test('Code Page', t => {
+test('Code Page', () => {
   const frag = JSDOM.fragment(`
     <article class="markdown-body">
       <h1>
@@ -91,10 +90,9 @@ test('Code Page', t => {
   t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 4)
-  t.end()
 })
 
-test('Wiki Page', t => {
+test('Wiki Page', () => {
   const frag = JSDOM.fragment(`
     <div id="wiki-content" class="wiki-content">
       <div>
@@ -132,10 +130,9 @@ test('Wiki Page', t => {
   t.ok(Array.isArray(headers))
   t.ok(headers.every(e => e instanceof HTMLHeadingElement))
   t.equal(headers.length, 4)
-  t.end()
 })
 
-test('PageFactory', t => {
+test('PageFactory', () => {
   global.URL = URL
 
   const p0 = PageFactory.createFromUrl('https://github.com/example/example-project')
@@ -153,5 +150,5 @@ test('PageFactory', t => {
   t.ok(p5 instanceof UnknownPage)
 
   delete global.URL
-  t.end()
 })
+

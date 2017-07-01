@@ -1,8 +1,9 @@
-import test from 'tape'
+import { describe, it as test } from 'kocha'
+import t from 'assert'
 import deepAssign from './index.js'
 
-test('deep-assign', t => {
-  t.test('basic use', t => {
+describe('deep-assign', () => {
+  test('basic use', () => {
     const target = {
       hoge: 'fuga'
     }
@@ -22,14 +23,13 @@ test('deep-assign', t => {
     const result = deepAssign(target, source)
 
     t.ok(Object.is(target, result))
-    t.notOk(Object.is(result, expected))
-    t.notOk(Object.is(source.baz, result.baz))
+    t.ifError(Object.is(result, expected))
+    t.ifError(Object.is(source.baz, result.baz))
     t.deepEqual(result, target)
     t.deepEqual(expected, result)
-    t.end()
   })
 
-  t.test('Object.create(null)', t => {
+  test('Object.create(null)', () => {
     const nullProtoObj = Object.create(null)
     const obj = {
       foo: 'bar'
@@ -37,18 +37,13 @@ test('deep-assign', t => {
     const result = deepAssign(nullProtoObj, obj)
 
     t.equal(Object.getPrototypeOf(result), null)
-    t.end()
   })
 
-  t.test('ignore null', t => {
+  test('ignore null', () => {
     t.deepEqual(deepAssign({}, null), {})
-    t.end()
   })
 
-  t.test('ignore undefined', t => {
+  test('ignore undefined', () => {
     t.deepEqual(deepAssign({}, undefined), {})
-    t.end()
   })
-
-  t.end()
 })
