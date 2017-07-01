@@ -14,7 +14,7 @@ test('createHeader', t => {
   t.end()
 })
 
-test(({ test }) => {
+{
   const frag = JSDOM.fragment(`
     <article class="markdown-body">
       <h1>foo</h1>
@@ -60,43 +60,43 @@ test(({ test }) => {
     t.end()
   })
 
-test('createTree', t => {
-  const a = [
-    ['https://example.com', 1, 'foo'],
-    ['https://example.com', 2, 'goo'],
-    ['https://example.com', 1, 'hoo']
-  ]
-  const result = createTree(a)
+  test('createTree', t => {
+    const a = [
+      ['https://example.com', 1, 'foo'],
+      ['https://example.com', 2, 'goo'],
+      ['https://example.com', 1, 'hoo']
+    ]
+    const result = createTree(a)
 
-  t.ok(result instanceof HeaderRoot)
-  t.ok(result.children.every(item => item instanceof Header))
-  t.equal(result.children[0].text, 'foo')
-  t.equal(result.children[0].children[0].text, 'goo')
-  t.equal(result.children[1].text, 'hoo')
-  t.end()
-})
+    t.ok(result instanceof HeaderRoot)
+    t.ok(result.children.every(item => item instanceof Header))
+    t.equal(result.children[0].text, 'foo')
+    t.equal(result.children[0].children[0].text, 'goo')
+    t.equal(result.children[1].text, 'hoo')
+    t.end()
+  })
 
-test('createHeaders', t => {
-  const frag = JSDOM.fragment(`
-    <h1>foo</h1>
-    <h3>bar</h3>
-    <h2>baz</h2>
-  `)
-  const elements = Array.from(frag.children)
-  const f = createHeaders(map(p => ['#example', headerLevel(p), p.textContent]))
-  const result = f(elements)
+  test('createHeaders', t => {
+    const frag = JSDOM.fragment(`
+      <h1>foo</h1>
+      <h3>bar</h3>
+      <h2>baz</h2>
+    `)
+    const elements = Array.from(frag.children)
+    const f = createHeaders(map(p => ['#example', headerLevel(p), p.textContent]))
+    const result = f(elements)
 
-  t.equal(typeof f, 'function')
-  t.ok(result instanceof Header)
-  t.ok(result.children.every(item => item instanceof Header))
-  t.ok(result.children[0].children.every(item => item instanceof Header))
-  t.deepEqual(result.children.length, 1)
-  t.deepEqual(result.children[0].children.length, 2)
-  t.deepEqual(result.children[0].text, 'foo')
-  t.deepEqual(result.children[0].children[0].text, 'bar')
-  t.deepEqual(result.children[0].children[1].text, 'baz')
-  t.end()
-})
+    t.equal(typeof f, 'function')
+    t.ok(result instanceof Header)
+    t.ok(result.children.every(item => item instanceof Header))
+    t.ok(result.children[0].children.every(item => item instanceof Header))
+    t.deepEqual(result.children.length, 1)
+    t.deepEqual(result.children[0].children.length, 2)
+    t.deepEqual(result.children[0].text, 'foo')
+    t.deepEqual(result.children[0].children[0].text, 'bar')
+    t.deepEqual(result.children[0].children[1].text, 'baz')
+    t.end()
+  })
 
   test('selectAllHeaderElement', t => {
     const result = selectAllHeaderElement(frag)
@@ -108,9 +108,9 @@ test('createHeaders', t => {
     t.ok(Object.is(_bar, bar))
     t.end()
   })
-})
+}
 
-test(({ test }) => {
+{
   const frag = JSDOM.fragment(`
     <p id="foo">bar</p>
     <p id="baz"></p>
@@ -138,7 +138,7 @@ test(({ test }) => {
     t.equal(id2link(baz), '#baz')
     t.end()
   })
-})
+}
 
 test('hrefOrID', t => {
   const frag = JSDOM.fragment(`
