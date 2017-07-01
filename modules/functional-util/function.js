@@ -40,4 +40,3 @@ export const apply = curry1(_apply)
  * @returns {function}
  */
 export const always = arg => () => arg
-
