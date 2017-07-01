@@ -9,7 +9,12 @@ export function curry1 (fun) {
   }
 }
 
-// export const part
+/**
+ * @param {function} fun
+ * @param {Array} arg
+ * @returns {*}
+ */
+const _apply = (fun, arg) => fun(...arg)
 
 /**
  * @param {function} f
@@ -28,7 +33,7 @@ export const pipe = (...funs) => funs.reduce(_pipe)
  * @param {function} fun
  * @returns {function(Array)}
  */
-export const apply = fun => arg => fun(...arg)
+export const apply = curry1(_apply)
 
 /**
  * @param {*} arg
