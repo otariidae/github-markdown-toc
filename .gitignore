@@ -6,3 +6,4 @@ github-markdown-toc.zip
 .nyc_output
 coverage
 coverage.lcov
+*.log
