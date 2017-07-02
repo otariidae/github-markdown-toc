@@ -24,7 +24,7 @@ export default class PageFactory {
  */
 export class GitHubPage {
   /**
-   * @returns {Promise<HeaderList>}
+   * @returns {Promise<Header>}
    */
   async getHeaderList () {
     return createHeaders(await this.elementsToArray())(this.getHeaders(document))
