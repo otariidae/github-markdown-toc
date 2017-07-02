@@ -1,4 +1,4 @@
-import { it as test } from 'kocha'
+import { describe, it as test } from 'kocha'
 import t from 'assert'
 import { URL } from 'url'
 import { JSDOM } from 'jsdom'
@@ -9,14 +9,18 @@ const {
   HTMLHeadingElement
 } = (new JSDOM('')).window
 
-test('UnknownPage', () => {
+describe('UnknownPage', () => {
   const page = new UnknownPage()
 
-  t.ok(page instanceof GitHubPage)
-  t.deepEqual(page.getHeaders(), [])
+  test('inheritance', () => {
+    t.ok(page instanceof GitHubPage)
+  })
+  test('getHeaders', () => {
+    t.deepEqual(page.getHeaders(), [])
+  })
 })
 
-test('ReleasePage', () => {
+describe('ReleasePage', () => {
   const frag = JSDOM.fragment(`
     <div class="release-timeline">
       <div class="release label-latest">
@@ -49,15 +53,19 @@ test('ReleasePage', () => {
     </div>
   `)
   const page = new ReleasePage()
-  const headers = page.getHeaders(frag)
 
-  t.ok(page instanceof GitHubPage)
-  t.ok(Array.isArray(headers))
-  t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-  t.equal(headers.length, 3)
+  test('inheritance', () => {
+    t.ok(page instanceof GitHubPage)
+  })
+  test('getHeaders', () => {
+    const headers = page.getHeaders(frag)
+    t.ok(Array.isArray(headers))
+    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headers.length, 3)
+  })
 })
 
-test('Code Page', () => {
+describe('Code Page', () => {
   const frag = JSDOM.fragment(`
     <article class="markdown-body">
       <h1>
@@ -86,13 +94,18 @@ test('Code Page', () => {
   const page = new CodePage()
   const headers = page.getHeaders(frag)
 
-  t.ok(page instanceof GitHubPage)
-  t.ok(Array.isArray(headers))
-  t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-  t.equal(headers.length, 4)
+  test('inheritance', () => {
+    t.ok(page instanceof GitHubPage)
+  })
+  test('getHeaders', () => {
+    const headers = page.getHeaders(frag)
+    t.ok(Array.isArray(headers))
+    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headers.length, 4)
+  })
 })
 
-test('Wiki Page', () => {
+describe('Wiki Page', () => {
   const frag = JSDOM.fragment(`
     <div id="wiki-content" class="wiki-content">
       <div>
@@ -124,12 +137,16 @@ test('Wiki Page', () => {
     </div>
   `)
   const page = new WikiPage()
-  const headers = page.getHeaders(frag)
 
-  t.ok(page instanceof GitHubPage)
-  t.ok(Array.isArray(headers))
-  t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-  t.equal(headers.length, 4)
+  test('inheritance', () => {
+    t.ok(page instanceof GitHubPage)
+  })
+  test('getHeaders', () => {
+    const headers = page.getHeaders(frag)
+    t.ok(Array.isArray(headers))
+    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headers.length, 4)
+  })
 })
 
 test('PageFactory', () => {

@@ -25,24 +25,41 @@ test('createHeader', () => {
   const foo = frag.querySelector('h1')
   const bar = frag.querySelector('h2')
 
-  test('querySelector', () => {
-    const f = querySelector('h1')
-    const result = f(frag)
+  describe('querySelector', () => {
+    test('basic', () => {
+      const result = querySelector('h1')(frag)
+      t.ok(Object.is(result, foo))
+    })
+    test('curry', () => {
+      const f = querySelector('h1')
+      const result = f(frag)
 
-    t.equal(typeof f, 'function')
-    t.ok(Object.is(result, foo))
+      t.equal(typeof f, 'function')
+      t.ok(Object.is(result, foo))
+    })
   })
 
   test('querySelectorAll', () => {
-    const f = querySelectorAll('h1, h2')
-    const result = f(frag)
-    const [_foo, _bar] = result
+    test('basic', () => {
+      const result = querySelectorAll('h1, h2')(frag)
+      const [_foo, _bar] = result
 
-    t.equal(typeof f, 'function')
-    t.ok(result instanceof NodeList)
-    t.equal(result.length, 2)
-    t.ok(Object.is(_foo, foo))
-    t.ok(Object.is(_bar, bar))
+      t.ok(result instanceof NodeList)
+      t.equal(result.length, 2)
+      t.ok(Object.is(_foo, foo))
+      t.ok(Object.is(_bar, bar))
+    })
+    test('curry', () => {
+      const f = querySelectorAll('h1, h2')
+      const result = f(frag)
+      const [_foo, _bar] = result
+
+      t.equal(typeof f, 'function')
+      t.ok(result instanceof NodeList)
+      t.equal(result.length, 2)
+      t.ok(Object.is(_foo, foo))
+      t.ok(Object.is(_bar, bar))
+    })
   })
 
   test('querySelectorAllArray', () => {
