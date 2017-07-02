@@ -1,4 +1,4 @@
-import { prop, filter, pipe, apply, always } from '../modules/functional-util/index.js'
+import { curry1, prop, filter, pipe, apply, always } from '../modules/functional-util/index.js'
 
 export class Header {
   /**
@@ -42,19 +42,35 @@ export function createHeader (link, level, text) {
 
 /**
  * @param {string} query
- * @returns {function(Element): Node}
+ * @param {Element} root
+ * @returns {Node}
  */
-export function querySelector (query) {
-  return root => root.querySelector(query)
+function _querySelector (query, root) {
+  return root.querySelector(query)
 }
 
 /**
  * @param {string} query
+ * @param {Element} root
+ * @returns {NodeList}
+ */
+function _querySelectorAll (query, root) {
+  return root.querySelectorAll(query)
+}
+
+/**
+ * @function
+ * @param {string} query
+ * @returns {function(Element): Node}
+ */
+export const querySelector = curry1(_querySelector)
+
+/**
+ * @function
+ * @param {string} query
  * @returns {function(Element): NodeList}
  */
-export function querySelectorAll (query) {
-  return root => root.querySelectorAll(query)
-}
+export const querySelectorAll = curry1(_querySelectorAll)
 
 /**
  * @param {string} query
@@ -68,9 +84,7 @@ export function querySelectorAllArray (query) {
  * @param {string} str
  * @returns {string}
  */
-export function hash (str) {
-  return `#${str}`
-}
+export const hash = str => `#${str}`
 
 /**
  * @function
@@ -83,17 +97,13 @@ export const id2link = pipe(prop('id'), hash)
  * @param {boolean} isHref
  * @returns {function(HTMLAnchorElement): string}
  */
-export function hrefOrID (isHref) {
-  return isHref ? prop('hash') : id2link
-}
+export const hrefOrID = isHref => isHref ? prop('hash') : id2link
 
 /**
  * @param {string} str
  * @returns {string}
  */
-function trim (str) {
-  return str.trim()
-}
+const trim = str => str.trim()
 
 /**
  * @function
@@ -154,11 +164,11 @@ export function createTree (arr) {
 }
 
 /**
- * @param {...function} fun
+ * @param {function} fun
  * @returns {function(Element): HeaderRoot}
  */
-export function createHeaders (...fun) {
-  return pipe(filterEmptyText, ...fun, createTree)
+export function createHeaders (fun) {
+  return pipe(filterEmptyText, fun, createTree)
 }
 
 /**
