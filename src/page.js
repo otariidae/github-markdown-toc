@@ -1,5 +1,11 @@
 import { map } from '../modules/functional-util/index.js'
-import { createHeaders, querySelectorAllArray, selectAllHeaderElementFrom, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from './functions.js'
+import {
+  createHeaders,
+  querySelectorAllArray,
+  selectAllHeaderElementFrom,
+  element2ArrayAnchorAndFlatLevel,
+  markdownElement2Array
+} from './functions.js'
 import PageType from './page-type.js'
 import checkJSEnabled from './check-js-enabled.js'
 
@@ -27,7 +33,9 @@ export class GitHubPage {
    * @returns {Promise<Header>}
    */
   async getHeaderList () {
-    return createHeaders(await this.elementsToArray())(this.getHeaders(document))
+    return createHeaders(await this.elementsToArray())(
+      this.getHeaders(document)
+    )
   }
   /**
    * @private
@@ -98,5 +106,4 @@ export class WikiPage extends GitHubPage {
   }
 }
 
-export class UnknownPage extends GitHubPage {
-}
+export class UnknownPage extends GitHubPage {}

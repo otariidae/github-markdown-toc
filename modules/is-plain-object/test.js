@@ -3,9 +3,7 @@ import t from 'assert'
 import isPlainObj from './index.js'
 
 describe('is-plain-object', () => {
-
-  class Foo {
-  }
+  class Foo {}
 
   test('{}', () => {
     t.ok(isPlainObj({}))

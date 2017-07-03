@@ -36,4 +36,3 @@ describe('event-emitter', () => {
     emitter.emit(type, data)
   })
 })
-

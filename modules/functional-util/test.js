@@ -4,7 +4,7 @@ import { curry1, prop, map, filter, pipe, apply, always } from './index.js'
 
 describe('functional-util', () => {
   describe('curry1', () => {
-    const f = curry1((a, b, c) => (a + b + c))
+    const f = curry1((a, b, c) => a + b + c)
 
     test('is function', () => {
       t.equal(typeof f, 'function')
@@ -99,4 +99,3 @@ describe('functional-util', () => {
     })
   })
 })
-

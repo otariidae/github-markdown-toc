@@ -20,8 +20,8 @@ function copyObject (obj) {
  * @returns {object}
  */
 export default function deepAssign (target, ...sources) {
-  const copies = sources.map(source =>
-    isPlainObject(source) ? copyObject(source) : source
+  const copies = sources.map(
+    source => (isPlainObject(source) ? copyObject(source) : source)
   )
   return Object.assign(target, ...copies)
 }

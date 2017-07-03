@@ -1,4 +1,11 @@
-import { curry1, prop, filter, pipe, apply, always } from '../modules/functional-util/index.js'
+import {
+  curry1,
+  prop,
+  filter,
+  pipe,
+  apply,
+  always
+} from '../modules/functional-util/index.js'
 
 export class Header {
   /**
@@ -97,7 +104,7 @@ export const id2link = pipe(prop('id'), hash)
  * @param {boolean} isHref
  * @returns {function(HTMLAnchorElement): string}
  */
-export const hrefOrID = isHref => isHref ? prop('hash') : id2link
+export const hrefOrID = isHref => (isHref ? prop('hash') : id2link)
 
 /**
  * @param {string} str
@@ -154,12 +161,10 @@ function findParent (current, previous) {
  */
 export function createTree (arr) {
   const root = new HeaderRoot()
-  arr
-    .map(apply(createHeader))
-    .reduce((previous, current) => {
-      const parent = findParent(current, previous)
-      return parent.appendChild(current)
-    }, root)
+  arr.map(apply(createHeader)).reduce((previous, current) => {
+    const parent = findParent(current, previous)
+    return parent.appendChild(current)
+  }, root)
   return root
 }
 
@@ -176,7 +181,9 @@ export function createHeaders (fun) {
  * @param {Element}
  * @returns {HTMLHeadingElement[]}
  */
-export const selectAllHeaderElement = querySelectorAllArray('h1, h2, h3, h4, h5, h6')
+export const selectAllHeaderElement = querySelectorAllArray(
+  'h1, h2, h3, h4, h5, h6'
+)
 
 /**
  * @param {string} query

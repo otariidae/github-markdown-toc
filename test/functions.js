@@ -2,13 +2,30 @@ import { describe, it as test } from 'kocha'
 import t from 'assert'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
-import { Header, HeaderRoot, createHeader, querySelector, querySelectorAll, querySelectorAllArray, hash, id2link, hrefOrID, trimmedText, headerLevel, hasText, filterEmptyText, createTree, createHeaders, selectAllHeaderElement, element2Array, element2ArrayAnchorAndFlatLevel, markdownElement2Array } from '../src/functions.js'
+import {
+  Header,
+  HeaderRoot,
+  createHeader,
+  querySelector,
+  querySelectorAll,
+  querySelectorAllArray,
+  hash,
+  id2link,
+  hrefOrID,
+  trimmedText,
+  headerLevel,
+  hasText,
+  filterEmptyText,
+  createTree,
+  createHeaders,
+  selectAllHeaderElement,
+  element2Array,
+  element2ArrayAnchorAndFlatLevel,
+  markdownElement2Array
+} from '../src/functions.js'
 
 // shared classes
-const {
-  NodeList,
-  Element
-} = (new JSDOM('')).window
+const { NodeList, Element } = new JSDOM('').window
 
 test('createHeader', () => {
   t.deepEqual(createHeader('foo', 42, 'bar'), new Header('foo', 42, 'bar'))
@@ -96,7 +113,9 @@ test('createHeader', () => {
       <h2>baz</h2>
     `)
     const elements = Array.from(frag.children)
-    const f = createHeaders(map(p => ['#example', headerLevel(p), p.textContent]))
+    const f = createHeaders(
+      map(p => ['#example', headerLevel(p), p.textContent])
+    )
     const result = f(elements)
 
     t.equal(typeof f, 'function')
@@ -214,11 +233,7 @@ describe('element2Array', () => {
   const root = frag.firstElementChild
 
   test('simple', () => {
-    const f = element2Array(
-      () => 'foo',
-      () => 42,
-      () => 'baz'
-    )
+    const f = element2Array(() => 'foo', () => 42, () => 'baz')
     const result = f(root)
     t.equal(typeof f, 'function')
     t.deepEqual(result, ['foo', 42, 'baz'])
@@ -275,4 +290,3 @@ describe('markdownElement2Array', () => {
     t.deepEqual(g(h), ['#user-content-license', 1, 'License'])
   })
 })
-

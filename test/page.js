@@ -2,12 +2,17 @@ import { describe, it as test } from 'kocha'
 import t from 'assert'
 import { URL } from 'url'
 import { JSDOM } from 'jsdom'
-import PageFactory, { GitHubPage, ReleasePage, CodePage, WikiPage, UnknownPage } from '../src/page.js'
+import PageFactory, {
+  GitHubPage,
+  ReleasePage,
+  CodePage,
+  WikiPage,
+  UnknownPage
+} from '../src/page.js'
+import { HeaderRoot } from '../src/functions.js'
 
 // shared class
-const {
-  HTMLHeadingElement
-} = (new JSDOM('')).window
+const { HTMLHeadingElement } = new JSDOM('').window
 
 describe('UnknownPage', () => {
   const page = new UnknownPage()
@@ -152,10 +157,18 @@ describe('Wiki Page', () => {
 test('PageFactory', () => {
   global.URL = URL
 
-  const p0 = PageFactory.createFromUrl('https://github.com/example/example-project')
-  const p1 = PageFactory.createFromUrl('https://github.com/example/example-project/tree/master/test')
-  const p2 = PageFactory.createFromUrl('https://github.com/example/example-project/releases')
-  const p3 = PageFactory.createFromUrl('https://github.com/example/example-project/wiki')
+  const p0 = PageFactory.createFromUrl(
+    'https://github.com/example/example-project'
+  )
+  const p1 = PageFactory.createFromUrl(
+    'https://github.com/example/example-project/tree/master/test'
+  )
+  const p2 = PageFactory.createFromUrl(
+    'https://github.com/example/example-project/releases'
+  )
+  const p3 = PageFactory.createFromUrl(
+    'https://github.com/example/example-project/wiki'
+  )
   const p4 = PageFactory.createFromUrl('https://github.com/example')
   const p5 = PageFactory.createFromUrl('https://github.com')
 
@@ -168,4 +181,3 @@ test('PageFactory', () => {
 
   delete global.URL
 })
-

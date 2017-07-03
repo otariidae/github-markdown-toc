@@ -8,18 +8,18 @@ const key = {
 }
 
 class TestAction extends Action {
-  foo (data) {
+  foo(data) {
     this.dispatch(key.BAR, data)
   }
 }
 
 class TestStore extends Store {
-  constructor (dispatcher) {
+  constructor(dispatcher) {
     super(dispatcher)
     this.state = {}
     this.register(key.HOGE, this.onHoge.bind(this))
   }
-  onHoge (data) {
+  onHoge(data) {
     this.setState(data)
   }
 }

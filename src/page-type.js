@@ -13,7 +13,11 @@ export default class PageType {
     const [, user, project, type, ...paths] = pathname.split('/')
     if (type === 'releases' && paths.length === 0) {
       this._type = this.RELEASE
-    } else if (type === 'blob' || type === 'tree' || (user && project && !type)) {
+    } else if (
+      type === 'blob' ||
+      type === 'tree' ||
+      (user && project && !type)
+    ) {
       this._type = this.CODE
     } else if (type === 'wiki') {
       this._type = this.WIKI
