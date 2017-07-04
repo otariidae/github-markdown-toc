@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.7.1
+- Use `prettier`
+- Coverage via codecov.io
+- functional-util:
+  - Add `curry1` function
+  - Curry some functions
+
 ## 0.7.0
 ### Breaking
 - Use the nested DOM structure instead of the flat list items
