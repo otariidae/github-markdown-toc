@@ -11,7 +11,7 @@ import PageFactory, {
   WikiPage,
   UnknownPage
 } from '../src/page.js'
-import { HeaderRoot } from '../src/functions.js'
+import { HeadingRoot } from '../src/functions.js'
 
 function fragmentFromFile(path) {
   const file = readFileSync(join(__dirname, path))
@@ -27,8 +27,8 @@ describe('UnknownPage', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeaders', () => {
-    t.deepEqual(page.getHeaders(), [])
+  test('getHeadings', () => {
+    t.deepEqual(page.getHeadings(), [])
   })
 })
 
@@ -39,27 +39,27 @@ describe('ReleasePage', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeaders', () => {
-    const headers = page.getHeaders(frag)
-    t.ok(Array.isArray(headers))
-    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headers.length, 3)
+  test('getHeadings', () => {
+    const headings = page.getHeadings(frag)
+    t.ok(Array.isArray(headings))
+    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headings.length, 3)
   })
 })
 
 describe('Code Page', () => {
   const frag = fragmentFromFile('./fixtures/code.html')
   const page = new CodePage()
-  const headers = page.getHeaders(frag)
+  const headings = page.getHeadings(frag)
 
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeaders', () => {
-    const headers = page.getHeaders(frag)
-    t.ok(Array.isArray(headers))
-    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headers.length, 4)
+  test('getHeadings', () => {
+    const headings = page.getHeadings(frag)
+    t.ok(Array.isArray(headings))
+    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headings.length, 4)
   })
 })
 
@@ -70,11 +70,11 @@ describe('Wiki Page', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeaders', () => {
-    const headers = page.getHeaders(frag)
-    t.ok(Array.isArray(headers))
-    t.ok(headers.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headers.length, 4)
+  test('getHeadings', () => {
+    const headings = page.getHeadings(frag)
+    t.ok(Array.isArray(headings))
+    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
+    t.equal(headings.length, 4)
   })
 })
 

@@ -8,7 +8,7 @@ export default class AppStore extends Store {
       isLoading: false,
       isOpen: false,
       isEnabled: false,
-      header: {
+      heading: {
         children: []
       }
     })
@@ -21,9 +21,9 @@ export default class AppStore extends Store {
       isLoading: true
     })
   }
-  toPage ({ isAvailable, header }) {
+  toPage ({ isAvailable, heading }) {
     this.setState({
-      header,
+      heading,
       isLoading: false,
       isEnabled: isAvailable,
       isOpen: isAvailable ? this.getState().isOpen : false

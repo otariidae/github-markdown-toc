@@ -1,6 +1,6 @@
 import { map } from '../modules/functional-util/index.js'
 import {
-  createHeaders,
+  createHeadings,
   querySelectorAllArray,
   selectAllHeaderElementFrom,
   element2ArrayAnchorAndFlatLevel,
@@ -32,8 +32,8 @@ export class GitHubPage {
   /**
    * @returns {Promise<Header>}
    */
-  async getHeaderList () {
-    return createHeaders(await this.elementsToArray())(
+  async getHeadingList () {
+    return createHeadings(await this.elementsToArray())(
       this.getHeaders(document)
     )
   }
@@ -41,7 +41,7 @@ export class GitHubPage {
    * @private
    * @returns Array
    */
-  getHeaders () {
+  getHeadings () {
     return []
   }
   /**
@@ -58,7 +58,7 @@ export class ReleasePage extends GitHubPage {
    * @private
    * @returns {Element[]}
    */
-  getHeaders (root) {
+  getHeadings (root) {
     return querySelectorAllArray('.release-title')(root)
   }
   /**
@@ -75,7 +75,7 @@ export class CodePage extends GitHubPage {
    * @private
    * @returns {Element[]}
    */
-  getHeaders (root) {
+  getHeadings (root) {
     return selectAllHeaderElementFrom('.markdown-body')(root)
   }
   /**
@@ -93,7 +93,7 @@ export class WikiPage extends GitHubPage {
    * @private
    * @returns {Element[]}
    */
-  getHeaders (root) {
+  getHeadings (root) {
     return selectAllHeaderElementFrom('.wiki-body .markdown-body')(root)
   }
   /**

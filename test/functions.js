@@ -3,9 +3,9 @@ import t from 'assert'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
 import {
-  Header,
-  HeaderRoot,
-  createHeader,
+  Heading,
+  HeadingRoot,
+  createHeading,
   querySelector,
   querySelectorAll,
   querySelectorAllArray,
@@ -13,12 +13,12 @@ import {
   id2link,
   hrefOrID,
   trimmedText,
-  headerLevel,
+  headingLevel,
   hasText,
   filterEmptyText,
   createTree,
-  createHeaders,
-  selectAllHeaderElement,
+  createHeadings,
+  selectAllHeadingElement,
   element2Array,
   element2ArrayAnchorAndFlatLevel,
   markdownElement2Array
@@ -27,8 +27,8 @@ import {
 // shared classes
 const { NodeList, Element } = new JSDOM('').window
 
-test('createHeader', () => {
-  t.deepEqual(createHeader('foo', 42, 'bar'), new Header('foo', 42, 'bar'))
+test('createHeading', () => {
+  t.deepEqual(createHeading('foo', 42, 'bar'), new Heading('foo', 42, 'bar'))
 })
 
 {
@@ -99,29 +99,29 @@ test('createHeader', () => {
     ]
     const result = createTree(a)
 
-    t.ok(result instanceof HeaderRoot)
-    t.ok(result.children.every(item => item instanceof Header))
+    t.ok(result instanceof HeadingRoot)
+    t.ok(result.children.every(item => item instanceof Heading))
     t.equal(result.children[0].text, 'foo')
     t.equal(result.children[0].children[0].text, 'goo')
     t.equal(result.children[1].text, 'hoo')
   })
 
-  test('createHeaders', () => {
+  test('createHeadings', () => {
     const frag = JSDOM.fragment(`
       <h1>foo</h1>
       <h3>bar</h3>
       <h2>baz</h2>
     `)
     const elements = Array.from(frag.children)
-    const f = createHeaders(
-      map(p => ['#example', headerLevel(p), p.textContent])
+    const f = createHeadings(
+      map(p => ['#example', headingLevel(p), p.textContent])
     )
     const result = f(elements)
 
     t.equal(typeof f, 'function')
-    t.ok(result instanceof Header)
-    t.ok(result.children.every(item => item instanceof Header))
-    t.ok(result.children[0].children.every(item => item instanceof Header))
+    t.ok(result instanceof Heading)
+    t.ok(result.children.every(item => item instanceof Heading))
+    t.ok(result.children[0].children.every(item => item instanceof Heading))
     t.deepEqual(result.children.length, 1)
     t.deepEqual(result.children[0].children.length, 2)
     t.deepEqual(result.children[0].text, 'foo')
@@ -129,8 +129,8 @@ test('createHeader', () => {
     t.deepEqual(result.children[0].children[1].text, 'baz')
   })
 
-  test('selectAllHeaderElement', () => {
-    const result = selectAllHeaderElement(frag)
+  test('selectAllHeadingElement', () => {
+    const result = selectAllHeadingElement(frag)
     const [_foo, _bar] = result
 
     t.ok(Array.isArray(result))
@@ -211,7 +211,7 @@ describe('trimmedText', () => {
   })
 })
 
-test('headerLevel', () => {
+test('headingLevel', () => {
   const frag = JSDOM.fragment(`
       <h1>foo</h1>
       <h2>bar</h2>
@@ -219,9 +219,9 @@ test('headerLevel', () => {
   `)
   const [foo, bar, baz] = frag.children
 
-  t.equal(headerLevel(foo), 1)
-  t.equal(headerLevel(bar), 2)
-  t.equal(headerLevel(baz), 3)
+  t.equal(headingLevel(foo), 1)
+  t.equal(headingLevel(bar), 2)
+  t.equal(headingLevel(baz), 3)
 })
 
 describe('element2Array', () => {

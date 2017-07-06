@@ -7,7 +7,7 @@ import {
   always
 } from '../modules/functional-util/index.js'
 
-export class Header {
+export class Heading {
   /**
    * @param {string} link
    * @param {number} level
@@ -21,8 +21,8 @@ export class Header {
     this.children = []
   }
   /**
-   * @param {Header} child
-   * @returns {Header}
+   * @param {Heading} child
+   * @returns {Heading}
    */
   appendChild (child) {
     this.children.push(child)
@@ -31,7 +31,7 @@ export class Header {
   }
 }
 
-export class HeaderRoot extends Header {
+export class HeadingRoot extends Heading {
   constructor () {
     super(null, 0, null)
   }
@@ -41,10 +41,10 @@ export class HeaderRoot extends Header {
  * @param {string} link
  * @param {number} level
  * @param {string} text
- * @returns {Header}
+ * @returns {Heading}
  */
-export function createHeader (link, level, text) {
-  return new Header(link, level, text)
+export function createHeading (link, level, text) {
+  return new Heading(link, level, text)
 }
 
 /**
@@ -124,7 +124,7 @@ export const trimmedText = pipe(prop('textContent'), trim)
  * @param {Node}
  * @returns {number}
  */
-export const headerLevel = pipe(prop('tagName'), prop(1), Number)
+export const headingLevel = pipe(prop('tagName'), prop(1), Number)
 
 /**
  * @function
@@ -157,11 +157,11 @@ function findParent (current, previous) {
 
 /**
  * @param {Array} arr
- * @returns {HeaderRoot}
+ * @returns {HeadingRoot}
  */
 export function createTree (arr) {
-  const root = new HeaderRoot()
-  arr.map(apply(createHeader)).reduce((previous, current) => {
+  const root = new HeadingRoot()
+  arr.map(apply(createHeading)).reduce((previous, current) => {
     const parent = findParent(current, previous)
     return parent.appendChild(current)
   }, root)
@@ -170,9 +170,9 @@ export function createTree (arr) {
 
 /**
  * @param {function} fun
- * @returns {function(Element): HeaderRoot}
+ * @returns {function(Element): HeadingRoot}
  */
-export function createHeaders (fun) {
+export function createHeadings (fun) {
   return pipe(filterEmptyText, fun, createTree)
 }
 
@@ -181,7 +181,7 @@ export function createHeaders (fun) {
  * @param {Element}
  * @returns {HTMLHeadingElement[]}
  */
-export const selectAllHeaderElement = querySelectorAllArray(
+export const selectAllHeadingElement = querySelectorAllArray(
   'h1, h2, h3, h4, h5, h6'
 )
 
@@ -193,7 +193,7 @@ export function selectAllHeaderElementFrom (query) {
   return root => {
     const element = root.querySelector(query)
     if (!element) return []
-    return selectAllHeaderElement(element)
+    return selectAllHeadingElement(element)
   }
 }
 
@@ -227,7 +227,7 @@ export function element2ArrayAnchorAndFlatLevel (level) {
 export function markdownElement2Array (isJSEnabled) {
   return element2Array(
     pipe(querySelector('.anchor'), hrefOrID(isJSEnabled)),
-    headerLevel,
+    headingLevel,
     trimmedText
   )
 }
