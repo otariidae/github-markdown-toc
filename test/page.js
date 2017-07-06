@@ -11,7 +11,6 @@ import PageFactory, {
   WikiPage,
   UnknownPage
 } from '../src/page.js'
-import { HeadingRoot } from '../src/functions.js'
 
 function fragmentFromFile(path) {
   const file = readFileSync(join(__dirname, path))
@@ -50,7 +49,6 @@ describe('ReleasePage', () => {
 describe('Code Page', () => {
   const frag = fragmentFromFile('./fixtures/code.html')
   const page = new CodePage()
-  const headings = page.getHeadings(frag)
 
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
