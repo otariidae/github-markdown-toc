@@ -3,8 +3,6 @@ import t from 'assert'
 import { JSDOM } from 'jsdom'
 import { map } from '../modules/functional-util/index.js'
 import {
-  Heading,
-  HeadingRoot,
   createHeading,
   querySelector,
   querySelectorAll,
@@ -23,6 +21,7 @@ import {
   element2ArrayAnchorAndFlatLevel,
   markdownElement2Array
 } from '../src/functions.js'
+import { Heading, HeadingRoot } from '../src/heading.js'
 
 // shared classes
 const { NodeList, Element } = new JSDOM('').window
