@@ -1,5 +1,6 @@
 import { Store } from '../modules/flux/index.js'
 import { key } from './action.js'
+import { HeadingRoot } from './heading.js'
 
 export default class AppStore extends Store {
   constructor (dispatcher) {
@@ -8,9 +9,7 @@ export default class AppStore extends Store {
       isLoading: false,
       isOpen: false,
       isEnabled: false,
-      heading: {
-        children: []
-      }
+      heading: new HeadingRoot()
     })
     this.register(key.START_LOADING, this.loading.bind(this))
     this.register(key.MOVE_TO_PAGE, this.toPage.bind(this))
