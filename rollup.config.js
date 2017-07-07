@@ -1,6 +1,7 @@
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
+import babel from 'rollup-plugin-babel'
 import butternut from 'rollup-plugin-butternut'
 
 export default {
@@ -15,6 +16,9 @@ export default {
       main: true
     }),
     commonjs(),
+    babel({
+      exclude: 'node_modules/**'
+    }),
     butternut()
   ]
 }
