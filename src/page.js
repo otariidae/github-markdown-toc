@@ -30,11 +30,11 @@ export default class PageFactory {
  */
 export class GitHubPage {
   /**
-   * @returns {Promise<Header>}
+   * @returns {Promise<Heading>}
    */
   async getHeadingList () {
     return createHeadings(await this.elementsToArray())(
-      this.getHeaders(document)
+      this.getHeadings(document)
     )
   }
   /**
