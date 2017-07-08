@@ -2,10 +2,8 @@
  * event emitter
  */
 export default class EventEmitter {
-  constructor () {
-    /** @private */
-    this._handlers = new Map()
-  }
+  /** @private */
+  _handlers = new Map()
   /**
    * @param {string|Symbol} type
    * @param {function} handler

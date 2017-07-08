@@ -1,4 +1,6 @@
 export class Heading {
+  parent = null
+  children = []
   /**
    * @param {string} link
    * @param {number} level
@@ -8,8 +10,6 @@ export class Heading {
     this.link = link
     this.level = level
     this.text = text
-    this.parent = null
-    this.children = []
   }
   /**
    * @param {Heading} child

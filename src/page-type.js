@@ -3,6 +3,8 @@ export default class PageType {
   static CODE = Symbol('code')
   static WIKI = Symbol('wiki')
   static UNKNOWN = Symbol('unknown')
+  /** @private */
+  _type
   /**
    * @param {string} url
    */
