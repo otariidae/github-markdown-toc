@@ -2,7 +2,7 @@ import { curry1 } from './function.js'
 
 /**
  * @private
- * @param {string|Symbol} fun
+ * @param {string|Symbol} property
  * @param {object} object
  * @returns {*}
  */
