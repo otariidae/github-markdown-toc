@@ -9,7 +9,7 @@ jobs:
       - restore_cache:
           key: cache-deps-{{ checksum "yarn.lock" }}
       - run:
-          name: npm-install
+          name: yarn
           command: yarn
       - save_cache:
           key: cache-deps-{{ checksum "yarn.lock" }}
