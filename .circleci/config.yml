@@ -6,6 +6,9 @@ jobs:
       - image: node:8.1.3
     steps:
       - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: cache-deps-{{ checksum "package.json" }}
       - run:
