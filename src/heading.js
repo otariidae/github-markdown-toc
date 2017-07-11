@@ -24,6 +24,6 @@ export class Heading {
 
 export class HeadingRoot extends Heading {
   constructor () {
-    super(null, 0, null)
+    super(undefined, 0, undefined)
   }
 }
