@@ -7,12 +7,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: cache-deps-{{ checksum "yarn.lock" }}
+          key: cache-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: yarn
           command: yarn
       - save_cache:
-          key: cache-deps-{{ checksum "yarn.lock" }}
+          key: cache-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ~/.cache/yarn/
