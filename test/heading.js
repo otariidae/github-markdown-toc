@@ -25,7 +25,7 @@ describe('Heading', () => {
 })
 
 describe('HeadingRoot', () => {
-  const root = new HeadingRoot
+  const root = new HeadingRoot()
 
   test('inheritance', () => {
     t.ok(root instanceof Heading)
@@ -38,4 +38,3 @@ describe('HeadingRoot', () => {
     t.deepStrictEqual(root.children, [])
   })
 })
-

@@ -27,7 +27,10 @@ import { Heading, HeadingRoot } from '../src/heading.js'
 const { NodeList, Element } = new JSDOM('').window
 
 test('createHeading', () => {
-  t.deepStrictEqual(createHeading('foo', 42, 'bar'), new Heading('foo', 42, 'bar'))
+  t.deepStrictEqual(
+    createHeading('foo', 42, 'bar'),
+    new Heading('foo', 42, 'bar')
+  )
 })
 
 {
