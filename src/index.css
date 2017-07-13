@@ -61,17 +61,6 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &[aria-busy=true] .toggle-btn {
-    background-image: url(chrome-extension://__MSG_@@extension_id__/spinner.svg);
-    background-size: 16px;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    &::before {
-      content: none;
-    }
-  }
-
   &[data-open=true] .toggle-btn {
     &::before {
       transform: translateX(-2px) rotate(135deg);
