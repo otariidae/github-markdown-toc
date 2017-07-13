@@ -2,6 +2,15 @@ coverage:
   ignore:
     - "modules/*/test.js"
     - "test/*"
+  status:
+      project:
+        modules:
+          paths:
+            - modules/*
+        app:
+          paths:
+            - test/*
+            - src/*
 parsers:
   javascript:
     enable_partials: yes
