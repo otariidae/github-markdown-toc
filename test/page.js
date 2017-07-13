@@ -27,7 +27,7 @@ describe('UnknownPage', () => {
     t.ok(page instanceof GitHubPage)
   })
   test('getHeadings', () => {
-    t.deepEqual(page.getHeadings(), [])
+    t.deepStrictEqual(page.getHeadings(), [])
   })
 })
 

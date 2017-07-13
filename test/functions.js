@@ -27,7 +27,7 @@ import { Heading, HeadingRoot } from '../src/heading.js'
 const { NodeList, Element } = new JSDOM('').window
 
 test('createHeading', () => {
-  t.deepEqual(createHeading('foo', 42, 'bar'), new Heading('foo', 42, 'bar'))
+  t.deepStrictEqual(createHeading('foo', 42, 'bar'), new Heading('foo', 42, 'bar'))
 })
 
 {
@@ -121,11 +121,11 @@ test('createHeading', () => {
     t.ok(result instanceof Heading)
     t.ok(result.children.every(item => item instanceof Heading))
     t.ok(result.children[0].children.every(item => item instanceof Heading))
-    t.deepEqual(result.children.length, 1)
-    t.deepEqual(result.children[0].children.length, 2)
-    t.deepEqual(result.children[0].text, 'foo')
-    t.deepEqual(result.children[0].children[0].text, 'bar')
-    t.deepEqual(result.children[0].children[1].text, 'baz')
+    t.equal(result.children.length, 1)
+    t.equal(result.children[0].children.length, 2)
+    t.equal(result.children[0].text, 'foo')
+    t.equal(result.children[0].children[0].text, 'bar')
+    t.equal(result.children[0].children[1].text, 'baz')
   })
 
   test('selectAllHeadingElement', () => {
@@ -235,7 +235,7 @@ describe('element2Array', () => {
     const f = element2Array(() => 'foo', () => 42, () => 'baz')
     const result = f(root)
     t.equal(typeof f, 'function')
-    t.deepEqual(result, ['foo', 42, 'baz'])
+    t.deepStrictEqual(result, ['foo', 42, 'baz'])
   })
   test('basic use', () => {
     const f = element2Array(
@@ -245,7 +245,7 @@ describe('element2Array', () => {
     )
     const result = f(root)
     t.equal(typeof f, 'function')
-    t.deepEqual(result, ['foo', 42, 'baz'])
+    t.deepStrictEqual(result, ['foo', 42, 'baz'])
   })
 })
 
@@ -260,12 +260,12 @@ describe('element2ArrayAnchorAndFlatLevel', () => {
   test('1', () => {
     const f = element2ArrayAnchorAndFlatLevel(1)
     t.equal(typeof f, 'function')
-    t.deepEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
+    t.deepStrictEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
   })
   test('42', () => {
     const f = element2ArrayAnchorAndFlatLevel(42)
     t.equal(typeof f, 'function')
-    t.deepEqual(f(h), ['/tag/v1.0.0', 42, '1.0.0'])
+    t.deepStrictEqual(f(h), ['/tag/v1.0.0', 42, '1.0.0'])
   })
 })
 
@@ -281,11 +281,11 @@ describe('markdownElement2Array', () => {
   test('true', () => {
     const f = markdownElement2Array(true)
     t.equal(typeof f, 'function')
-    t.deepEqual(f(h), ['#license', 1, 'License'])
+    t.deepStrictEqual(f(h), ['#license', 1, 'License'])
   })
   test('false', () => {
     const g = markdownElement2Array(false)
     t.equal(typeof g, 'function')
-    t.deepEqual(g(h), ['#user-content-license', 1, 'License'])
+    t.deepStrictEqual(g(h), ['#user-content-license', 1, 'License'])
   })
 })

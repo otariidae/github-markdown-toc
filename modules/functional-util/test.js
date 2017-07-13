@@ -52,12 +52,12 @@ describe('functional-util', () => {
     const arr = [2, 3, 4]
 
     test('basic', () => {
-      t.deepEqual(map(f, arr), [4, 9, 16])
+      t.deepStrictEqual(map(f, arr), [4, 9, 16])
     })
     test('curry', () => {
       const g = map(f)
       t.equal(typeof g, 'function')
-      t.deepEqual(g(arr), [4, 9, 16])
+      t.deepStrictEqual(g(arr), [4, 9, 16])
     })
   })
 
@@ -66,12 +66,12 @@ describe('functional-util', () => {
     const arr = [1, 2, 3, 4, 5]
 
     test('basic', () => {
-      t.deepEqual(filter(f, arr), [2, 4])
+      t.deepStrictEqual(filter(f, arr), [2, 4])
     })
     test('curry', () => {
       const g = filter(f)
       t.equal(typeof g, 'function')
-      t.deepEqual(g(arr), [2, 4])
+      t.deepStrictEqual(g(arr), [2, 4])
     })
   })
 

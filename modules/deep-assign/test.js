@@ -25,8 +25,8 @@ describe('deep-assign', () => {
     t.ok(Object.is(target, result))
     t.ifError(Object.is(result, expected))
     t.ifError(Object.is(source.baz, result.baz))
-    t.deepEqual(result, target)
-    t.deepEqual(expected, result)
+    t.deepStrictEqual(result, target)
+    t.deepStrictEqual(expected, result)
   })
 
   test('Object.create(null)', () => {
@@ -40,10 +40,10 @@ describe('deep-assign', () => {
   })
 
   test('ignore null', () => {
-    t.deepEqual(deepAssign({}, null), {})
+    t.deepStrictEqual(deepAssign({}, null), {})
   })
 
   test('ignore undefined', () => {
-    t.deepEqual(deepAssign({}, undefined), {})
+    t.deepStrictEqual(deepAssign({}, undefined), {})
   })
 })

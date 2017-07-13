@@ -32,7 +32,7 @@ describe('flux', () => {
     const dispatcher = new Dispatcher()
     const action = new TestAction(dispatcher)
     dispatcher.on(key.BAR, data => {
-      t.deepEqual(data, testData)
+      t.deepStrictEqual(data, testData)
       done()
     })
     action.foo(testData)
@@ -47,7 +47,7 @@ describe('flux', () => {
       const store = new TestStore(dispatcher)
       store.onChange(() => {
         const state = store.getState()
-        t.deepEqual(state, testData)
+        t.deepStrictEqual(state, testData)
         t.ifError(Object.is(state, testData))
         done()
       })
