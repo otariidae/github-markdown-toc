@@ -2,3 +2,7 @@ coverage:
   ignore:
     - "modules/*/test.js"
     - "test/*"
+parsers:
+  javascript:
+    enable_partials: yes
+
