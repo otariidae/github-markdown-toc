@@ -1,4 +1,16 @@
-@import 'material-colors/dist/colors.var.css';
+/* a port of https://github.com/primer/primer-css/blob/master/modules/primer-support/lib/variables/color-system.scss */
+:root {
+  --gray-000: #fafbfc;
+  --gray-100: #f6f8fa;
+  --gray-200: #e1e4e8;
+  --gray-300: #d1d5da;
+  --gray-400: #959da5;
+  --gray-500: #6a737d;
+  --gray-600: #586069;
+  --gray-700: #444d56;
+  --gray-800: #2f363d;
+  --gray-900: #24292e;
+}
 
 :root {
   --nav-width: 200px;
@@ -9,7 +21,7 @@
   --toggle-button-margin_log-in: calc((var(--log-in-header-height) - var(--toggle-button-size)) / 2);
   --toggle-button-margin_log-out: calc((var(--log-out-header-height) - var(--toggle-button-size)) / 2);
   --toggle-button-arrow-size: 8px;
-  --toggle-button-arrow-border: solid 2px var(--md-grey-900);
+  --toggle-button-arrow-border: solid 2px var(--gray-900);
   --toggle-button-arrow-position: calc((var(--toggle-button-size) - var(--toggle-button-arrow-size)) / 2);
   --heading-padding: 8px;
 }
@@ -23,7 +35,7 @@ body[data-github-markdown-toc-open] {
 }
 
 .github-markdown-toc {
-  color: var(--md-dark-text-primary);
+  color: var(--gray-900);
   font-size: 14px;
 
   .toggle-btn {
@@ -33,7 +45,7 @@ body[data-github-markdown-toc-open] {
     padding: 0;
     border: none;
     border-radius: 3px;
-    background-color: var(--md-grey-300);
+    background-color: var(--gray-200);
     z-index: 100;
 
     &::before {
@@ -69,8 +81,8 @@ body[data-github-markdown-toc-open] {
 
   .toggle-btn[disabled] {
     &::before {
-      border-top-color: var(--md-grey-400);
-      border-left-color: var(--md-grey-400);
+      border-top-color: var(--gray-400);
+      border-left-color: var(--gray-400);
     }
   }
 
@@ -80,9 +92,9 @@ body[data-github-markdown-toc-open] {
     right: 0;
     bottom: 0;
     width: var(--nav-width);
-    border-left: solid 1px var(--md-grey-400);
+    border-left: solid 1px var(--gray-200);
     box-sizing: border-box;
-    background-color: var(--md-grey-50);
+    background-color: var(--gray-000);
     z-index: 100;
     transition: var(--animation-time) 0s transform ease-in-out;
 
