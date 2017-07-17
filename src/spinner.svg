@@ -1,10 +1,9 @@
-<?xml version="1.0"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="50" height="50" viewBox="-25, -25, 50, 50">
-<g>
-<circle cx="0" cy="0" r="20" fill="none" stroke="#1976D2" stroke-width="8" stroke-linecap="square">
-<animate attributeType="XML" attributeName="stroke-dasharray" values="1.256, 126; 89.176, 126; 1.256, 126" dur="1.2s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.25 0.1 0.25 1.0; 0.25 0.1 0.25 1.0" repeatCount="indefinite"/>
-<animateTransform attributeType="XML" attributeName="transform" type="rotate" values="0; 0; 252" dur="1.2s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.25 0.1 0.25 1.0; 0.25 0.1 0.25 1.0" accumulate="sum" repeatCount="indefinite"/>
-</circle>
-<animateTransform attributeType="XML" attributeName="transform" type="rotate" from="0" by="180" dur="1s" accumulate="sum" repeatCount="indefinite"/>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-25, -25, 50, 50">
+  <g>
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#0366d6" stroke-width="5" stroke-linecap="square">
+      <animate attributeName="stroke-dasharray" values="1.256, 126; 89.176, 126; 1.256, 126" dur="1.2s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.25 0.1 0.25 1.0; 0.25 0.1 0.25 1.0" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" values="0; 0; 252" dur="1.2s" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.25 0.1 0.25 1.0; 0.25 0.1 0.25 1.0" accumulate="sum" repeatCount="indefinite"/>
+    </circle>
+    <animateTransform attributeName="transform" type="rotate" from="0" by="180" dur="1s" accumulate="sum" repeatCount="indefinite"/>
+  </g>
 </svg>
