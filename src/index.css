@@ -1,5 +1,5 @@
 /* a port of https://github.com/primer/primer-css/blob/master/modules/primer-support/lib/variables/color-system.scss */
-:root {
+.github-markdown-toc {
   --gray-000: #fafbfc;
   --gray-100: #f6f8fa;
   --gray-200: #e1e4e8;
@@ -15,6 +15,9 @@
 :root {
   --nav-width: 200px;
   --animation-time: 0.3s;
+}
+
+.github-markdown-toc {
   --log-in-header-height: 54px;
   --log-out-header-height: 72px;
   --toggle-button-size: 30px;
