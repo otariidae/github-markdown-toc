@@ -4,7 +4,6 @@ module.exports = {
     annotation: true
   },
   plugins: [
-    require('postcss-nested')(),
-    require('postcss-custom-properties')()
+    require('postcss-nested')()
   ]
 }

@@ -2306,13 +2306,6 @@ postcss-cli@^4.1.0:
     read-cache "^1.0.0"
     yargs "^8.0.1"
 
-postcss-custom-properties@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-custom-properties/-/postcss-custom-properties-6.1.0.tgz#9caf1151ac41b1e9e64d3a2ff9ece996ca18977d"
-  dependencies:
-    balanced-match "^1.0.0"
-    postcss "^6.0.3"
-
 postcss-load-config@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/postcss-load-config/-/postcss-load-config-1.2.0.tgz#539e9afc9ddc8620121ebf9d8c3673e0ce50d28a"
@@ -2359,7 +2352,7 @@ postcss-selector-parser@^2.2.3:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
-postcss@^6.0.1, postcss@^6.0.3, postcss@^6.0.6:
+postcss@^6.0.1, postcss@^6.0.6:
   version "6.0.6"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.6.tgz#bba4d58e884fc78c840d1539e10eddaabb8f73bd"
   dependencies:
