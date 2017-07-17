@@ -106,6 +106,17 @@ body[data-github-markdown-toc-open] {
     }
   }
 
+  &[aria-busy=true] nav {
+    background-image: url(chrome-extension://__MSG_@@extension_id__/spinner.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px;
+
+    ol {
+      display: none;
+    }
+  }
+
   &:not([data-open=true]) nav {
     transform: translate(var(--nav-width), 0);
   }
