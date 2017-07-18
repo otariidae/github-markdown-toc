@@ -23,9 +23,6 @@
   --toggle-button-size: 30px;
   --toggle-button-margin_log-in: calc((var(--log-in-header-height) - var(--toggle-button-size)) / 2);
   --toggle-button-margin_log-out: calc((var(--log-out-header-height) - var(--toggle-button-size)) / 2);
-  --toggle-button-arrow-size: 8px;
-  --toggle-button-arrow-border: solid 2px var(--gray-900);
-  --toggle-button-arrow-position: calc((var(--toggle-button-size) - var(--toggle-button-arrow-size)) / 2);
   --heading-padding: 8px;
 }
 
@@ -48,22 +45,12 @@ body[data-github-markdown-toc-open] {
     padding: 0;
     border: none;
     border-radius: 3px;
+    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-left.svg);
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
     background-color: var(--gray-200);
     z-index: 100;
-
-    &::before {
-      content: "";
-      position: absolute;
-      top: var(--toggle-button-arrow-position);
-      left: var(--toggle-button-arrow-position);
-      display: block;
-      width: var(--toggle-button-arrow-size);
-      height: var(--toggle-button-arrow-size);
-      border-top: var(--toggle-button-arrow-border);
-      border-left: var(--toggle-button-arrow-border);
-      box-sizing: border-box;
-      transform: translateX(2px) rotate(-45deg);
-    }
 
     body.logged-in & {
       top: var(--toggle-button-margin_log-in);
@@ -77,16 +64,11 @@ body[data-github-markdown-toc-open] {
   }
 
   &[data-open=true] .toggle-btn {
-    &::before {
-      transform: translateX(-2px) rotate(135deg);
-    }
+    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-right.svg);
   }
 
   .toggle-btn[disabled] {
-    &::before {
-      border-top-color: var(--gray-400);
-      border-left-color: var(--gray-400);
-    }
+    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-left-disabled.svg);
   }
 
   nav {
