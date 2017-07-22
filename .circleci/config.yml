@@ -15,4 +15,7 @@ jobs:
       - run:
           name: code-coverage
           command: npm run cov
+      - run:
+          name: codecov
+          command: bash <(curl -s https://codecov.io/bash)
 

@@ -44,7 +44,6 @@
     "test": "cross-env BABEL_ENV=test kocha --require babel-register test/*.js modules/*/test.js",
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=text-lcov > coverage.lcov",
-    "postcov": "codecov",
     "release": "npm-run-all --parallel lint:fix test --serial build zip",
     "preversion": "run-p lint:fix test",
     "version": "npm run build:meta",
