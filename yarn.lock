@@ -2951,6 +2951,10 @@ supports-color@^4.0.0, supports-color@^4.2.0:
   dependencies:
     has-flag "^2.0.0"
 
+svelte@^1.25.1:
+  version "1.25.1"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-1.25.1.tgz#f1421b0c8c10cc4e705848a9a9693915c344d1c2"
+
 symbol-tree@^3.2.1:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.2.tgz#ae27db38f660a7ae2e1c3b7d1bc290819b8519e6"
