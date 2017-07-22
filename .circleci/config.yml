@@ -6,16 +6,9 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
-      - restore_cache:
-          key: cache-deps-{{ .Branch }}
       - run:
           name: yarn
           command: yarn
-      - save_cache:
-          key: cache-deps-{{ .Branch }}
-          paths:
-            - ./node_modules
-            - ~/.cache/yarn/
       - run:
           name: test
           command: npm test
