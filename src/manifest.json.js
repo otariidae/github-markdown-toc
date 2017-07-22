@@ -24,6 +24,11 @@ export default ({ version, excludes }) => {
       persistent: false
     },
     permissions: [`${github}/*`, 'contentSettings', 'tabs'],
-    web_accessible_resources: ['spinner.svg', 'arrow-right.svg', 'arrow-left.svg', 'arrow-left-disabled.svg']
+    web_accessible_resources: [
+      'spinner.svg',
+      'arrow-right.svg',
+      'arrow-left.svg',
+      'arrow-left-disabled.svg'
+    ]
   }
 }
