@@ -22,8 +22,7 @@
     "rollup-plugin-babel": "^2.7.1",
     "rollup-plugin-butternut": "^0.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-svelte": "^3.0.0",
-    "svelte": "^1.25.1",
+    "rollup-plugin-svelte": "^3.0.1",
     "yazl": "^2.4.2"
   },
   "name": "github-markdown-toc",
