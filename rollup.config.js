@@ -1,4 +1,3 @@
-import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
@@ -15,7 +14,6 @@ export default {
       jsnext: true,
       main: true
     }),
-    commonjs(),
     babel({
       exclude: 'node_modules/**'
     }),
