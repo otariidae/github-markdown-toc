@@ -17,5 +17,5 @@ jobs:
           command: npm run cov
       - run:
           name: codecov
-          command: bash <(curl -s https://codecov.io/bash)
+          command: bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
 
