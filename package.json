@@ -46,7 +46,7 @@
     "version": "npm run build:meta",
     "zip": "cross-env BABEL_ENV=esmodules node --require babel-register lib/zip.js"
   },
-  "version": "0.7.1",
+  "version": "0.8.0",
   "license": "CC0-1.0",
   "private": true,
   "repository": "otariidae/github-markdown-toc",
