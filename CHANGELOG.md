@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.0
+#### Added
+- Loading Animation on the body
+#### Changed
+- Background/border color
+#### Removed
+- Loading Animation on the top-right button
+
 ## 0.7.1
 - Use `prettier`
 - Coverage via codecov.io
