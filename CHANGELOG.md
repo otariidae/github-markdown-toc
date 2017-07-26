@@ -1,120 +1,142 @@
 # Changelog
 
 ## 0.8.0
-#### Added
+### Added
 - Loading Animation on the body
-#### Changed
-- Background/border color
-#### Removed
+
+### Changed
+- Background/border color: `Material Design` -> `Primer`
+
+### Removed
 - Loading Animation on the top-right button
 
 ## 0.7.1
-- Use `prettier`
-- Coverage via codecov.io
+### Added
 - functional-util:
-  - Add `curry1` function
+  - `curry1` function
+- `prettier`
+- Coverage via codecov.io
+
+### Changed
+- functional-util:
   - Curry some functions
 
 ## 0.7.0
-### Breaking
-- Use the nested DOM structure instead of the flat list items
-  - Behave like HTML outline
+### Changed
 - More readable font
   - `font-size: 13px` -> `14px`
   - `line-height: 1.2` -> `1.25`
-- Remove `background-color` when list items were hovered
+- Flat list -> nested list
+  - Behave like HTML outline
+
+### Removed
+- `background-color` when list items were hovered
 
 ## 0.6.0
+### Changed
 - Functional programming
 - Refactor
 
 ## 0.5.8
-- Use an original `is-plain-object` module
-- Update dependecies
+### Added
+- `is-plain-object` module
 
 ## 0.5.7
-- Use `GitHubPage` class and its subclasses instead of functions  
+### Changed
+- functions -> `GitHubPage` class and its subclasses  
   `get-header-data.js` -> `page.js`
-- Add `use strict` to entry points
+- `use strict` in entry points
 
 ## 0.5.6
-- Use `PageType` class instead of functions  
+### Changed
+- functions -> `PageType` class  
   `check-page-type.js` -> `page-type.js`
 
 ## 0.5.5
+### Added
+- `store#removeChangeListener`
+
+### Changed
 - `eventemitter#off` returns boolean
-- Add `store#removeChangeListener`
 
 ## 0.5.4
-- Use an original event emitter
+### Added
+- `EventEmitter` module
 
 ## 0.5.3
-- Add `_` to private variables
 - Refactor
-- Improve JSDoc
 
 ## 0.5.2
-- Use `.map` file instead of inline CSS source map
+### Changed
+- inline CSS sourcemaps -> `.map` files
 
 ## 0.5.1
-- Change flux state API
-- Rename a variable
+- Refactor
 
 ## 0.5.0
-- Design change
-- Update dependecies
+### Changed
+- Design
 - Refactor
 
 ## 0.4.4
-- Add _login?*_ to *exclude_matches*
-- Use `*` for all urls in *exclude_matches*
+### Changed
+- Exclude  _login?*_
+- More strict *exclude_matches*
 
 ## 0.4.3
-- Add JSDoc comments
-- Use `reify` to run tests with `ES modules`
-- Add *author* and *homepage_url* to `package.json`
-- Add *repository* and *bugs* to `manifest.json`
+### Added
+- JSDoc comments
+- *author* and *homepage_url* in `package.json`
+- *repository* and *bugs* in `manifest.json`
 
 ## 0.4.2
-- Use `rollup` instead of `browserify`
-- Use `ES Modules` instead of `Node.js Modules`
+### Changed
+- `browserify` -> `rollup`
+- `Node.js Modules` -> `ES Modules`
 
 ## 0.4.1
-- Code splitting
-- Add some parant classes
+### Added
+- Flux module
+- Recator
 
 ## 0.4.0
-- Add a loading animation between `pjax:start` and `pjax:end`.
+### Added
+- Loading animation
 
 ## 0.3.1
-- Use `Symbol` inside `check-page-type.js`
+### Changed
+- Constant string -> `Symbol` inside `check-page-type.js`
 
 ## 0.3.0
-- Use `aria-*` inside HTML and CSS
+### Added
+- `aria-*` inside HTML and CSS
 
 ## 0.2.1
-- Allow non-object-like value inside `deep-assign.js`
+### Added
+- Non-object-like value support inside `deep-assign.js`
 
 ## 0.2.0
-- Split code
-- Remove *material-flux* because it is fat for this small extension
-- Use an original flux
+### Changed
+- *material-flux* -> an original flux
+- Refactor
 
 ## 0.1.1
-- Fix wrong `document.querySeector` on wiki pages
+### Fixed
+- Wrong `document.querySeector` on wiki pages
 
 ## 0.1.0
-- Add support for wiki pages
+### Added
+- Support for wiki pages
 
 ## 0.0.6
-- Refactor action of flux
+- Refactor
 
 ## 0.0.5
-- Padding-left: 4px -> 8px
+### Changed
+- `padding-left: 4px` -> `8px`
 
 ## 0.0.4
-- Update *svelte* to 1.10.2
-- Make the script tag top-level because *svelte* pass through non-top-level one.
+- Refactor
 
 ## 0.0.3 (initial)
 *No record and memory before 0.0.3*
