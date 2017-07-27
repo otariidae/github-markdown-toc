@@ -35,7 +35,6 @@
 ## 0.6.0
 ### Changed
 - Functional programming
-- Refactor
 
 ## 0.5.8
 ### Added
@@ -64,19 +63,18 @@
 - `EventEmitter` module
 
 ## 0.5.3
-- Refactor
+[inital changes only]
 
 ## 0.5.2
 ### Changed
 - inline CSS sourcemaps -> `.map` files
 
 ## 0.5.1
-- Refactor
+[inital changes only]
 
 ## 0.5.0
 ### Changed
 - Design
-- Refactor
 
 ## 0.4.4
 ### Changed
@@ -97,7 +95,6 @@
 ## 0.4.1
 ### Added
 - Flux module
-- Recator
 
 ## 0.4.0
 ### Added
@@ -118,7 +115,6 @@
 ## 0.2.0
 ### Changed
 - *material-flux* -> an original flux
-- Refactor
 
 ## 0.1.1
 ### Fixed
@@ -129,14 +125,14 @@
 - Support for wiki pages
 
 ## 0.0.6
-- Refactor
+[inital changes only]
 
 ## 0.0.5
 ### Changed
 - `padding-left: 4px` -> `8px`
 
 ## 0.0.4
-- Refactor
+[inital changes only]
 
 ## 0.0.3 (initial)
 *No record and memory before 0.0.3*
