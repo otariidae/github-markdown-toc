@@ -53,8 +53,5 @@
   "bugs": {
     "url": "https://github.com/otariidae/github-markdown-toc/issues"
   },
-  "dependencies": {
-    "postcss": "^6.0.8",
-    "request": "^2.81.0"
-  }
+  "dependencies": {}
 }
