@@ -20,8 +20,8 @@ import {
   element2Array,
   element2ArrayAnchorAndFlatLevel,
   markdownElement2Array
-} from '../src/functions.js'
-import { Heading, HeadingRoot } from '../src/heading.js'
+} from '../src/js/functions.js'
+import { Heading, HeadingRoot } from '../src/js/heading.js'
 
 // shared classes
 const { NodeList, Element } = new JSDOM('').window

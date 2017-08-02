@@ -1,6 +1,6 @@
 import { describe, it as test } from 'kocha'
 import t from 'assert'
-import checkJSEnebled from '../src/check-js-enabled.js'
+import checkJSEnebled from '../src/js/check-js-enabled.js'
 
 describe('checkJSEnabled', () => {
   const fakeChrome = {

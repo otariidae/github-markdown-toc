@@ -1,4 +1,4 @@
-import { Action } from '../modules/flux/index.js'
+import { Action } from '../../modules/flux/index.js'
 import pageFactory from './page.js'
 
 export const key = {

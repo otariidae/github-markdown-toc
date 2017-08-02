@@ -10,7 +10,7 @@ import PageFactory, {
   CodePage,
   WikiPage,
   UnknownPage
-} from '../src/page.js'
+} from '../src/js/page.js'
 
 function fragmentFromFile(path) {
   const file = readFileSync(join(__dirname, path))

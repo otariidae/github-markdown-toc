@@ -5,7 +5,7 @@ import {
   pipe,
   apply,
   always
-} from '../modules/functional-util/index.js'
+} from '../../modules/functional-util/index.js'
 import { Heading, HeadingRoot } from './heading.js'
 
 /**

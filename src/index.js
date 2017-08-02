@@ -1,9 +1,9 @@
 'use strict'
 
-import App from './app.html'
+import App from './components/app.html'
 import { Dispatcher } from '../modules/flux/index.js'
-import AppAction from './action.js'
-import AppStore from './store.js'
+import AppAction from './js/action.js'
+import AppStore from './js/store.js'
 
 const dispatcher = new Dispatcher()
 const action = new AppAction(dispatcher)

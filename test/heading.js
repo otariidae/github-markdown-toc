@@ -1,6 +1,6 @@
 import { describe, it as test, before, after } from 'kocha'
 import t from 'assert'
-import { Heading, HeadingRoot } from '../src/heading.js'
+import { Heading, HeadingRoot } from '../src/js/heading.js'
 
 describe('Heading', () => {
   describe('new', () => {

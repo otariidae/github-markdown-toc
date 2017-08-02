@@ -1,4 +1,4 @@
-import { map } from '../modules/functional-util/index.js'
+import { map } from '../../modules/functional-util/index.js'
 import {
   createHeadings,
   querySelectorAllArray,
