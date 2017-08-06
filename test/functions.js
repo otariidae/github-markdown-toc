@@ -151,6 +151,13 @@ describe('selectAllHeadingElementFrom', () => {
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
   })
+
+  test('empty', () => {
+    const result = selectAllHeadingElementFrom('.hoge', JSDOM.fragment(''))
+
+    t.ok(Array.isArray(result))
+    t.equal(result.length, 0)
+  })
 })
 
 test('createHeadings', () => {
