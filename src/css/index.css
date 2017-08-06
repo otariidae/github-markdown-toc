@@ -45,7 +45,7 @@ body[data-github-markdown-toc-open] {
     padding: 0;
     border: none;
     border-radius: 3px;
-    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-left.svg);
+    background-image: url(../svg/arrow-left.svg);
     background-size: 15px;
     background-repeat: no-repeat;
     background-position: center;
@@ -64,11 +64,11 @@ body[data-github-markdown-toc-open] {
   }
 
   &[data-open=true] .toggle-btn {
-    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-right.svg);
+    background-image: url(../svg/arrow-right.svg);
   }
 
   .toggle-btn[disabled] {
-    background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-left-disabled.svg);
+    background-image: url(../svg/arrow-left-disabled.svg);
   }
 
   noscript {
@@ -98,7 +98,7 @@ body[data-github-markdown-toc-open] {
   }
 
   &[aria-busy=true] nav {
-    background-image: url(chrome-extension://__MSG_@@extension_id__/spinner.svg);
+    background-image: url(../svg/spinner.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32px;

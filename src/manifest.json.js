@@ -41,10 +41,4 @@ export default ({ version }) => ({
     }
   ],
   permissions: [`${github}/*`],
-  web_accessible_resources: [
-    'spinner.svg',
-    'arrow-right.svg',
-    'arrow-left.svg',
-    'arrow-left-disabled.svg'
-  ]
 })

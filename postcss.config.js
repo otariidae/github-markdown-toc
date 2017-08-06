@@ -4,6 +4,9 @@ module.exports = {
     annotation: true
   },
   plugins: [
-    require('postcss-nested')()
+    require('postcss-nested')(),
+    require('postcss-url')({
+      url: 'inline'
+    })
   ]
 }
