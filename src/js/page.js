@@ -31,10 +31,8 @@ export class GitHubPage {
   /**
    * @returns {Promise<Heading>}
    */
-  async getHeadingList () {
-    return createHeadings(await this.elementsToArray())(
-      this.getHeadings(document)
-    )
+  getHeadingList () {
+    return createHeadings(this.elementsToArray())(this.getHeadings(document))
   }
   /**
    * @private
@@ -47,7 +45,7 @@ export class GitHubPage {
    * @private
    * @returns {Promise<function: Array, Error>}
    */
-  async elementsToArray () {
+  elementsToArray () {
     return () => []
   }
 }
@@ -64,7 +62,7 @@ export class ReleasePage extends GitHubPage {
    * @private
    * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async elementsToArray () {
+  elementsToArray () {
     return map(element2ArrayAnchorAndFlatLevel(1))
   }
 }
@@ -81,7 +79,7 @@ export class CodePage extends GitHubPage {
    * @private
    * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async elementsToArray () {
+  elementsToArray () {
     return map(markdownElement2Array())
   }
 }
@@ -98,7 +96,7 @@ export class WikiPage extends GitHubPage {
    * @private
    * @returns {Promise<function(Element[]): Array, Error>}
    */
-  async elementsToArray () {
+  elementsToArray () {
     return map(markdownElement2Array())
   }
 }

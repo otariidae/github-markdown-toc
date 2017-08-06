@@ -11,9 +11,9 @@ export default class AppAction extends Action {
   startLoading () {
     this.dispatch(key.START_LOADING)
   }
-  async moveToPage () {
+  moveToPage () {
     const page = pageFactory.createFromUrl(location.href)
-    const heading = await page.getHeadingList()
+    const heading = page.getHeadingList()
     const isAvailable = Boolean(heading.children.length)
     const data = {
       heading,
