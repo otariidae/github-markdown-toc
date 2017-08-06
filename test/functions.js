@@ -16,6 +16,7 @@ import {
   createTree,
   createHeadings,
   selectAllHeadingElement,
+  selectAllHeadingElementFrom,
   element2Array,
   element2ArrayAnchorAndFlatLevel,
   markdownElement2Array
@@ -118,6 +119,39 @@ test('createHeading', () => {
     t.ok(Object.is(_bar, bar))
   })
 }
+
+describe('selectAllHeadingElementFrom', () => {
+  const frag = JSDOM.fragment(`
+      <div class="hoge">
+        <h1>foo</h1>
+        <h2>bar</h2>
+        <p>baz</p>
+      </div>
+      <h3>piyo</h3>
+    `)
+  const foo = frag.querySelector('.hoge h1')
+  const bar = frag.querySelector('.hoge h2')
+
+  test('basic', () => {
+    const result = selectAllHeadingElementFrom('.hoge', frag)
+    const [_foo, _bar] = result
+
+    t.equal(result.length, 2)
+    t.ok(Object.is(_foo, foo))
+    t.ok(Object.is(_bar, bar))
+  })
+
+  test('curry', () => {
+    const f = selectAllHeadingElementFrom('.hoge')
+    const result = f(frag)
+    const [_foo, _bar] = result
+
+    t.equal(typeof f, 'function')
+    t.equal(result.length, 2)
+    t.ok(Object.is(_foo, foo))
+    t.ok(Object.is(_bar, bar))
+  })
+})
 
 test('createHeadings', () => {
   const frag = JSDOM.fragment(`
