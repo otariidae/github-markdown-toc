@@ -6,7 +6,8 @@ module.exports = {
   plugins: [
     require('postcss-nested')(),
     require('postcss-url')({
-      url: 'inline'
+      url: 'inline',
+      encodeType: 'base64',
     })
   ]
 }
