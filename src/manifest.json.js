@@ -40,11 +40,7 @@ export default ({ version }) => ({
       js: ['index.js']
     }
   ],
-  background: {
-    scripts: ['background.js'],
-    persistent: false
-  },
-  permissions: [`${github}/*`, 'contentSettings', 'tabs'],
+  permissions: [`${github}/*`],
   web_accessible_resources: [
     'spinner.svg',
     'arrow-right.svg',

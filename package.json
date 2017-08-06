@@ -28,9 +28,7 @@
   "name": "github-markdown-toc",
   "scripts": {
     "build:css": "postcss src/css/index.css --output dist/index.css",
-    "build:js:bundle": "rollup -c",
-    "build:js:background": "cp src/background.js dist",
-    "build:js": "run-p build:js:*",
+    "build:js": "rollup -c",
     "build:meta": "cross-env BABEL_ENV=esmodules node --require babel-register lib/manifest.js",
     "build:image": "cp src/svg/*.svg dist",
     "prebuild": "rm -f dist/*",

@@ -7,7 +7,6 @@ import {
   markdownElement2Array
 } from './functions.js'
 import PageType from './page-type.js'
-import checkJSEnabled from './check-js-enabled.js'
 
 /**
  * @abstract
@@ -83,8 +82,7 @@ export class CodePage extends GitHubPage {
    * @returns {Promise<function(Element[]): Array, Error>}
    */
   async elementsToArray () {
-    const isJSEnabled = await checkJSEnabled()
-    return map(markdownElement2Array(isJSEnabled))
+    return map(markdownElement2Array())
   }
 }
 
@@ -101,8 +99,7 @@ export class WikiPage extends GitHubPage {
    * @returns {Promise<function(Element[]): Array, Error>}
    */
   async elementsToArray () {
-    const isJSEnabled = await checkJSEnabled()
-    return map(markdownElement2Array(isJSEnabled))
+    return map(markdownElement2Array())
   }
 }
 

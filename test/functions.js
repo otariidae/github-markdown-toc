@@ -8,7 +8,6 @@ import {
   querySelectorAll,
   querySelectorAllArray,
   hash,
-  id2link,
   hrefOrID,
   trimmedText,
   headingLevel,
@@ -162,33 +161,7 @@ test('createHeading', () => {
     t.equal(result.length, 1)
     t.ok(Object.is(_foo, foo))
   })
-
-  test('id2link', () => {
-    t.equal(id2link(foo), '#foo')
-    t.equal(id2link(baz), '#baz')
-  })
 }
-
-describe('hrefOrID', () => {
-  const frag = JSDOM.fragment(`
-    <h2>
-      <a id="user-content-license" class="anchor" href="#license"></a>
-      License
-    </h2>
-  `)
-  const a = frag.querySelector('.anchor')
-
-  test('true', () => {
-    const f = hrefOrID(true)
-    t.equal(typeof f, 'function')
-    t.equal(f(a), '#license')
-  })
-  test('false', () => {
-    const g = hrefOrID(false)
-    t.equal(typeof g, 'function')
-    t.equal(g(a), '#user-content-license')
-  })
-})
 
 test('hash', () => {
   t.equal(hash('foo'), '#foo')
@@ -272,7 +245,7 @@ describe('element2ArrayAnchorAndFlatLevel', () => {
   })
 })
 
-describe('markdownElement2Array', () => {
+test('markdownElement2Array', () => {
   const frag = JSDOM.fragment(`
     <h1>
       <a id="user-content-license" class="anchor" href="#license"></a>
@@ -281,14 +254,7 @@ describe('markdownElement2Array', () => {
   `)
   const h = frag.firstElementChild
 
-  test('true', () => {
-    const f = markdownElement2Array(true)
-    t.equal(typeof f, 'function')
-    t.deepStrictEqual(f(h), ['#license', 1, 'License'])
-  })
-  test('false', () => {
-    const g = markdownElement2Array(false)
-    t.equal(typeof g, 'function')
-    t.deepStrictEqual(g(h), ['#user-content-license', 1, 'License'])
-  })
+  const f = markdownElement2Array()
+  t.equal(typeof f, 'function')
+  t.deepStrictEqual(f(h), ['#license', 1, 'License'])
 })

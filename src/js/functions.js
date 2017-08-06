@@ -65,19 +65,6 @@ export function querySelectorAllArray (query) {
 export const hash = str => `#${str}`
 
 /**
- * @function
- * @param {Element}
- * @returns {string}
- */
-export const id2link = pipe(prop('id'), hash)
-
-/**
- * @param {boolean} isHref
- * @returns {function(HTMLAnchorElement): string}
- */
-export const hrefOrID = isHref => (isHref ? prop('hash') : id2link)
-
-/**
  * @param {string} str
  * @returns {string}
  */
@@ -192,12 +179,11 @@ export function element2ArrayAnchorAndFlatLevel (level) {
 }
 
 /**
- * @param {boolean} isJSEnabled
  * @returns {function(Element): (string|number)[]}
  */
-export function markdownElement2Array (isJSEnabled) {
+export function markdownElement2Array () {
   return element2Array(
-    pipe(querySelector('.anchor'), hrefOrID(isJSEnabled)),
+    pipe(querySelector('.anchor'), prop('hash')),
     headingLevel,
     trimmedText
   )
