@@ -67,6 +67,7 @@ test('createHeading', () => {
       t.ok(Object.is(_foo, foo))
       t.ok(Object.is(_bar, bar))
     })
+
     test('curry', () => {
       const f = querySelectorAll('h1, h2')
       const result = f(frag)
@@ -107,29 +108,6 @@ test('createHeading', () => {
     t.equal(result.children[1].text, 'hoo')
   })
 
-  test('createHeadings', () => {
-    const frag = JSDOM.fragment(`
-      <h1>foo</h1>
-      <h3>bar</h3>
-      <h2>baz</h2>
-    `)
-    const elements = Array.from(frag.children)
-    const f = createHeadings(
-      map(p => ['#example', headingLevel(p), p.textContent])
-    )
-    const result = f(elements)
-
-    t.equal(typeof f, 'function')
-    t.ok(result instanceof Heading)
-    t.ok(result.children.every(item => item instanceof Heading))
-    t.ok(result.children[0].children.every(item => item instanceof Heading))
-    t.equal(result.children.length, 1)
-    t.equal(result.children[0].children.length, 2)
-    t.equal(result.children[0].text, 'foo')
-    t.equal(result.children[0].children[0].text, 'bar')
-    t.equal(result.children[0].children[1].text, 'baz')
-  })
-
   test('selectAllHeadingElement', () => {
     const result = selectAllHeadingElement(frag)
     const [_foo, _bar] = result
@@ -140,6 +118,29 @@ test('createHeading', () => {
     t.ok(Object.is(_bar, bar))
   })
 }
+
+test('createHeadings', () => {
+  const frag = JSDOM.fragment(`
+      <h1>foo</h1>
+      <h3>bar</h3>
+      <h2>baz</h2>
+    `)
+  const elements = Array.from(frag.children)
+  const f = createHeadings(
+    map(p => ['#example', headingLevel(p), p.textContent])
+  )
+  const result = f(elements)
+
+  t.equal(typeof f, 'function')
+  t.ok(result instanceof Heading)
+  t.ok(result.children.every(item => item instanceof Heading))
+  t.ok(result.children[0].children.every(item => item instanceof Heading))
+  t.equal(result.children.length, 1)
+  t.equal(result.children[0].children.length, 2)
+  t.equal(result.children[0].text, 'foo')
+  t.equal(result.children[0].children[0].text, 'bar')
+  t.equal(result.children[0].children[1].text, 'baz')
+})
 
 {
   const frag = JSDOM.fragment(`
