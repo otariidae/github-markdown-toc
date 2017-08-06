@@ -1,5 +1,8 @@
 <div class="github-markdown-toc" aria-disabled="{{ !isEnabled }}" aria-busy="{{ isLoading }}" data-open="{{ isOpen }}">
   <nav id="github-markdown-toc__nav-panel" aria-hidden="{{ !isOpen }}">
+    <noscript>
+      <p class="flash flash-warn">Enable JavaScript</p>
+    </noscript>
     <Item root='{{ heading }}'/>
   </nav>
   <button type="button" on:click="onBtnClicked()" class="toggle-btn" aria-controls="github-markdown-toc__nav-panel" disabled="{{ !isEnabled }}"></button>

@@ -23,7 +23,7 @@
   --toggle-button-size: 30px;
   --toggle-button-margin_log-in: calc((var(--log-in-header-height) - var(--toggle-button-size)) / 2);
   --toggle-button-margin_log-out: calc((var(--log-out-header-height) - var(--toggle-button-size)) / 2);
-  --heading-padding: 8px;
+  --nav-inner-padding: 12px;
 }
 
 body {
@@ -71,6 +71,12 @@ body[data-github-markdown-toc-open] {
     background-image: url(chrome-extension://__MSG_@@extension_id__/arrow-left-disabled.svg);
   }
 
+  noscript {
+    display: block;
+    margin-right: var(--nav-inner-padding);
+    margin-left: var(--nav-inner-padding);
+  }
+
   nav {
     position: fixed;
     top: 0;
@@ -116,6 +122,6 @@ body[data-github-markdown-toc-open] {
   li {
     padding-top: 2px;
     padding-bottom: 2px;
-    padding-left: 12px;
+    padding-left: var(--nav-inner-padding);
   }
 }
