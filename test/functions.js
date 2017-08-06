@@ -45,7 +45,7 @@ test('createHeading', () => {
 
   describe('querySelector', () => {
     test('basic', () => {
-      const result = querySelector('h1')(frag)
+      const result = querySelector('h1', frag)
       t.ok(Object.is(result, foo))
     })
     test('curry', () => {
@@ -59,7 +59,7 @@ test('createHeading', () => {
 
   test('querySelectorAll', () => {
     test('basic', () => {
-      const result = querySelectorAll('h1, h2')(frag)
+      const result = querySelectorAll('h1, h2', frag)
       const [_foo, _bar] = result
 
       t.ok(result instanceof NodeList)
