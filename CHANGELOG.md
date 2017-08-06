@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.9.0
+### Added
+- Warning for JavaScript-disabled environment
+
+### Changed
+- Exclude github.com/apps
+
+### Removed
+- Support for JavaScript-disabled environment
+
 ## 0.8.0
 ### Added
 - Loading Animation on the body
