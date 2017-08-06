@@ -145,15 +145,21 @@ export const selectAllHeadingElement = querySelectorAllArray(
 
 /**
  * @param {string} query
+ * @param {Element} root
+ * @returns {Element[]}
+ */
+export function _selectAllHeadingElementFrom (query, root) {
+  const element = root.querySelector(query)
+  if (!element) return []
+  return selectAllHeadingElement(element)
+}
+
+/**
+ * @function
+ * @param {string} query
  * @returns {function(Element): Element[]}
  */
-export function selectAllHeaderElementFrom (query) {
-  return root => {
-    const element = root.querySelector(query)
-    if (!element) return []
-    return selectAllHeadingElement(element)
-  }
-}
+export const selectAllHeadingElementFrom = curry1(_selectAllHeadingElementFrom)
 
 /**
  * @param {function(Element, ...*): string} link
@@ -181,10 +187,10 @@ export function element2ArrayAnchorAndFlatLevel (level) {
 /**
  * @returns {function(Element): (string|number)[]}
  */
-export function markdownElement2Array () {
-  return element2Array(
+export const markdownElement2Array = always(
+  element2Array(
     pipe(querySelector('.anchor'), prop('hash')),
     headingLevel,
     trimmedText
   )
-}
+)

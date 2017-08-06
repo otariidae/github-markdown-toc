@@ -2,7 +2,7 @@ import { map } from '../../modules/functional-util/index.js'
 import {
   createHeadings,
   querySelectorAllArray,
-  selectAllHeaderElementFrom,
+  selectAllHeadingElementFrom,
   element2ArrayAnchorAndFlatLevel,
   markdownElement2Array
 } from './functions.js'
@@ -75,7 +75,7 @@ export class CodePage extends GitHubPage {
    * @returns {Element[]}
    */
   getHeadings (root) {
-    return selectAllHeaderElementFrom('.markdown-body')(root)
+    return selectAllHeadingElementFrom('.markdown-body', root)
   }
   /**
    * @private
@@ -92,7 +92,7 @@ export class WikiPage extends GitHubPage {
    * @returns {Element[]}
    */
   getHeadings (root) {
-    return selectAllHeaderElementFrom('.wiki-body .markdown-body')(root)
+    return selectAllHeadingElementFrom('.wiki-body .markdown-body', root)
   }
   /**
    * @private
