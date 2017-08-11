@@ -1,12 +1,13 @@
 const github = 'https://github.com'
+const { version, repository } = require('../package.json')
 
-export default ({ version }) => ({
+export default {
   manifest_version: 2,
   name: 'GitHub Markdown Table of Contents',
   description: 'Show a table of contents of markdown on GitHub',
   version: version,
   author: 'otariidae',
-  homepage_url: `${github}/otariidae/github-markdown-toc`,
+  homepage_url: `${github}/${repository}`,
   content_scripts: [
     {
       matches: [`${github}/*`],
@@ -40,5 +41,5 @@ export default ({ version }) => ({
       js: ['index.js']
     }
   ],
-  permissions: [`${github}/*`],
-})
+  permissions: [`${github}/*`]
+}
