@@ -9,7 +9,7 @@
 Chrome extension to show a table of contents on GitHub.  
 No more scrolling to read long long long documents.
 
-![this app on GitHub](doc/screenshot.png)  
+![this app on GitHub](docs/screenshot.png)  
 *An example of a long readme with this extension -- AVA: a nice test runner for Node.js*
 
 Works with:
