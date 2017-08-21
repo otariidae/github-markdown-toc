@@ -33,10 +33,10 @@ For more info, see [Chrome Extension Get Started](https://developer.chrome.com/e
 Click the button on the top right-hand corner to show or hide the table of contents.
 
 Position of the button when logging out:  
-![the button when logging out](docs\button-logout.png)
+![the button when logging out](docs/button-logout.png)
 
 Position of the button when logging in:  
-![the button when logging in](docs\button-login.png)
+![the button when logging in](docs/button-login.png)
 
 ## Permissions
 ```json
