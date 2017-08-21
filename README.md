@@ -35,13 +35,10 @@ Click the button on the top right-hand corner to show or hide the table of conte
 ## Permissions
 ```json
 "permissions": [
-  "https://github.com/*",
-  "contentSettings",
-  "tabs"
+  "https://github.com/*"
 ]
 ```
 - `https://github.com/*` is used to run scripts on GitHub.
-- `contentSettings` and `tabs` are used to know whether JavaScript is enabled in the tab or not.
 
 ## Recommended environment
 - the latest stable version of Google Chrome
