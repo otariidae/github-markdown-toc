@@ -4,8 +4,5 @@
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
     },
-    "esmodules": {
-      "plugins": ["transform-es2015-modules-commonjs"]
-    }
   }
 }

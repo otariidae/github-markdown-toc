@@ -1,7 +1,6 @@
 const github = 'https://github.com'
-const { version, repository } = require('../package.json')
 
-export default {
+export default ({ version, repository }) => ({
   manifest_version: 2,
   name: 'GitHub Markdown Table of Contents',
   description: 'Show a table of contents of markdown on GitHub',
@@ -42,4 +41,4 @@ export default {
     }
   ],
   permissions: [`${github}/*`]
-}
+})

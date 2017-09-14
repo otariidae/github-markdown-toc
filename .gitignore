@@ -1,7 +1,7 @@
 .git
 node_modules
 dist
-.reify-cache
+.esm-cache
 github-markdown-toc.zip
 .nyc_output
 coverage
