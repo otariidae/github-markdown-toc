@@ -4,10 +4,12 @@ import babel from 'rollup-plugin-babel'
 import butternut from 'rollup-plugin-butternut'
 
 export default {
-  entry: 'src/index.js',
-  dest: 'dist/index.js',
-  format: 'iife',
-  sourceMap: true,
+  input: 'src/index.js',
+  output: {
+    file: 'dist/index.js',
+    format: 'iife',
+    sourcemap: true,
+  },
   plugins: [
     svelte(),
     resolve({
@@ -17,7 +19,7 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
-    butternut()
-  ]
+    butternut(),
+  ],
 }
 
