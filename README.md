@@ -21,21 +21,19 @@ Works with:
 ## Install
 You can install the latest version manually.
 
-1. Download *github-markdown-toc.zip* from [the release page](https://github.com/otariidae/github-markdown-toc/releases) and unzip it.
-2. Visit chrome://extensions.
-3. Click to check *Developer mode*.
-4. Click *Load unpacked extension...*.
-5. Select the unzipped directory.
+To install it, follow these steps:
+1. Download **github-markdown-toc.zip** from [the release page](https://github.com/otariidae/github-markdown-toc/releases) and unzip it.
+2. Visit **chrome://extensions**.
+3. Click to check **Developer mode**.
+4. Click **Load unpacked extension...**.
+5. In the file-selection dialog, select the unzipped directory.
 
-For more info, see [Chrome Extension Get Started](https://developer.chrome.com/extensions/getstarted#unpacked) or [Google Chrome FAQ](https://developer.chrome.com/extensions/faq#faq-dev-01).
+For more information, see [Chrome Extension Get Started](https://developer.chrome.com/extensions/getstarted#unpacked) or [Google Chrome FAQ](https://developer.chrome.com/extensions/faq#faq-dev-01).
 
 ## Usage
-Click the button on the top right-hand corner to show or hide the table of contents.
+To show or hide the table of contents, click the button on the top right-hand corner.  
+When a table of contents is not generated, the button is disabled.
 
-Position of the button when logging out:  
-![the button when logging out](docs/button-logout.png)
-
-Position of the button when logging in:  
 ![the button when logging in](docs/button-login.png)
 
 ## Permissions
