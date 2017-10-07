@@ -32,7 +32,8 @@ export default ({ version, repository }) => ({
         'showcases',
         'trending',
         'marketplace',
-        'apps'
+        'apps',
+        'styleguide',
       ]
         .map(url => [`${github}/${url}/*`, `${github}/${url}?*`])
         .reduce((a, b) => a.concat(b)),
