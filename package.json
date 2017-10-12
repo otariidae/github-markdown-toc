@@ -28,10 +28,12 @@
   },
   "name": "github-markdown-toc",
   "scripts": {
+    "clean": "rm -rf dist",
+    "postclean": "mkdir dist",
     "build:css": "postcss src/css/index.css --output dist/index.css",
     "build:js": "rollup -c",
     "build:meta": "node --experimental-modules ./lib/manifest.mjs",
-    "prebuild": "rm -f dist/*",
+    "prebuild": "npm run clean",
     "build": "run-p build:*",
     "prettier:fix": "prettier --single-quote --no-semi --write \"{src/**,lib,test,modules/*}/*.js\"",
     "eslint:fix": "eslint src lib modules --fix",
