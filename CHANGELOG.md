@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1
+### Changed
+- Exclude github.com/styleguide
+
 ## 0.9.0
 ### Added
 - Warning for JavaScript-disabled environment
