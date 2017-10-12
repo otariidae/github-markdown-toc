@@ -46,7 +46,7 @@
     "version": "npm run build:meta",
     "zip": "node --experimental-modules ./lib/zip.mjs"
   },
-  "version": "0.9.0",
+  "version": "0.9.1",
   "license": "CC0-1.0",
   "private": true,
   "repository": "otariidae/github-markdown-toc",
