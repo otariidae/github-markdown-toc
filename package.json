@@ -38,7 +38,7 @@
     "prettier:fix": "prettier --single-quote --no-semi --write \"{src/**,lib,test,modules/*}/*.js\"",
     "eslint:fix": "eslint src lib modules --fix",
     "lint:fix": "run-s prettier:fix eslint:fix",
-    "test": "cross-env BABEL_ENV=test kocha --require babel-register test/*.js modules/*/test.js",
+    "test": "cross-env NODE_ENV=test kocha --require babel-register test/*.js modules/*/test.js",
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=json",
     "release": "npm-run-all --parallel lint:fix test --serial build zip",
