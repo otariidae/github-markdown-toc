@@ -23,8 +23,10 @@ jobs:
             apk update
             apk upgrade
             apk add curl bash
+            curl -s https://codecov.io/bash > codecov
+            chmod +x codecov
       - run:
           name: codecov
           command: |
-            bash <(curl -s https://codecov.io/bash) -f coverage/coverage-final.json
+            ./codecov -f coverage/coverage-final.json
 
