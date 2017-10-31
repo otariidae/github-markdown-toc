@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/working_directory
     docker:
-      - image: circleci/node:8
+      - image: node:alpine
     steps:
       - checkout
       - run:
