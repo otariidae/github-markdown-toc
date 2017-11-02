@@ -1,6 +1,12 @@
 const plugins = [
-  "transform-class-properties",
-  process.env.NODE_ENV === "test" && "transform-es2015-modules-commonjs",
+  [
+    "transform-class-properties",
+    { loose: true },
+  ],
+  process.env.NODE_ENV === "test" && [
+    "transform-es2015-modules-commonjs",
+    { loose: true }
+  ],
 ].filter(Boolean)
 
 module.exports = {
