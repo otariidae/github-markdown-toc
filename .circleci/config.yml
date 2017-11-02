@@ -1,32 +1,30 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/working_directory
     docker:
       - image: node:alpine
     steps:
       - checkout
       - run:
-          name: yarn
-          command: yarn
-      - run:
-          name: build
-          command: npm run release
-      - store_artifacts:
-          path: ~/working_directory/github-markdown-toc.zip
-      - run:
-          name: code-coverage
-          command: npm run cov
-      - run:
-          name: apk
+          name: install
           command: |
+            yarn
             apk update
             apk upgrade
             apk add curl bash
             curl -s https://codecov.io/bash > codecov
             chmod +x codecov
       - run:
+          name: code coverage
+          command: npm run cov
+      - run:
           name: codecov
           command: |
             ./codecov -f coverage/coverage-final.json
-
+      - run:
+          name: build
+          command: |
+            npm run build
+            npm run zip
+      - store_artifacts:
+          path: ./github-markdown-toc.zip
