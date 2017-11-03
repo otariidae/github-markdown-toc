@@ -52,5 +52,12 @@
   "bugs": {
     "url": "https://github.com/otariidae/github-markdown-toc/issues"
   },
+  "nyc": {
+    "exclude": [
+      ".babelrc.js",
+      "postcss.config.js",
+      "rollup.config.js"
+    ]
+  },
   "dependencies": {}
 }
