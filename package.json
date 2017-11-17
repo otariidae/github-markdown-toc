@@ -39,6 +39,7 @@
     "prelint:js": "prettier --single-quote --no-semi --write \"{src/**,lib,test,modules/*}/*.js\"",
     "lint:js": "eslint src lib modules --fix",
     "lint:css": "prettier --write src/css/*.css",
+    "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
     "test": "cross-env NODE_ENV=test kocha --require @babel/register test/*.js modules/*/test.js",
     "precov": "nyc npm test",
