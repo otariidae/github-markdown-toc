@@ -25,8 +25,7 @@
     "rollup-plugin-babel": "^4.0.0-beta.0",
     "rollup-plugin-butternut": "^0.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-svelte": "^3.0.1",
-    "yazl": "^2.4.2"
+    "rollup-plugin-svelte": "^3.0.1"
   },
   "name": "github-markdown-toc",
   "scripts": {
@@ -44,8 +43,7 @@
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=json",
     "preversion": "run-p lint:fix test",
-    "version": "npm run build:meta",
-    "zip": "node --experimental-modules ./lib/zip.mjs"
+    "version": "npm run build:meta"
   },
   "version": "0.9.1",
   "license": "CC0-1.0",

@@ -11,7 +11,7 @@ jobs:
             yarn
             apk update
             apk upgrade
-            apk add curl bash
+            apk add curl bash zip
             curl -s https://codecov.io/bash > codecov
             chmod +x codecov
       - run:
@@ -25,6 +25,7 @@ jobs:
           name: build
           command: |
             npm run build
-            npm run zip
+            cd dist
+            zip -9 -r ../github-markdown-toc.zip .
       - store_artifacts:
           path: ./github-markdown-toc.zip
