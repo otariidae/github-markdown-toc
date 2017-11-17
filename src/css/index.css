@@ -21,8 +21,12 @@
   --log-in-header-height: 54px;
   --log-out-header-height: 72px;
   --toggle-button-size: 30px;
-  --toggle-button-margin_log-in: calc((var(--log-in-header-height) - var(--toggle-button-size)) / 2);
-  --toggle-button-margin_log-out: calc((var(--log-out-header-height) - var(--toggle-button-size)) / 2);
+  --toggle-button-margin_log-in: calc(
+     (var(--log-in-header-height) - var(--toggle-button-size)) / 2
+  );
+  --toggle-button-margin_log-out: calc(
+     (var(--log-out-header-height) - var(--toggle-button-size)) / 2
+  );
   --nav-inner-padding: 12px;
 }
 
@@ -63,7 +67,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &[data-open=true] .toggle-btn {
+  &[data-open="true"] .toggle-btn {
     background-image: url(../svg/arrow-right.svg);
   }
 
@@ -97,7 +101,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &[aria-busy=true] nav {
+  &[aria-busy="true"] nav {
     background-image: url(../svg/spinner.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -108,7 +112,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &:not([data-open=true]) nav {
+  &:not([data-open="true"]) nav {
     transform: translate(var(--nav-width), 0);
   }
 
