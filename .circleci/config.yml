@@ -8,7 +8,7 @@ jobs:
       - run:
           name: install
           command: |
-            yarn
+            yarn install --pure-lockfile
             apk update
             apk upgrade
             apk add curl bash zip
