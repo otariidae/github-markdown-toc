@@ -18,7 +18,7 @@
     "npm-run-all": "^4.1.0",
     "nyc": "^11.0.3",
     "postcss-cli": "^4.1.0",
-    "postcss-nested": "^2.0.2",
+    "postcss-nested": "^3.0.0",
     "postcss-url": "^7.1.2",
     "prettier": "^1.7.2",
     "rollup": "^0.52.0",
