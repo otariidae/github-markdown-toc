@@ -7,7 +7,7 @@
     "babel-eslint": "^8.0.1",
     "cross-env": "^5.0.1",
     "eslint": "^4.3.0",
-    "eslint-config-standard": "^10.2.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.6.0",
     "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
@@ -21,11 +21,12 @@
     "postcss-nested": "^3.0.0",
     "postcss-url": "^7.1.2",
     "prettier": "^1.7.2",
-    "rollup": "^0.52.0",
+    "rollup": "^0.53.0",
     "rollup-plugin-babel": "^4.0.0-beta.0",
     "rollup-plugin-butternut": "^0.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-svelte": "^3.0.1"
+    "rollup-plugin-svelte": "^4.0.0",
+    "svelte": "^1.49.3"
   },
   "name": "github-markdown-toc",
   "scripts": {
