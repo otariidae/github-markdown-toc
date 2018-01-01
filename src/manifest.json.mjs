@@ -34,6 +34,7 @@ export default ({ version, repository }) => ({
         'marketplace',
         'apps',
         'styleguide',
+        'topics',
       ]
         .map(url => [`${github}/${url}/*`, `${github}/${url}?*`])
         .reduce((a, b) => a.concat(b)),
