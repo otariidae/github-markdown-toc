@@ -1,7 +1,8 @@
 import resolve from 'rollup-plugin-node-resolve'
 import svelte from 'rollup-plugin-svelte'
 import babel from 'rollup-plugin-babel'
-import butternut from 'rollup-plugin-butternut'
+import uglify from 'rollup-plugin-uglify'
+import { minify } from 'uglify-es'
 
 export default {
   input: 'src/index.js',
@@ -19,7 +20,7 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
-    butternut(),
+    uglify({}, minify),
   ],
 }
 
