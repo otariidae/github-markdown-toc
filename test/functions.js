@@ -1,37 +1,18 @@
 import { describe, it as test } from 'kocha'
 import t from 'assert'
 import { JSDOM } from 'jsdom'
-import { map } from '../modules/functional-util/index.js'
 import {
-  createHeading,
   querySelector,
   querySelectorAll,
   querySelectorAllArray,
   hash,
-  hrefOrID,
   trimmedText,
-  headingLevel,
   hasText,
-  filterEmptyText,
-  createTree,
-  createHeadings,
-  selectAllHeadingElement,
-  selectAllHeadingElementFrom,
-  element2Array,
-  element2ArrayAnchorAndFlatLevel,
-  markdownElement2Array
+  filterEmptyText
 } from '../src/js/functions.js'
-import { Heading, HeadingRoot } from '../src/js/heading.js'
 
 // shared classes
 const { NodeList, Element } = new JSDOM('').window
-
-test('createHeading', () => {
-  t.deepStrictEqual(
-    createHeading('foo', 42, 'bar'),
-    new Heading('foo', 42, 'bar')
-  )
-})
 
 {
   const frag = JSDOM.fragment(`
@@ -93,95 +74,7 @@ test('createHeading', () => {
     t.ok(Object.is(_foo, foo))
     t.ok(Object.is(_bar, bar))
   })
-
-  test('createTree', () => {
-    const a = [
-      ['https://example.com', 1, 'foo'],
-      ['https://example.com', 2, 'goo'],
-      ['https://example.com', 1, 'hoo']
-    ]
-    const result = createTree(a)
-
-    t.ok(result instanceof HeadingRoot)
-    t.ok(result.children.every(item => item instanceof Heading))
-    t.equal(result.children[0].text, 'foo')
-    t.equal(result.children[0].children[0].text, 'goo')
-    t.equal(result.children[1].text, 'hoo')
-  })
-
-  test('selectAllHeadingElement', () => {
-    const result = selectAllHeadingElement(frag)
-    const [_foo, _bar] = result
-
-    t.ok(Array.isArray(result))
-    t.equal(result.length, 2)
-    t.ok(Object.is(_foo, foo))
-    t.ok(Object.is(_bar, bar))
-  })
 }
-
-describe('selectAllHeadingElementFrom', () => {
-  const frag = JSDOM.fragment(`
-      <div class="hoge">
-        <h1>foo</h1>
-        <h2>bar</h2>
-        <p>baz</p>
-      </div>
-      <h3>piyo</h3>
-    `)
-  const foo = frag.querySelector('.hoge h1')
-  const bar = frag.querySelector('.hoge h2')
-
-  test('basic', () => {
-    const result = selectAllHeadingElementFrom('.hoge', frag)
-    const [_foo, _bar] = result
-
-    t.equal(result.length, 2)
-    t.ok(Object.is(_foo, foo))
-    t.ok(Object.is(_bar, bar))
-  })
-
-  test('curry', () => {
-    const f = selectAllHeadingElementFrom('.hoge')
-    const result = f(frag)
-    const [_foo, _bar] = result
-
-    t.equal(typeof f, 'function')
-    t.equal(result.length, 2)
-    t.ok(Object.is(_foo, foo))
-    t.ok(Object.is(_bar, bar))
-  })
-
-  test('empty', () => {
-    const result = selectAllHeadingElementFrom('.hoge', JSDOM.fragment(''))
-
-    t.ok(Array.isArray(result))
-    t.equal(result.length, 0)
-  })
-})
-
-test('createHeadings', () => {
-  const frag = JSDOM.fragment(`
-      <h1>foo</h1>
-      <h3>bar</h3>
-      <h2>baz</h2>
-    `)
-  const elements = Array.from(frag.children)
-  const f = createHeadings(
-    map(p => ['#example', headingLevel(p), p.textContent])
-  )
-  const result = f(elements)
-
-  t.equal(typeof f, 'function')
-  t.ok(result instanceof Heading)
-  t.ok(result.children.every(item => item instanceof Heading))
-  t.ok(result.children[0].children.every(item => item instanceof Heading))
-  t.equal(result.children.length, 1)
-  t.equal(result.children[0].children.length, 2)
-  t.equal(result.children[0].text, 'foo')
-  t.equal(result.children[0].children[0].text, 'bar')
-  t.equal(result.children[0].children[1].text, 'baz')
-})
 
 {
   const frag = JSDOM.fragment(`
@@ -226,77 +119,4 @@ describe('trimmedText', () => {
   test('all', () => {
     t.equal(trimmedText(space), '')
   })
-})
-
-test('headingLevel', () => {
-  const frag = JSDOM.fragment(`
-      <h1>foo</h1>
-      <h2>bar</h2>
-      <h3>baz</h3>
-  `)
-  const [foo, bar, baz] = frag.children
-
-  t.equal(headingLevel(foo), 1)
-  t.equal(headingLevel(bar), 2)
-  t.equal(headingLevel(baz), 3)
-})
-
-describe('element2Array', () => {
-  const frag = JSDOM.fragment(`
-    <p id="foo" tabindex="42">
-      baz
-    </p>
-  `)
-  const root = frag.firstElementChild
-
-  test('simple', () => {
-    const f = element2Array(() => 'foo', () => 42, () => 'baz')
-    const result = f(root)
-    t.equal(typeof f, 'function')
-    t.deepStrictEqual(result, ['foo', 42, 'baz'])
-  })
-  test('basic use', () => {
-    const f = element2Array(
-      elm => elm.id,
-      elm => Number(elm.getAttribute('tabindex')),
-      elm => elm.textContent.trim()
-    )
-    const result = f(root)
-    t.equal(typeof f, 'function')
-    t.deepStrictEqual(result, ['foo', 42, 'baz'])
-  })
-})
-
-describe('element2ArrayAnchorAndFlatLevel', () => {
-  const frag = JSDOM.fragment(`
-    <h1>
-      <a href="/tag/v1.0.0">1.0.0</a>
-    </h1>
-  `)
-  const h = frag.firstElementChild
-
-  test('1', () => {
-    const f = element2ArrayAnchorAndFlatLevel(1)
-    t.equal(typeof f, 'function')
-    t.deepStrictEqual(f(h), ['/tag/v1.0.0', 1, '1.0.0'])
-  })
-  test('42', () => {
-    const f = element2ArrayAnchorAndFlatLevel(42)
-    t.equal(typeof f, 'function')
-    t.deepStrictEqual(f(h), ['/tag/v1.0.0', 42, '1.0.0'])
-  })
-})
-
-test('markdownElement2Array', () => {
-  const frag = JSDOM.fragment(`
-    <h1>
-      <a id="user-content-license" class="anchor" href="#license"></a>
-      License
-    </h1>
-  `)
-  const h = frag.firstElementChild
-
-  const f = markdownElement2Array()
-  t.equal(typeof f, 'function')
-  t.deepStrictEqual(f(h), ['#license', 1, 'License'])
 })
