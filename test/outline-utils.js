@@ -4,7 +4,8 @@ import { JSDOM } from 'jsdom'
 import {
   createOutlineFrom,
   outlineSectionIterator,
-  isEmptyOutline
+  isEmptyOutline,
+  findSectionBySelector
 } from '../src/js/outline-utils.js'
 
 describe('createOutlineFrom', () => {
@@ -69,5 +70,23 @@ describe('isEmptyOutline', () => {
     `).window
     const outline = createOutlineFrom(document.body)
     t.ifError(isEmptyOutline(outline))
+  })
+})
+
+describe('findSectionBySelector', () => {
+  const { document } = new JSDOM(`
+    <div class="matched-class">
+      <h1>TEST</h1>
+    </div>
+  `).window
+  const outline = createOutlineFrom(document.body)
+  test('found', () => {
+    const h1 = document.querySelector('h1')
+    t.ok(
+      Object.is(findSectionBySelector(outline, '.matched-class').heading, h1)
+    )
+  })
+  test('not found', () => {
+    t.equal(findSectionBySelector(outline, '.non-matched-class'), null)
   })
 })

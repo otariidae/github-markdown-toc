@@ -1,6 +1,6 @@
 import { describe, it as test } from 'kocha'
 import t from 'assert'
-import { curry1, prop, pipe, always } from './index.js'
+import { curry1, prop, pipe, always, has, or } from './index.js'
 
 describe('functional-util', () => {
   describe('curry1', () => {
@@ -58,5 +58,44 @@ describe('functional-util', () => {
       t.equal(typeof g, 'function')
       t.equal(g(), undefined)
     })
+  })
+
+  describe('has', () => {
+    test('basic', () => {
+      t.ok(has('a', { a: 'b' }))
+      t.ifError(has('a', { b: 'c' }))
+    })
+    test('curry', () => {
+      t.ok(has('a')({ a: 'b' }))
+    })
+    test('symbol', () => {
+      const a = Symbol('a')
+      t.ok(has(a, { [a]: 'b' }))
+    })
+    test('class', () => {
+      const instance = new class {
+        constructor() {
+          this.instanceProp = 'foo'
+        }
+        get prototypeProp() {
+          return 'bar'
+        }
+      }()
+
+      t.ok(has('instanceProp', instance))
+      t.ok(has('prototypeProp', instance))
+    })
+  })
+
+  test('or', () => {
+    const f = always(false)
+    const g = always(true)
+    const h = always('foo')
+
+    t.ok(or(f, g)())
+    t.ifError(or(f, f)())
+    t.strictEqual(or(f, h)(), 'foo')
+    t.strictEqual(or(g, h)(), true)
+    t.strictEqual(or(h, g)(), 'foo')
   })
 })
