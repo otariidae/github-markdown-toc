@@ -10,13 +10,6 @@ export function curry1 (fun) {
 }
 
 /**
- * @param {function} fun
- * @param {Array} arg
- * @returns {*}
- */
-const _apply = (fun, arg) => fun(...arg)
-
-/**
  * @param {function} f
  * @param {function} g
  * @returns {function(...args)}
@@ -30,13 +23,27 @@ const _pipe = (f, g) => (...args) => g(f(...args))
 export const pipe = (...funs) => funs.reduce(_pipe)
 
 /**
- * @param {function} fun
- * @returns {function(Array)}
- */
-export const apply = curry1(_apply)
-
-/**
  * @param {*} arg
  * @returns {function}
  */
 export const always = arg => () => arg
+
+/**
+ * @function
+ * @param {Object} prop
+ * @returns {boolean}
+ */
+const _has = (prop, obj) => prop in obj
+
+/**
+ * @param {string|Symbol} prop
+ * @returns {function(Object): boolean}
+ */
+export const has = curry1(_has)
+
+/**
+ * @param {function} f
+ * @param {function} g
+ * @returns {function}
+ */
+export const or = (f, g) => (...args) => f(...args) || g(...args)

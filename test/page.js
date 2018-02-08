@@ -4,6 +4,10 @@ import { URL } from 'url'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { JSDOM } from 'jsdom'
+import {
+  outlineSectionIterator,
+  createEmptyHeadingList
+} from '../src/js/outline-utils.js'
 import PageFactory, {
   GitHubPage,
   ReleasePage,
@@ -17,8 +21,24 @@ function fragmentFromFile(path) {
   return JSDOM.fragment(file.toString())
 }
 
+function DOMFromFile(path) {
+  const file = readFileSync(join(__dirname, path))
+  const { document } = new JSDOM(file.toString()).window
+  return document
+}
+
+function allSectionHasTextAndLink(outline) {
+  for (const section of outlineSectionIterator(outline)) {
+    if (!('text' in section) || !('link' in section)) {
+      return false
+    }
+  }
+  return true
+}
+
 // shared class
-const { HTMLHeadingElement } = new JSDOM('').window
+const { document: emptyDoc, HTMLHeadingElement } = new JSDOM('').window
+const emptyOutline = createEmptyHeadingList()
 
 describe('UnknownPage', () => {
   const page = new UnknownPage()
@@ -26,8 +46,8 @@ describe('UnknownPage', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeadings', () => {
-    t.deepStrictEqual(page.getHeadings(), [])
+  test('getHeadingList', () => {
+    t.deepStrictEqual(page.getHeadingList(), emptyOutline)
   })
 })
 
@@ -38,11 +58,13 @@ describe('ReleasePage', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeadings', () => {
-    const headings = page.getHeadings(frag)
-    t.ok(Array.isArray(headings))
-    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headings.length, 3)
+  test('getHeadingList', () => {
+    const outline = page.getHeadingList(frag)
+    t.ok(allSectionHasTextAndLink(outline))
+  })
+  test('empty page', () => {
+    const outline = page.getHeadingList(emptyDoc)
+    t.deepStrictEqual(outline, emptyOutline)
   })
 })
 
@@ -53,26 +75,30 @@ describe('Code Page', () => {
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeadings', () => {
-    const headings = page.getHeadings(frag)
-    t.ok(Array.isArray(headings))
-    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headings.length, 4)
+  test('getHeadingList', () => {
+    const outline = page.getHeadingList(frag)
+    t.ok(allSectionHasTextAndLink(outline))
+  })
+  test('empty page', () => {
+    const outline = page.getHeadingList(emptyDoc)
+    t.deepStrictEqual(outline, emptyOutline)
   })
 })
 
 describe('Wiki Page', () => {
-  const frag = fragmentFromFile('./fixtures/wiki.html')
+  const frag = DOMFromFile('./fixtures/wiki.html')
   const page = new WikiPage()
 
   test('inheritance', () => {
     t.ok(page instanceof GitHubPage)
   })
-  test('getHeadings', () => {
-    const headings = page.getHeadings(frag)
-    t.ok(Array.isArray(headings))
-    t.ok(headings.every(e => e instanceof HTMLHeadingElement))
-    t.equal(headings.length, 4)
+  test('getHeadingList', () => {
+    const outline = page.getHeadingList(frag.body)
+    t.ok(allSectionHasTextAndLink(outline))
+  })
+  test('empty page', () => {
+    const outline = page.getHeadingList(emptyDoc)
+    t.deepStrictEqual(outline, emptyOutline)
   })
 })
 

@@ -1,68 +1,4 @@
-import {
-  curry1,
-  prop,
-  filter,
-  pipe,
-  apply,
-  always
-} from '../../modules/functional-util/index.js'
-import { Heading, HeadingRoot } from './heading.js'
-
-/**
- * @param {string} link
- * @param {number} level
- * @param {string} text
- * @returns {Heading}
- */
-export function createHeading (link, level, text) {
-  return new Heading(link, level, text)
-}
-
-/**
- * @param {string} query
- * @param {Element} root
- * @returns {Node}
- */
-function _querySelector (query, root) {
-  return root.querySelector(query)
-}
-
-/**
- * @param {string} query
- * @param {Element} root
- * @returns {NodeList}
- */
-function _querySelectorAll (query, root) {
-  return root.querySelectorAll(query)
-}
-
-/**
- * @function
- * @param {string} query
- * @returns {function(Element): Node}
- */
-export const querySelector = curry1(_querySelector)
-
-/**
- * @function
- * @param {string} query
- * @returns {function(Element): NodeList}
- */
-export const querySelectorAll = curry1(_querySelectorAll)
-
-/**
- * @param {string} query
- * @returns {function(Element): Element[]}
- */
-export function querySelectorAllArray (query) {
-  return pipe(querySelectorAll(query), Array.from)
-}
-
-/**
- * @param {string} str
- * @returns {string}
- */
-export const hash = str => `#${str}`
+import { prop, pipe, or } from '../../modules/functional-util/index.js'
 
 /**
  * @param {string} str
@@ -78,119 +14,75 @@ const trim = str => str.trim()
 export const trimmedText = pipe(prop('textContent'), trim)
 
 /**
- * @function
- * @param {Node}
- * @returns {number}
+ * @param {string} str
+ * @returns {string}
  */
-export const headingLevel = pipe(prop('tagName'), prop(1), Number)
+const toLowerCase = str => str.toLowerCase()
 
 /**
  * @function
- * @param {Node}
- * @returns {boolean}
+ * @param {Element}
+ * @returns {string}
  */
-export const hasText = pipe(prop('textContent'), Boolean)
+const toLowerTagName = pipe(prop('tagName'), toLowerCase)
 
 /**
- * @function
- * @param {Node[]}
- * @returns {Node[]}
+ * @param {string[]}
+ * @returns {function(Element): boolean}
  */
-export const filterEmptyText = filter(hasText)
-
-/**
- * @param {object} current
- * @param {object} previous
- * @returns {Object}
- */
-function findParent (current, previous) {
-  if (current.level > previous.level) {
-    return previous
-  } else if (current.level === previous.level) {
-    return previous.parent
-  } else {
-    return findParent(current, previous.parent)
-  }
-}
-
-/**
- * @param {Array} arr
- * @returns {HeadingRoot}
- */
-export function createTree (arr) {
-  const root = new HeadingRoot()
-  arr.map(apply(createHeading)).reduce((previous, current) => {
-    const parent = findParent(current, previous)
-    return parent.appendChild(current)
-  }, root)
-  return root
-}
-
-/**
- * @param {function} fun
- * @returns {function(Element): HeadingRoot}
- */
-export function createHeadings (fun) {
-  return pipe(filterEmptyText, fun, createTree)
+function createTagNameMatcher (tagNames) {
+  const loweredTagNames = tagNames.map(toLowerCase)
+  return pipe(toLowerTagName, loweredTagNames.includes.bind(loweredTagNames))
 }
 
 /**
  * @function
  * @param {Element}
- * @returns {HTMLHeadingElement[]}
+ * @returns {booelan}
  */
-export const selectAllHeadingElement = querySelectorAllArray(
-  'h1, h2, h3, h4, h5, h6'
-)
-
-/**
- * @param {string} query
- * @param {Element} root
- * @returns {Element[]}
- */
-export function _selectAllHeadingElementFrom (query, root) {
-  const element = root.querySelector(query)
-  if (!element) return []
-  return selectAllHeadingElement(element)
-}
+const isSectioningRoot = createTagNameMatcher([
+  'blockquote',
+  'body',
+  'details',
+  'dialog',
+  'fieldset',
+  'figure',
+  'td'
+])
 
 /**
  * @function
- * @param {string} query
- * @returns {function(Element): Element[]}
+ * @param {Element}
+ * @returns {booelan}
  */
-export const selectAllHeadingElementFrom = curry1(_selectAllHeadingElementFrom)
+const isSectioningContent = createTagNameMatcher([
+  'article',
+  'aside',
+  'nav',
+  'section'
+])
 
 /**
- * @param {function(Element, ...*): string} link
- * @param {function(Element, ...*): number} level
- * @param {function(Element, ...*): string} text
- * @param {object} [options]
- * @returns {function(Element): (string|number)[]}
+ * @function
+ * @param {Element}
+ * @returns {booelan}
  */
-export function element2Array (link, level, text, ...options) {
-  return element => [link, level, text].map(fun => fun(element, ...options))
+export const isRoot = or(isSectioningRoot, isSectioningContent)
+
+/**
+ * @param {Element}
+ * @returns {Element}
+ */
+export function findSectioningRoot (element) {
+  const parent = element.parentElement
+  return isRoot(parent) ? parent : findSectioningRoot(parent)
 }
 
 /**
- * @param {number} level
- * @returns {function(Element): (string|number)[]}
+ * @param {Element}
+ * @param {string}
+ * @returns {boolean}
  */
-export function element2ArrayAnchorAndFlatLevel (level) {
-  return element2Array(
-    pipe(querySelector('a'), prop('href')),
-    always(level),
-    trimmedText
-  )
+export function hasParentBySelector (element, selector) {
+  return element.matches(`${selector} *`)
 }
-
-/**
- * @returns {function(Element): (string|number)[]}
- */
-export const markdownElement2Array = always(
-  element2Array(
-    pipe(querySelector('.anchor'), prop('hash')),
-    headingLevel,
-    trimmedText
-  )
-)
