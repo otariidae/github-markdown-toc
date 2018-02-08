@@ -1,8 +1,12 @@
 <ol>
-  {{#each root.children as item}}
+  {{#each root.sections as item}}
   <li>
+    {{#if item.link}}
     <a href="{{ item.link }}">{{ item.text }}</a>
-    {{#if item.children.length !== 0}}
+    {{else}}
+    {{ item.text }}
+    {{/if}}
+    {{#if item.sections.length !== 0}}
     <:Self root='{{ item }}'/>
     {{/if}}
   </li>

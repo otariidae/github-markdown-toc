@@ -1,11 +1,9 @@
-import { map } from '../../modules/functional-util/index.js'
 import {
-  createHeadings,
-  querySelectorAllArray,
-  selectAllHeadingElementFrom,
-  element2ArrayAnchorAndFlatLevel,
-  markdownElement2Array
-} from './functions.js'
+  wrapSectionInOutline,
+  createEmptyHeadingList,
+  createOutlineFrom,
+  findSectionBySelector
+} from './outline-utils.js'
 import PageType from './page-type.js'
 
 /**
@@ -29,75 +27,51 @@ export default class PageFactory {
  */
 export class GitHubPage {
   /**
-   * @returns {Promise<Heading>}
+   * @returns {Object}
    */
   getHeadingList () {
-    return createHeadings(this.elementsToArray())(this.getHeadings(document))
-  }
-  /**
-   * @private
-   * @returns Array
-   */
-  getHeadings () {
-    return []
-  }
-  /**
-   * @private
-   * @returns {Promise<function: Array, Error>}
-   */
-  elementsToArray () {
-    return () => []
+    return createEmptyHeadingList()
   }
 }
 
 export class ReleasePage extends GitHubPage {
   /**
-   * @private
-   * @returns {Element[]}
+   * @returns {Object}
    */
-  getHeadings (root) {
-    return querySelectorAllArray('.release-title')(root)
-  }
-  /**
-   * @private
-   * @returns {Promise<function(Element[]): Array, Error>}
-   */
-  elementsToArray () {
-    return map(element2ArrayAnchorAndFlatLevel(1))
+  getHeadingList (root) {
+    const element = root.querySelector('.markdown-body')
+    if (!element) {
+      return createEmptyHeadingList()
+    }
+    return createOutlineFrom(element)
   }
 }
 
 export class CodePage extends GitHubPage {
   /**
-   * @private
-   * @returns {Element[]}
+   * @returns {Object}
    */
-  getHeadings (root) {
-    return selectAllHeadingElementFrom('.markdown-body', root)
-  }
-  /**
-   * @private
-   * @returns {Promise<function(Element[]): Array, Error>}
-   */
-  elementsToArray () {
-    return map(markdownElement2Array())
+  getHeadingList (root) {
+    const element = root.querySelector('.markdown-body')
+    if (!element) {
+      return createEmptyHeadingList()
+    }
+    return createOutlineFrom(element)
   }
 }
 
 export class WikiPage extends GitHubPage {
   /**
-   * @private
-   * @returns {Element[]}
+   * @returns {Object}
    */
-  getHeadings (root) {
-    return selectAllHeadingElementFrom('.wiki-body .markdown-body', root)
-  }
-  /**
-   * @private
-   * @returns {Promise<function(Element[]): Array, Error>}
-   */
-  elementsToArray () {
-    return map(markdownElement2Array())
+  getHeadingList (root) {
+    const element = root.querySelector('.wiki-body .markdown-body')
+    if (!element) {
+      return createEmptyHeadingList()
+    }
+    const outline = createOutlineFrom(element)
+    const section = findSectionBySelector(outline, '.wiki-body .markdown-body')
+    return section ? wrapSectionInOutline(section) : outline
   }
 }
 
