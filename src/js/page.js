@@ -26,6 +26,7 @@ export default class PageFactory {
  * @abstract
  */
 export class GitHubPage {
+  static _selector = 'body'
   /**
    * @returns {Object}
    */
@@ -35,11 +36,12 @@ export class GitHubPage {
 }
 
 export class ReleasePage extends GitHubPage {
+  static _selector = '.markdown-body'
   /**
    * @returns {Object}
    */
   getHeadingList (root) {
-    const element = root.querySelector('.markdown-body')
+    const element = root.querySelector(ReleasePage._selector)
     if (!element) {
       return createEmptyHeadingList()
     }
@@ -48,11 +50,12 @@ export class ReleasePage extends GitHubPage {
 }
 
 export class CodePage extends GitHubPage {
+  static _selector = '.wiki-body .markdown-body'
   /**
    * @returns {Object}
    */
   getHeadingList (root) {
-    const element = root.querySelector('.markdown-body')
+    const element = root.querySelector(CodePage._selector)
     if (!element) {
       return createEmptyHeadingList()
     }
@@ -61,16 +64,17 @@ export class CodePage extends GitHubPage {
 }
 
 export class WikiPage extends GitHubPage {
+  static _selector = '.wiki-body .markdown-body'
   /**
    * @returns {Object}
    */
   getHeadingList (root) {
-    const element = root.querySelector('.wiki-body .markdown-body')
+    const element = root.querySelector(WikiPage._selector)
     if (!element) {
       return createEmptyHeadingList()
     }
     const outline = createOutlineFrom(element)
-    const section = findSectionBySelector(outline, '.wiki-body .markdown-body')
+    const section = findSectionBySelector(outline, WikiPage._selector)
     return section ? wrapSectionInOutline(section) : outline
   }
 }

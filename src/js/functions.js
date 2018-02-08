@@ -1,4 +1,4 @@
-import { prop, pipe } from '../../modules/functional-util/index.js'
+import { prop, pipe, or } from '../../modules/functional-util/index.js'
 
 /**
  * @param {string} str
@@ -14,15 +14,25 @@ const trim = str => str.trim()
 export const trimmedText = pipe(prop('textContent'), trim)
 
 /**
+ * @param {string} str
+ * @returns {string}
+ */
+const toLowerCase = str => str.toLowerCase()
+
+/**
+ * @function
+ * @param {Element}
+ * @returns {string}
+ */
+const toLowerTagName = pipe(prop('tagName'), toLowerCase)
+
+/**
  * @param {string[]}
  * @returns {function(Element): boolean}
  */
 function createTagNameMatcher (tagNames) {
-  const loweredTagNames = tagNames.map(str => str.toLowerCase())
-  return element => {
-    const tagName = element.tagName.toLowerCase()
-    return loweredTagNames.includes(tagName)
-  }
+  const loweredTagNames = tagNames.map(toLowerCase)
+  return pipe(toLowerTagName, loweredTagNames.includes.bind(loweredTagNames))
 }
 
 /**
@@ -30,7 +40,7 @@ function createTagNameMatcher (tagNames) {
  * @param {Element}
  * @returns {booelan}
  */
-export const isSectioningRoot = createTagNameMatcher([
+const isSectioningRoot = createTagNameMatcher([
   'blockquote',
   'body',
   'details',
@@ -45,7 +55,7 @@ export const isSectioningRoot = createTagNameMatcher([
  * @param {Element}
  * @returns {booelan}
  */
-export const isSectioningContent = createTagNameMatcher([
+const isSectioningContent = createTagNameMatcher([
   'article',
   'aside',
   'nav',
@@ -53,14 +63,19 @@ export const isSectioningContent = createTagNameMatcher([
 ])
 
 /**
+ * @function
+ * @param {Element}
+ * @returns {booelan}
+ */
+export const isRoot = or(isSectioningRoot, isSectioningContent)
+
+/**
  * @param {Element}
  * @returns {Element}
  */
 export function findSectioningRoot (element) {
   const parent = element.parentElement
-  return isSectioningRoot(parent) || isSectioningContent(parent)
-    ? parent
-    : findSectioningRoot(parent)
+  return isRoot(parent) ? parent : findSectioningRoot(parent)
 }
 
 /**

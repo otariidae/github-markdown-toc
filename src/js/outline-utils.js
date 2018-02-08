@@ -1,7 +1,7 @@
-import { always } from '../../modules/functional-util/index.js'
+import { pipe, prop, always, has } from '../../modules/functional-util/index.js'
 import {
-  isSectioningRoot,
-  isSectioningContent,
+  trimmedText,
+  isRoot,
   findSectioningRoot,
   hasParentBySelector
 } from './functions.js'
@@ -33,10 +33,7 @@ export function wrapSectionInOutline (section) {
  * @returns {Object}
  */
 export function createOutlineFrom (element) {
-  const root =
-    isSectioningRoot(element) || isSectioningContent(element)
-      ? element
-      : findSectioningRoot(element)
+  const root = isRoot(element) ? element : findSectioningRoot(element)
   const outline = createOutline(root)
   traverseOutline(outline)
   return outline
@@ -53,7 +50,7 @@ function traverseOutline (outline) {
     } else {
       const a = section.heading.querySelector('a')
       section.link = a ? a.href : null
-      section.text = section.heading.textContent
+      section.text = trimmedText(section.heading)
     }
   }
 }
@@ -70,12 +67,11 @@ export function * outlineSectionIterator (outline) {
 }
 
 /**
+ * @function
  * @param {object} section
  * @returns {boolean}
  */
-function isEmptyHeading (section) {
-  return 'implied' in section.heading
-}
+const isEmptyHeading = pipe(prop('heading'), has('implied'))
 
 /**
  * @param {object} outline
@@ -84,14 +80,10 @@ function isEmptyHeading (section) {
 export function isEmptyOutline (outline) {
   if (outline.sections.length === 0) {
     return true
-  } else {
-    for (const section of outlineSectionIterator(outline)) {
-      if (!isEmptyHeading(section)) {
-        return false
-      }
-    }
-    return true
   }
+  const sections = Array.from(outlineSectionIterator(outline))
+  const hasNonEmptySection = sections.some(section => !isEmptyHeading(section))
+  return !hasNonEmptySection
 }
 
 /**

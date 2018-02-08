@@ -27,3 +27,23 @@ export const pipe = (...funs) => funs.reduce(_pipe)
  * @returns {function}
  */
 export const always = arg => () => arg
+
+/**
+ * @function
+ * @param {Object} prop
+ * @returns {boolean}
+ */
+const _has = (prop, obj) => prop in obj
+
+/**
+ * @param {string|Symbol} prop
+ * @returns {function(Object): boolean}
+ */
+export const has = curry1(_has)
+
+/**
+ * @param {function} f
+ * @param {function} g
+ * @returns {function}
+ */
+export const or = (f, g) => (...args) => f(...args) || g(...args)
