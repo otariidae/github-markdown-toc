@@ -47,3 +47,19 @@ export const has = curry1(_has)
  * @returns {function}
  */
 export const or = (f, g) => (...args) => f(...args) || g(...args)
+
+/**
+ * @private
+ * @param {string|Symbol} property
+ * @param {object} object
+ * @returns {*}
+ */
+function _prop (property, object) {
+  return object[property]
+}
+
+/**
+ * @param {string|Symbol} property
+ * @returns {function(object)}
+ */
+export const prop = curry1(_prop)
