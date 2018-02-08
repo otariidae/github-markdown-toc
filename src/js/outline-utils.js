@@ -1,4 +1,4 @@
-import { always, curry1 } from '../../modules/functional-util/index.js'
+import { always } from '../../modules/functional-util/index.js'
 import {
   isSectioningRoot,
   isSectioningContent,
@@ -29,11 +29,10 @@ export function wrapSectionInOutline (section) {
 }
 
 /**
- * @param {string} query
- * @param {Element} root
+ * @param {Element} element
  * @returns {Object}
  */
-function _createOutlineFrom (element) {
+export function createOutlineFrom (element) {
   const root =
     isSectioningRoot(element) || isSectioningContent(element)
       ? element
@@ -42,13 +41,6 @@ function _createOutlineFrom (element) {
   traverseOutline(outline)
   return outline
 }
-
-/**
- * @function
- * @param {string} query
- * @returns {function(Element): Element[]}
- */
-export const createOutlineFrom = curry1(_createOutlineFrom)
 
 /**
  * @param {Object} outline

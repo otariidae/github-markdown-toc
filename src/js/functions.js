@@ -1,55 +1,4 @@
-import {
-  curry1,
-  prop,
-  filter,
-  pipe
-} from '../../modules/functional-util/index.js'
-
-/**
- * @param {string} query
- * @param {Element} root
- * @returns {Node}
- */
-function _querySelector (query, root) {
-  return root.querySelector(query)
-}
-
-/**
- * @param {string} query
- * @param {Element} root
- * @returns {NodeList}
- */
-function _querySelectorAll (query, root) {
-  return root.querySelectorAll(query)
-}
-
-/**
- * @function
- * @param {string} query
- * @returns {function(Element): Node}
- */
-export const querySelector = curry1(_querySelector)
-
-/**
- * @function
- * @param {string} query
- * @returns {function(Element): NodeList}
- */
-export const querySelectorAll = curry1(_querySelectorAll)
-
-/**
- * @param {string} query
- * @returns {function(Element): Element[]}
- */
-export function querySelectorAllArray (query) {
-  return pipe(querySelectorAll(query), Array.from)
-}
-
-/**
- * @param {string} str
- * @returns {string}
- */
-export const hash = str => `#${str}`
+import { prop, pipe } from '../../modules/functional-util/index.js'
 
 /**
  * @param {string} str
@@ -63,20 +12,6 @@ const trim = str => str.trim()
  * @returns {string}
  */
 export const trimmedText = pipe(prop('textContent'), trim)
-
-/**
- * @function
- * @param {Node}
- * @returns {boolean}
- */
-export const hasText = pipe(prop('textContent'), Boolean)
-
-/**
- * @function
- * @param {Node[]}
- * @returns {Node[]}
- */
-export const filterEmptyText = filter(hasText)
 
 /**
  * @param {string[]}
