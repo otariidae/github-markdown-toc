@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/otariidae/github-markdown-toc/compare/v0.9.1...v0.10.0)
+
+### Changed
+
+* Exclude github.com/topics
+* :sparkles::recycle: Big refactoring
+
 ## [0.9.1](https://github.com/otariidae/github-markdown-toc/compare/v0.9.0...v0.9.1)
 
 ### Changed
