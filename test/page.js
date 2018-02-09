@@ -105,18 +105,14 @@ describe('Wiki Page', () => {
 test('PageFactory', () => {
   global.URL = URL
 
-  const p0 = createFromUrl(
-    'https://github.com/example/example-project'
-  )
+  const p0 = createFromUrl('https://github.com/example/example-project')
   const p1 = createFromUrl(
     'https://github.com/example/example-project/tree/master/test'
   )
   const p2 = createFromUrl(
     'https://github.com/example/example-project/releases'
   )
-  const p3 = createFromUrl(
-    'https://github.com/example/example-project/wiki'
-  )
+  const p3 = createFromUrl('https://github.com/example/example-project/wiki')
   const p4 = createFromUrl('https://github.com/example')
   const p5 = createFromUrl('https://github.com')
 
