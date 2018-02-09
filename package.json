@@ -47,7 +47,7 @@
     "test": "cross-env NODE_ENV=test kocha --require @babel/register test/*.js modules/*/test.js",
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=json",
-    "preversion": "run-p lint:fix test",
+    "preversion": "run-p lint test",
     "version": "npm run build:meta"
   },
   "version": "0.9.1",
