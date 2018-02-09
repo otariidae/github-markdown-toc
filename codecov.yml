@@ -3,14 +3,13 @@ coverage:
     - "modules/*/test.js"
     - "test/*"
   status:
+      patch:
+        default:
+          enabled: false
       project:
-        modules:
-          paths:
-            - modules/*
-        app:
-          paths:
-            - test/*
-            - src/*
+        default:
+          enabled: true
+          target: 90%
 parsers:
   javascript:
     enable_partials: yes
