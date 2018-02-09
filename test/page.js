@@ -8,7 +8,7 @@ import {
   outlineSectionIterator,
   createEmptyHeadingList
 } from '../src/js/outline-utils.js'
-import PageFactory, {
+import createFromUrl, {
   GitHubPage,
   ReleasePage,
   CodePage,
@@ -105,20 +105,20 @@ describe('Wiki Page', () => {
 test('PageFactory', () => {
   global.URL = URL
 
-  const p0 = PageFactory.createFromUrl(
+  const p0 = createFromUrl(
     'https://github.com/example/example-project'
   )
-  const p1 = PageFactory.createFromUrl(
+  const p1 = createFromUrl(
     'https://github.com/example/example-project/tree/master/test'
   )
-  const p2 = PageFactory.createFromUrl(
+  const p2 = createFromUrl(
     'https://github.com/example/example-project/releases'
   )
-  const p3 = PageFactory.createFromUrl(
+  const p3 = createFromUrl(
     'https://github.com/example/example-project/wiki'
   )
-  const p4 = PageFactory.createFromUrl('https://github.com/example')
-  const p5 = PageFactory.createFromUrl('https://github.com')
+  const p4 = createFromUrl('https://github.com/example')
+  const p5 = createFromUrl('https://github.com')
 
   t.ok(p0 instanceof CodePage)
   t.ok(p1 instanceof CodePage)

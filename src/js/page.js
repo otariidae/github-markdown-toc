@@ -7,19 +7,15 @@ import {
 import PageType from './page-type.js'
 
 /**
- * @abstract
+ * @param {string} url
+ * @returns {GitHubPage}
  */
-export default class PageFactory {
-  /**
-   * @param {string} url
-   */
-  static createFromUrl (url) {
-    const pagetype = new PageType(url)
-    if (pagetype.isReleasePage()) return new ReleasePage()
-    if (pagetype.isCodePage()) return new CodePage()
-    if (pagetype.isWikiPage()) return new WikiPage()
-    return new UnknownPage()
-  }
+export default function createFromUrl (url) {
+  const pagetype = new PageType(url)
+  if (pagetype.isReleasePage()) return new ReleasePage()
+  if (pagetype.isCodePage()) return new CodePage()
+  if (pagetype.isWikiPage()) return new WikiPage()
+  return new UnknownPage()
 }
 
 /**

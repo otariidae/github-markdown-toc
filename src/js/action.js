@@ -1,5 +1,5 @@
 import { Action } from '../../modules/flux/index.js'
-import pageFactory from './page.js'
+import createFromUrl from './page.js'
 import { isEmptyOutline } from './outline-utils.js'
 
 export const key = {
@@ -13,7 +13,7 @@ export default class AppAction extends Action {
     this.dispatch(key.START_LOADING)
   }
   moveToPage () {
-    const page = pageFactory.createFromUrl(location.href)
+    const page = createFromUrl(location.href)
     const heading = page.getHeadingList(document.body)
     const isAvailable = !isEmptyOutline(heading)
     const data = {
