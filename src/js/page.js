@@ -50,7 +50,7 @@ export class ReleasePage extends GitHubPage {
 }
 
 export class CodePage extends GitHubPage {
-  static _selector = '.wiki-body .markdown-body'
+  static _selector = '.markdown-body'
   /**
    * @returns {Object}
    */
