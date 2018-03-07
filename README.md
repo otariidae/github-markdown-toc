@@ -26,13 +26,13 @@ You can install the latest version manually.
 
 To install it, follow these steps:
 
-1. Download **github-markdown-toc.zip** from
-   [the release page](https://github.com/otariidae/github-markdown-toc/releases)
-   and unzip it.
-2. Visit **chrome://extensions**.
-3. Click to check **Developer mode**.
-4. Click **Load unpacked extension...**.
-5. In the file-selection dialog, select the unzipped directory.
+1.  Download **github-markdown-toc.zip** from
+    [the release page](https://github.com/otariidae/github-markdown-toc/releases)
+    and unzip it.
+2.  Visit **chrome://extensions**.
+3.  Click to check **Developer mode**.
+4.  Click **Load unpacked extension...**.
+5.  In the file-selection dialog, select the unzipped directory.
 
 For more information, see
 [Chrome Extension Get Started](https://developer.chrome.com/extensions/getstarted#unpacked)
