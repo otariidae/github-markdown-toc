@@ -2,70 +2,65 @@ import { describe, it as test } from 'kocha'
 import t from 'assert'
 import { EventTarget } from 'event-target-shim'
 global.EventTarget = EventTarget
-import { Action, Store, Dispatcher } from './index.js'
+import { createAction, Store } from './index.js'
 
 const key = {
-  BAR: 'bar',
-  HOGE: 'hoge'
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement'
 }
 
-class TestAction extends Action {
-  foo(data) {
-    this.dispatch(key.BAR, data)
+const originalAction = {
+  onClick() {
+    return {
+      type: key.INCREMENT
+    }
   }
 }
 
 class TestStore extends Store {
-  constructor(dispatcher) {
-    super(dispatcher)
-    this.state = {}
-    this.register(key.HOGE, this.onHoge.bind(this))
+  get initalState() {
+    return {
+      count: 0
+    }
   }
-  onHoge(data) {
-    this.setState(data)
+  reduce(state, action) {
+    if (action.type === key.INCREMENT) {
+      state.count++
+    }
+    return state
   }
 }
 
 describe('flux', () => {
-  test('action', done => {
-    const testData = {
-      baz: true
-    }
-    const dispatcher = new Dispatcher()
-    const action = new TestAction(dispatcher)
-    dispatcher.on(key.BAR, data => {
-      t.deepStrictEqual(data, testData)
-      done()
+  describe('action', () => {
+    const store = new TestStore()
+    const action = createAction(originalAction, store)
+
+    test('returned value', () => {
+      t.deepEqual(action.onClick(), { type: key.INCREMENT })
     })
-    action.foo(testData)
+    test('state change', () => {
+      t.deepEqual(store.state, { count: 1 })
+    })
   })
 
   describe('store', () => {
+    const store = new TestStore()
+    const action = createAction(originalAction, store)
+
+    test('initial state', () => {
+      t.deepEqual(store.state, { count: 0 })
+    })
     test('onChange', done => {
-      const testData = {
-        piyo: false
-      }
-      const dispatcher = new Dispatcher()
-      const store = new TestStore(dispatcher)
-      store.onChange(() => {
-        const state = store.getState()
-        t.deepStrictEqual(state, testData)
-        t.ifError(Object.is(state, testData))
-        done()
-      })
-      dispatcher.emit(key.HOGE, testData)
+      store.onChange(done)
+      store.dispatch({ type: key.INCREMENT })
+      store.removeChangeListener(done)
     })
     test('removeChangeListener', () => {
-      const dispatcher = new Dispatcher()
-      const store = new TestStore(dispatcher)
-      const func = () => {
-        t.fail()
-      }
+      const func = () => t.fail()
       store.onChange(func)
       store.removeChangeListener(func)
-      store.setState({
-        foo: 'bar'
-      })
+      store.dispatch({ type: key.INCREMENT })
     })
   })
 })

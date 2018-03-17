@@ -1,4 +1,3 @@
-import { Action } from '../../modules/flux/index.js'
 import createFromUrl from './page.js'
 import { isEmptyOutline } from './outline-utils.js'
 
@@ -8,21 +7,31 @@ export const key = {
   TOGGLE_NAV: 'toggle-nav'
 }
 
-export default class AppAction extends Action {
+// action creators
+export default {
   startLoading () {
-    this.dispatch(key.START_LOADING)
-  }
+    return {
+      type: key.START_LOADING,
+      payload: {}
+    }
+  },
   moveToPage () {
     const page = createFromUrl(location.href)
     const heading = page.getHeadingList(document.body)
     const isAvailable = !isEmptyOutline(heading)
-    const data = {
-      heading,
-      isAvailable
+
+    return {
+      type: key.MOVE_TO_PAGE,
+      payload: {
+        heading,
+        isAvailable
+      }
     }
-    this.dispatch(key.MOVE_TO_PAGE, data)
-  }
+  },
   toggleNav () {
-    this.dispatch(key.TOGGLE_NAV)
+    return {
+      type: key.TOGGLE_NAV,
+      payload: {}
+    }
   }
 }

@@ -1,36 +1,36 @@
 import { Store } from '../../modules/flux/index.js'
 import { key } from './action.js'
 import { createEmptyHeadingList } from './outline-utils.js'
+import produce from 'immer'
+
+const { START_LOADING, MOVE_TO_PAGE, TOGGLE_NAV } = key
 
 export default class AppStore extends Store {
-  constructor (dispatcher) {
-    super(dispatcher)
-    this.setState({
+  get initalState () {
+    return {
       isLoading: false,
       isOpen: false,
       isEnabled: false,
       heading: createEmptyHeadingList()
-    })
-    this.register(key.START_LOADING, this.loading.bind(this))
-    this.register(key.MOVE_TO_PAGE, this.toPage.bind(this))
-    this.register(key.TOGGLE_NAV, this.toggleNav.bind(this))
+    }
   }
-  loading () {
-    this.setState({
-      isLoading: true
-    })
-  }
-  toPage ({ isAvailable, heading }) {
-    this.setState({
-      heading,
-      isLoading: false,
-      isEnabled: isAvailable,
-      isOpen: isAvailable ? this.getState().isOpen : false
-    })
-  }
-  toggleNav () {
-    this.setState({
-      isOpen: !this.getState().isOpen
+  reduce (state, action) {
+    return produce(state, state => {
+      const { type, payload } = action
+
+      if (type === START_LOADING) {
+        state.isLoading = true
+      } else if (type === MOVE_TO_PAGE) {
+        const { isAvailable, heading } = payload
+        state.heading = heading
+        state.isLoading = false
+        state.isEnabled = isAvailable
+        state.isOpen = isAvailable ? this.state.isOpen : false
+      } else if (type === TOGGLE_NAV) {
+        state.isOpen = !state.isOpen
+      }
+
+      return state
     })
   }
 }

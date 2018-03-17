@@ -1,57 +1,53 @@
 import EventEmitter from '../event-emitter/index.js'
-import deepAssign from '../deep-assign/index.js'
+import produce from 'immer'
 const ON_CHANGE = 'on-change'
+const ON_ACTION = 'on-action'
 
-export class Action {
-  /** @private */
-  _dispatcher
-  /**
-   * @param {EventEmitter} dispatcher
-   */
-  constructor (dispatcher) {
-    this._dispatcher = dispatcher
+const clone = arg => produce(arg, arg => arg)
+
+export const createAction = (actions, store) => {
+  const copy = {}
+
+  // Wrap action creators
+  // When an action creator is called, trigger store.dispatch
+  for (const [prop, actionCreator] of Object.entries(actions)) {
+    copy[prop] = (...args) => {
+      const action = actionCreator(...args)
+      store.dispatch(action)
+      return action
+    }
   }
-  /**
-   * Emit a event with data
-   * @param {Symbol} key - event name
-   * @param {*} data
-   */
-  dispatch (key, data) {
-    this._dispatcher.emit(key, data)
-  }
+
+  return copy
 }
 
 export class Store extends EventEmitter {
   /** @private */
-  _state = {}
-  /** @private */
-  _dispatcher
+  _state = this.initalState
   /**
    * @param {EventEmitter} dispatcher
    */
-  constructor (dispatcher) {
+  constructor () {
     super()
-    this._dispatcher = dispatcher
+
+    this.on(ON_ACTION, action => {
+      // update state
+      this._state = this.reduce(this._state, action)
+      this.emit(ON_CHANGE)
+    })
   }
   /**
-   * @param {object} data
+   * dispatch an action
+   * @param {action} Object
    */
-  setState (data) {
-    this._state = deepAssign({}, this._state, data)
-    this.emit(ON_CHANGE)
+  dispatch (action) {
+    this.emit(ON_ACTION, action)
   }
   /**
    * @returns {object}
    */
-  getState () {
-    return deepAssign({}, this._state)
-  }
-  /**
-   * @param {Symbol} key
-   * @param {function} func
-   */
-  register (key, func) {
-    this._dispatcher.on(key, func)
+  get state () {
+    return clone(this._state)
   }
   /**
    * @param {function} func
@@ -61,11 +57,8 @@ export class Store extends EventEmitter {
   }
   /**
    * @param {function} func
-   * @returns {boolean}
    */
   removeChangeListener (func) {
-    return this.off(ON_CHANGE, func)
+    this.off(ON_CHANGE, func)
   }
 }
-
-export const Dispatcher = EventEmitter
