@@ -1,10 +1,12 @@
 import { describe, it as test } from 'kocha'
 import t from 'assert'
+import { EventTarget } from 'event-target-shim'
+global.EventTarget = EventTarget
 import { Action, Store, Dispatcher } from './index.js'
 
 const key = {
-  BAR: Symbol('bar'),
-  HOGE: Symbol('hoge')
+  BAR: 'bar',
+  HOGE: 'hoge'
 }
 
 class TestAction extends Action {
@@ -53,13 +55,17 @@ describe('flux', () => {
       })
       dispatcher.emit(key.HOGE, testData)
     })
-    test('removeChangeListener', done => {
+    test('removeChangeListener', () => {
       const dispatcher = new Dispatcher()
       const store = new TestStore(dispatcher)
-      const func = () => {}
+      const func = () => {
+        t.fail()
+      }
       store.onChange(func)
-      t.ok(store.removeChangeListener(func))
-      done()
+      store.removeChangeListener(func)
+      store.setState({
+        foo: 'bar'
+      })
     })
   })
 })

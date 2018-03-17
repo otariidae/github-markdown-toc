@@ -3,9 +3,9 @@ import createFromUrl from './page.js'
 import { isEmptyOutline } from './outline-utils.js'
 
 export const key = {
-  START_LOADING: Symbol('start-loading'),
-  MOVE_TO_PAGE: Symbol('move-to-page'),
-  TOGGLE_NAV: Symbol('toggle-nav')
+  START_LOADING: 'start-loading',
+  MOVE_TO_PAGE: 'move-to-page',
+  TOGGLE_NAV: 'toggle-nav'
 }
 
 export default class AppAction extends Action {

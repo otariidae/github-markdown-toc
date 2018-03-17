@@ -1,44 +1,46 @@
+// transform event handler for EventEmitter to one for EventTarget
+const eventHandlerWrapper = eventHandler => customEvent =>
+  eventHandler(customEvent.detail)
+
 /**
  * event emitter
  */
-export default class EventEmitter {
+export default class EventEmitter extends EventTarget {
   /** @private */
-  _handlers = new Map()
+  _handlers = new Map() // map original handler to wrapped handler
   /**
-   * @param {string|Symbol} type
+   * @param {string} type
    * @param {function} handler
+   * @param {...options} Object
    */
-  on (type, handler) {
-    if (!this._has(type)) {
-      this._handlers.set(type, new Set())
-    }
-    this._handlers.get(type).add(handler)
+  on (type, handler, ...options) {
+    const wrappedHandler = eventHandlerWrapper(handler)
+    this._handlers.set(handler, wrappedHandler)
+    this.addEventListener(type, wrappedHandler, ...options)
   }
   /**
-   * @param {string|Symbol} type
+   * @param {string} type
    * @param {function} handler
-   * @returns {boolean}
+   * @param {...options} Object
    */
-  off (type, handler) {
-    if (!this._has(type)) {
-      return false
+  off (type, handler, ...options) {
+    const wrappedHandler = this._handlers.get(handler)
+
+    if (wrappedHandler === undefined) {
+      return
     }
-    return this._handlers.get(type).delete(handler)
+
+    this.removeEventListener(type, wrappedHandler, ...options)
   }
   /**
-   * @param {string|Symbol} type
+   * @param {string} type
    * @param {*} data
    */
   emit (type, data) {
-    if (this._has(type)) {
-      this._handlers.get(type).forEach(func => func(data))
-    }
-  }
-  /**
-   * @param {string|Symbol} type
-   * @returns {boolean}
-   */
-  _has (type) {
-    return this._handlers.has(type)
+    this.dispatchEvent(
+      new CustomEvent(type, {
+        detail: data
+      })
+    )
   }
 }

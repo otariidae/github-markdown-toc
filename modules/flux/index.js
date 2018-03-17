@@ -1,6 +1,6 @@
 import EventEmitter from '../event-emitter/index.js'
 import deepAssign from '../deep-assign/index.js'
-const ON_CHANGE = Symbol('on-change')
+const ON_CHANGE = 'on-change'
 
 export class Action {
   /** @private */
