@@ -1,4 +1,4 @@
-# COntributing to Github Markdown ToC
+# Contributing to GitHub Markdown ToC
 
 ## Git Commit Messages
 
