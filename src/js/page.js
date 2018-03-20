@@ -1,9 +1,4 @@
-import {
-  wrapSectionInOutline,
-  createEmptyHeadingList,
-  createOutlineFrom,
-  findSectionBySelector
-} from './outline-utils.js'
+import { createEmptyHeadingList, createTreeFrom } from './outline-utils.js'
 import PageType from './page-type.js'
 
 /**
@@ -32,7 +27,7 @@ export class GitHubPage {
 }
 
 export class ReleasePage extends GitHubPage {
-  static _selector = '.markdown-body'
+  static _selector = '.repository-content'
   /**
    * @returns {Object}
    */
@@ -41,7 +36,7 @@ export class ReleasePage extends GitHubPage {
     if (!element) {
       return createEmptyHeadingList()
     }
-    return createOutlineFrom(element)
+    return createTreeFrom(element)
   }
 }
 
@@ -55,7 +50,7 @@ export class CodePage extends GitHubPage {
     if (!element) {
       return createEmptyHeadingList()
     }
-    return createOutlineFrom(element)
+    return createTreeFrom(element)
   }
 }
 
@@ -69,9 +64,7 @@ export class WikiPage extends GitHubPage {
     if (!element) {
       return createEmptyHeadingList()
     }
-    const outline = createOutlineFrom(element)
-    const section = findSectionBySelector(outline, WikiPage._selector)
-    return section ? wrapSectionInOutline(section) : outline
+    return createTreeFrom(element)
   }
 }
 

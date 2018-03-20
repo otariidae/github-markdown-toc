@@ -1,10 +1,5 @@
 import { pipe, prop, always, has } from '../../modules/functional-util/index.js'
-import {
-  trimmedText,
-  isRoot,
-  findSectioningRoot,
-  hasParentBySelector
-} from './functions.js'
+import { trimmedText, isRoot } from './functions.js'
 import createOutline from 'h5o'
 
 /**
@@ -12,45 +7,52 @@ import createOutline from 'h5o'
  * @returns {Object}
  */
 export const createEmptyHeadingList = always({
-  heading: {
-    implied: true
-  },
+  text: '',
+  link: null,
   sections: []
 })
-
-/**
- * @param {Object}
- * @returns {Object}
- */
-export function wrapSectionInOutline (section) {
-  return {
-    sections: [section]
-  }
-}
 
 /**
  * @param {Element} element
  * @returns {Object}
  */
 export function createOutlineFrom (element) {
-  const root = isRoot(element) ? element : findSectioningRoot(element)
-  const outline = createOutline(root)
-  traverseOutline(outline)
-  return outline
+  const root = isRoot(element) ? element : wrapWithRoot(element)
+  return createOutline(root)
+}
+
+function wrapWithRoot (element) {
+  const frag = document.createDocumentFragment()
+  const root = document.createElement('body')
+  root.appendChild(element.cloneNode(true))
+  frag.appendChild(root)
+  return root
+}
+
+export function createTreeFrom (element) {
+  const outline = createOutlineFrom(element)
+  return outline2tree(outline)
 }
 
 /**
+ * traverse outline
  * @param {Object} outline
  */
-function traverseOutline (outline) {
-  for (const section of outlineSectionIterator(outline)) {
-    if (isEmptyHeading(section)) {
-      section.text = ''
-      section.link = null
-    } else {
-      const a = section.heading.querySelector('a')
-      section.link = a ? a.href : null
-      section.text = trimmedText(section.heading)
+function outline2tree (outline) {
+  const sections = outline.sections.map(outline2tree)
+
+  if (outline.heading === undefined || isEmptyHeading(outline)) {
+    return {
+      link: null,
+      text: '',
+      sections
+    }
+  } else {
+    const a = outline.heading.querySelector('a')
+    return {
+      link: a ? a.href : null,
+      text: trimmedText(outline.heading),
+      sections
     }
   }
 }
@@ -86,19 +88,11 @@ export function isEmptyOutline (outline) {
   return !hasNonEmptySection
 }
 
-/**
- * @param {object} outline
- * @param {string} selector
- * @returns {?Object}
- */
-export function findSectionBySelector (outline, selector) {
-  for (const section of outlineSectionIterator(outline)) {
-    if (isEmptyHeading(section)) {
-      continue
-    }
-    if (hasParentBySelector(section.heading, selector)) {
-      return section
-    }
+export function isEmptyTree (tree) {
+  if (tree.sections.length === 0) {
+    return true
   }
-  return null
+  const sections = Array.from(outlineSectionIterator(tree))
+  const hasNonEmptyNode = sections.some(section => section.text !== '')
+  return !hasNonEmptyNode
 }

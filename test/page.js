@@ -93,7 +93,12 @@ describe('Wiki Page', () => {
     t.ok(page instanceof GitHubPage)
   })
   test('getHeadingList', () => {
+    global.document = frag
+
     const outline = page.getHeadingList(frag.body)
+
+    delete global.document
+
     t.ok(allSectionHasTextAndLink(outline))
   })
   test('empty page', () => {

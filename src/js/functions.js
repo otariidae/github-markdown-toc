@@ -68,21 +68,3 @@ const isSectioningContent = createTagNameMatcher([
  * @returns {booelan}
  */
 export const isRoot = or(isSectioningRoot, isSectioningContent)
-
-/**
- * @param {Element}
- * @returns {Element}
- */
-export function findSectioningRoot (element) {
-  const parent = element.parentElement
-  return isRoot(parent) ? parent : findSectioningRoot(parent)
-}
-
-/**
- * @param {Element}
- * @param {string}
- * @returns {boolean}
- */
-export function hasParentBySelector (element, selector) {
-  return element.matches(`${selector} *`)
-}

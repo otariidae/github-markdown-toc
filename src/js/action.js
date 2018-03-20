@@ -1,5 +1,5 @@
 import createFromUrl from './page.js'
-import { isEmptyOutline } from './outline-utils.js'
+import { isEmptyTree } from './outline-utils.js'
 
 export const key = {
   START_LOADING: 'start-loading',
@@ -18,7 +18,7 @@ export default {
   moveToPage () {
     const page = createFromUrl(location.href)
     const heading = page.getHeadingList(document.body)
-    const isAvailable = !isEmptyOutline(heading)
+    const isAvailable = !isEmptyTree(heading)
 
     return {
       type: key.MOVE_TO_PAGE,

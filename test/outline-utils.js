@@ -3,24 +3,54 @@ import t from 'assert'
 import { JSDOM } from 'jsdom'
 import {
   createOutlineFrom,
+  createTreeFrom,
   outlineSectionIterator,
   isEmptyOutline,
-  findSectionBySelector
+  isEmptyTree
 } from '../src/js/outline-utils.js'
 
-describe('createOutlineFrom', () => {
-  test('div', () => {
-    const { document } = new JSDOM(`
-      <div id="root">
-        <h1>TEST</h1>
-      </div>
-    `).window
-    const root = document.getElementById('root')
-    const outline = createOutlineFrom(root)
+{
+  const { document } = new JSDOM(`
+    <div id="root">
+      <h1>TEST</h1>
+    </div>
+  `).window
+  const root = document.getElementById('root')
 
-    t.ok(Object.is(outline.sections[0].startingNode, document.body))
+  describe('createOutlineFrom', () => {
+    test('div', () => {
+      global.document = document
+
+      const outline = createOutlineFrom(root)
+
+      delete global.document
+
+      t.equal(outline.sections[0].startingNode.tagName.toLowerCase(), 'body')
+    })
   })
-})
+
+  describe('createTreeFrom', () => {
+    test('div', () => {
+      global.document = document
+
+      const tree = createTreeFrom(root)
+
+      delete global.document
+
+      t.deepStrictEqual(tree, {
+        link: null,
+        text: '',
+        sections: [
+          {
+            link: null,
+            text: 'TEST',
+            sections: []
+          }
+        ]
+      })
+    })
+  })
+}
 
 describe('outlineSectionIterator', () => {
   test('iterator', () => {
@@ -73,20 +103,27 @@ describe('isEmptyOutline', () => {
   })
 })
 
-describe('findSectionBySelector', () => {
-  const { document } = new JSDOM(`
-    <div class="matched-class">
-      <h1>TEST</h1>
-    </div>
-  `).window
-  const outline = createOutlineFrom(document.body)
-  test('found', () => {
-    const h1 = document.querySelector('h1')
-    t.ok(
-      Object.is(findSectionBySelector(outline, '.matched-class').heading, h1)
-    )
+describe('isEmptyTree', () => {
+  test('embeded empty sections', () => {
+    const { document } = new JSDOM(`
+    <section>
+      <section>
+      </section>
+    </section>
+    `).window
+    const tree = createTreeFrom(document.body)
+    t.ok(isEmptyTree(tree))
   })
-  test('not found', () => {
-    t.equal(findSectionBySelector(outline, '.non-matched-class'), null)
+  test('0 length', () => {
+    const { document } = new JSDOM('').window
+    const tree = createTreeFrom(document.body)
+    t.ok(isEmptyTree(tree))
+  })
+  test('not empty', () => {
+    const { document } = new JSDOM(`
+      <h1>TEST</h1>
+    `).window
+    const tree = createTreeFrom(document.body)
+    t.ifError(isEmptyTree(tree))
   })
 })
