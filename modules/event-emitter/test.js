@@ -1,5 +1,5 @@
 import { describe, it as test } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { JSDOM } from 'jsdom'
 const { CustomEvent } = new JSDOM('').window
 import { EventTarget } from 'event-target-shim'

@@ -1,5 +1,5 @@
 import { describe, it as test } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { curry1, prop, pipe, always, has, or } from './index.js'
 
 describe('functional-util', () => {
@@ -63,7 +63,7 @@ describe('functional-util', () => {
   describe('has', () => {
     test('basic', () => {
       t.ok(has('a', { a: 'b' }))
-      t.ifError(has('a', { b: 'c' }))
+      t.ok(!has('a', { b: 'c' }))
     })
     test('curry', () => {
       t.ok(has('a')({ a: 'b' }))
@@ -93,7 +93,7 @@ describe('functional-util', () => {
     const h = always('foo')
 
     t.ok(or(f, g)())
-    t.ifError(or(f, f)())
+    t.ok(!or(f, f)())
     t.strictEqual(or(f, h)(), 'foo')
     t.strictEqual(or(g, h)(), true)
     t.strictEqual(or(h, g)(), 'foo')

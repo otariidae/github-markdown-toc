@@ -1,5 +1,5 @@
 import { describe, it as test } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { URL } from 'url'
 import { readFileSync } from 'fs'
 import { join } from 'path'

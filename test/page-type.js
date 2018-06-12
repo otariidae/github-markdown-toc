@@ -1,5 +1,5 @@
 import { describe, it as test, before, after } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { URL } from 'url'
 import PageType from '../src/js/page-type.js'
 

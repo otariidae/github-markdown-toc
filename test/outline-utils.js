@@ -1,5 +1,5 @@
 import { describe, it as test } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { JSDOM } from 'jsdom'
 import {
   createOutlineFrom,
@@ -99,7 +99,7 @@ describe('isEmptyOutline', () => {
       <h1>TEST</h1>
     `).window
     const outline = createOutlineFrom(document.body)
-    t.ifError(isEmptyOutline(outline))
+    t.ok(!isEmptyOutline(outline))
   })
 })
 
@@ -124,6 +124,6 @@ describe('isEmptyTree', () => {
       <h1>TEST</h1>
     `).window
     const tree = createTreeFrom(document.body)
-    t.ifError(isEmptyTree(tree))
+    t.ok(!isEmptyTree(tree))
   })
 })

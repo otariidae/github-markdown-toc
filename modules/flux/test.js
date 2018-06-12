@@ -1,5 +1,5 @@
 import { describe, it as test } from 'kocha'
-import t from 'assert'
+import { strict as t } from 'assert'
 import { EventTarget } from 'event-target-shim'
 global.EventTarget = EventTarget
 import { createAction, Store } from './index.js'
