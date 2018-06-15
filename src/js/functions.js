@@ -11,7 +11,10 @@ const trim = str => str.trim()
  * @param {Node}
  * @returns {string}
  */
-export const trimmedText = pipe(prop('textContent'), trim)
+export const trimmedText = pipe(
+  prop('textContent'),
+  trim
+)
 
 /**
  * @param {string} str
@@ -24,7 +27,10 @@ const toLowerCase = str => str.toLowerCase()
  * @param {Element}
  * @returns {string}
  */
-const toLowerTagName = pipe(prop('tagName'), toLowerCase)
+const toLowerTagName = pipe(
+  prop('tagName'),
+  toLowerCase
+)
 
 /**
  * @param {string[]}
@@ -32,7 +38,10 @@ const toLowerTagName = pipe(prop('tagName'), toLowerCase)
  */
 function createTagNameMatcher (tagNames) {
   const loweredTagNames = tagNames.map(toLowerCase)
-  return pipe(toLowerTagName, loweredTagNames.includes.bind(loweredTagNames))
+  return pipe(
+    toLowerTagName,
+    loweredTagNames.includes.bind(loweredTagNames)
+  )
 }
 
 /**

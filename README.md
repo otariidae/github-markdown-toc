@@ -15,10 +15,10 @@ _An example of a long readme with this extension -- AVA: a nice test runner for 
 
 Works with:
 
-* README on the top pages
-* Markdown files
-* Wikis
-* Commented tags in release pages
+- README on the top pages
+- Markdown files
+- Wikis
+- Commented tags in release pages
 
 ## Install
 
@@ -54,11 +54,11 @@ When a table of contents is not generated, the button is disabled.
 ]
 ```
 
-* `https://github.com/*` is used to run scripts on GitHub.
+- `https://github.com/*` is used to run scripts on GitHub.
 
 ## Recommended environment
 
-* the latest stable version of Google Chrome
+- the latest stable version of Google Chrome
 
 ## License
 

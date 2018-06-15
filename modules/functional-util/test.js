@@ -41,7 +41,10 @@ describe('functional-util', () => {
   test('pipe', () => {
     const f = (a, b) => a + b
     const g = a => a * a
-    const h = pipe(f, g)
+    const h = pipe(
+      f,
+      g
+    )
 
     t.equal(typeof h, 'function')
     t.equal(h(2, 3), 25)

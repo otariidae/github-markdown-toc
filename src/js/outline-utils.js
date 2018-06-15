@@ -73,7 +73,10 @@ export function * outlineSectionIterator (outline) {
  * @param {object} section
  * @returns {boolean}
  */
-const isEmptyHeading = pipe(prop('heading'), has('implied'))
+const isEmptyHeading = pipe(
+  prop('heading'),
+  has('implied')
+)
 
 /**
  * @param {object} outline
