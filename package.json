@@ -40,7 +40,7 @@
     "prebuild": "npm run clean",
     "build": "run-p build:*",
     "prelint:js": "prettier --single-quote --no-semi --write \"{src/**,scripts,test,modules/*}/*.js\"",
-    "lint:js": "eslint src scripts modules --fix",
+    "lint:js": "eslint src scripts modules --ext .mjs,.js --fix",
     "lint:css": "prettier --write src/css/*.css",
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",

@@ -6,4 +6,3 @@ const pkg = JSON.parse(res.toString())
 const json = JSON.stringify(makeManifest(pkg), null, 2)
 
 fs.writeFileSync('dist/manifest.json', json)
-
