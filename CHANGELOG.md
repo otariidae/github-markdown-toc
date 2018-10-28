@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.11.0](https://github.com/otariidae/github-markdown-toc/compare/v0.10.0...v0.11.0)
+
+### Changed
+
+- Use `lit-html` instead of `svelte`\
+  Svelte is great. But now I am intrested in lit-html.
+- Do not uglify code\
+  Chrome Web Store will no longer allows obfuscated code.\
+  The previous versions of this extension was minified via `uglify-js` or `uglify-es`. This is not obfuscation but minification.\
+  However, this extension is enough small without minification.
+
 ## [0.10.0](https://github.com/otariidae/github-markdown-toc/compare/v0.9.1...v0.10.0)
 
 ### Changed
