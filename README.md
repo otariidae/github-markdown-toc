@@ -1,4 +1,4 @@
-# GitHub Markdown Tabele of Contents
+# GitHub Markdown Table of Contents
 
 [![CircleCI](https://img.shields.io/circleci/project/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://circleci.com/gh/otariidae/github-markdown-toc)
 [![Codecov](https://img.shields.io/codecov/c/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://codecov.io/gh/otariidae/github-markdown-toc)
