@@ -1,4 +1,4 @@
-import { html } from 'lit-html/lib/lit-extended'
+import { html } from 'lit-html'
 
 const Link = item => {
   if (item.link) {

@@ -67,7 +67,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &[data-open="true"] .toggle-btn {
+  &[data-open] .toggle-btn {
     background-image: url(../svg/arrow-right.svg);
   }
 
@@ -101,7 +101,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &[aria-busy="true"] nav {
+  &[aria-busy] nav {
     background-image: url(../svg/spinner.svg);
     background-repeat: no-repeat;
     background-position: center;
@@ -112,7 +112,7 @@ body[data-github-markdown-toc-open] {
     }
   }
 
-  &:not([data-open="true"]) nav {
+  &:not([data-open]) nav {
     transform: translate(var(--nav-width), 0);
   }
 
