@@ -18,8 +18,8 @@
 }
 
 .github-markdown-toc {
-  --log-in-header-height: 54px;
-  --log-out-header-height: 72px;
+  --log-in-header-height: 60px;
+  --log-out-header-height: 88px;
   --toggle-button-size: 30px;
   --toggle-button-margin_log-in: calc(
     (var(--log-in-header-height) - var(--toggle-button-size)) / 2
