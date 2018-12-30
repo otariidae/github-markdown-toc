@@ -15,9 +15,6 @@
 :root {
   --nav-width: 200px;
   --animation-time: 0.3s;
-}
-
-.github-markdown-toc {
   --log-in-header-height: 60px;
   --log-out-header-height: 88px;
   --toggle-button-size: 30px;
@@ -28,6 +25,12 @@
     (var(--log-out-header-height) - var(--toggle-button-size)) / 2
   );
   --nav-inner-padding: 12px;
+  --header-padding_log-in: calc(
+    var(--toggle-button-margin_log-in) + var(--toggle-button-size)
+  );
+  --header-padding_log-out: calc(
+    var(--toggle-button-margin_log-out) + var(--toggle-button-size)
+  );
 }
 
 body {
@@ -37,6 +40,23 @@ body {
 body[data-github-markdown-toc-open] {
   margin-right: var(--nav-width);
 }
+
+.Header {
+  transition: var(--animation-time) 0s padding-right ease-in-out;
+}
+
+body.logged-in .Header {
+  padding-right: var(--header-padding_log-in);
+}
+
+body.logged-out .Header {
+  padding-right: var(--header-padding_log-out);
+}
+
+body[data-github-markdown-toc-open] .Header {
+  padding-right: inherit;
+}
+
 
 .github-markdown-toc {
   color: var(--gray-900);
