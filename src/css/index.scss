@@ -1,0 +1,126 @@
+@import "primer-support/index.scss";
+
+$nav-width: 200px;
+$animation-time: 0.3s;
+$log-in-header-height: 60px;
+$log-out-header-height: 88px;
+$toggle-button-size: 30px;
+$toggle-button-margin_log-in: ($log-in-header-height - $toggle-button-size) / 2;
+$toggle-button-margin_log-out: ($log-out-header-height - $toggle-button-size) / 2;
+$nav-inner-padding: 12px;
+$header-padding_log-in: $toggle-button-margin_log-in + $toggle-button-size;
+$header-padding_log-out: $toggle-button-margin_log-out + $toggle-button-size;
+
+body {
+  transition: $animation-time 0s margin-right ease-in-out;
+}
+
+body[data-github-markdown-toc-open] {
+  margin-right: $nav-width;
+}
+
+.Header {
+  transition: $animation-time 0s padding-right ease-in-out;
+
+  body.logged-in & {
+    padding-right: $header-padding_log-in;
+  }
+  body.logged-out & {
+    padding-right: $header-padding_log-out;
+  }
+  body[data-github-markdown-toc-open] & {
+    padding-right: inherit;
+  }
+}
+
+.github-markdown-toc {
+  color: $gray-900;
+  font-size: 14px;
+
+  .toggle-btn {
+    position: fixed;
+    width: $toggle-button-size;
+    height: $toggle-button-size;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background-image: url(../svg/arrow-left.svg);
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: $gray-200;
+    z-index: 100;
+
+    body.logged-in & {
+      top: $toggle-button-margin_log-in;
+      right: $toggle-button-margin_log-in;
+    }
+
+    body.logged-out & {
+      top: $toggle-button-margin_log-out;
+      right: $toggle-button-margin_log-out;
+    }
+  }
+
+  &[data-open] .toggle-btn {
+    background-image: url(../svg/arrow-right.svg);
+  }
+
+  .toggle-btn[disabled] {
+    background-image: url(../svg/arrow-left-disabled.svg);
+  }
+
+  noscript {
+    display: block;
+    margin-right: $nav-inner-padding;
+    margin-left: $nav-inner-padding;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: $nav-width;
+    border-left: solid 1px $gray-200;
+    box-sizing: border-box;
+    background-color: $gray-000;
+    z-index: 100;
+    transition: $animation-time 0s transform ease-in-out;
+
+    body.logged-in & {
+      padding-top: $log-in-header-height;
+    }
+    body.logged-out & {
+      padding-top: $log-out-header-height;
+    }
+  }
+
+  &[aria-busy] nav {
+    background-image: url(../svg/spinner.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px;
+
+    ol {
+      display: none;
+    }
+  }
+
+  &:not([data-open]) nav {
+    transform: translate($nav-width, 0);
+  }
+
+  ol {
+    list-style-type: none;
+    max-height: 100%;
+    line-height: 1.25;
+    overflow: auto;
+  }
+
+  li {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: $nav-inner-padding;
+  }
+}
