@@ -22,13 +22,10 @@ export const createAction = (actions, store) => {
 }
 
 export class Store extends EventEmitter {
-  /** @private */
-  _state = this.initalState
-  /**
-   * @param {EventEmitter} dispatcher
-   */
   constructor () {
     super()
+    /** @private */
+    this._state = this.initalState
 
     this.on(ON_ACTION, action => {
       // update state

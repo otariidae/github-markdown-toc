@@ -6,8 +6,11 @@ const eventHandlerWrapper = eventHandler => customEvent =>
  * event emitter
  */
 export default class EventEmitter extends EventTarget {
-  /** @private */
-  _handlers = new Map() // map original handler to wrapped handler
+  constructor () {
+    super()
+    /** @private */
+    this._handlers = new Map() // map original handler to wrapped handler
+  }
   /**
    * @param {string} type
    * @param {function} handler

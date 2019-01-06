@@ -8,7 +8,7 @@ import AppStore from './js/store.js'
 import { render } from 'lit-html'
 
 const store = new AppStore()
-const action = createAction(originalAction, store)
+const action: any = createAction(originalAction, store)
 
 const dataAttr = 'githubMarkdownTocOpen'
 const body = document.body

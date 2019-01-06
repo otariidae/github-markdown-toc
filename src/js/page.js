@@ -17,7 +17,6 @@ export default function createFromUrl (url) {
  * @abstract
  */
 export class GitHubPage {
-  static _selector = 'body'
   /**
    * @returns {Object}
    */
@@ -25,9 +24,9 @@ export class GitHubPage {
     return createEmptyHeadingList()
   }
 }
+GitHubPage._selector = 'body'
 
 export class ReleasePage extends GitHubPage {
-  static _selector = '.repository-content'
   /**
    * @returns {Object}
    */
@@ -39,9 +38,9 @@ export class ReleasePage extends GitHubPage {
     return createTreeFrom(element)
   }
 }
+ReleasePage._selector = '.repository-content'
 
 export class CodePage extends GitHubPage {
-  static _selector = '.markdown-body'
   /**
    * @returns {Object}
    */
@@ -53,9 +52,9 @@ export class CodePage extends GitHubPage {
     return createTreeFrom(element)
   }
 }
+CodePage._selector = '.markdown-body'
 
 export class WikiPage extends GitHubPage {
-  static _selector = '.wiki-body .markdown-body'
   /**
    * @returns {Object}
    */
@@ -67,5 +66,6 @@ export class WikiPage extends GitHubPage {
     return createTreeFrom(element)
   }
 }
+WikiPage._selector = '.wiki-body .markdown-body'
 
 export class UnknownPage extends GitHubPage {}

@@ -7,4 +7,3 @@ env:
   browser: true
 globals:
   chrome: true
-parser: babel-eslint

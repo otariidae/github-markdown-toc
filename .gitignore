@@ -6,3 +6,6 @@ github-markdown-toc.zip
 coverage
 coverage.lcov
 *.log
+.fusebox
+.cache
+.idea

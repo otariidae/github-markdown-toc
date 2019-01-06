@@ -1,10 +1,4 @@
 export default class PageType {
-  static RELEASE = Symbol('release')
-  static CODE = Symbol('code')
-  static WIKI = Symbol('wiki')
-  static UNKNOWN = Symbol('unknown')
-  /** @private */
-  _type
   /**
    * @param {string} url
    */
@@ -51,3 +45,7 @@ export default class PageType {
     return this._type === PageType.UNKNOWN
   }
 }
+PageType.RELEASE = Symbol('release')
+PageType.CODE = Symbol('code')
+PageType.WIKI = Symbol('wiki')
+PageType.UNKNOWN = Symbol('unknown')
