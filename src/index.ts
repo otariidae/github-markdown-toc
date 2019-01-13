@@ -1,10 +1,10 @@
 'use strict'
 
 import '@webcomponents/custom-elements'
-import App from './components/app.js'
-import { createAction } from '../modules/flux/index.js'
-import originalAction from './js/action.js'
-import AppStore from './js/store.js'
+import App from './components/app'
+import { createAction } from '../modules/flux'
+import originalAction from './js/action'
+import AppStore from './js/store'
 import { render } from 'lit-html'
 
 const store = new AppStore()

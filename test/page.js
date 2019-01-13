@@ -7,14 +7,14 @@ import { JSDOM } from 'jsdom'
 import {
   outlineSectionIterator,
   createEmptyHeadingList
-} from '../src/js/outline-utils.js'
+} from '../src/js/outline-utils.ts'
 import createFromUrl, {
   GitHubPage,
   ReleasePage,
   CodePage,
   WikiPage,
   UnknownPage
-} from '../src/js/page.js'
+} from '../src/js/page.ts'
 
 function fragmentFromFile(path) {
   const file = readFileSync(join(__dirname, path))

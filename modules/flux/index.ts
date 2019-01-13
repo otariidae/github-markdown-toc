@@ -1,4 +1,4 @@
-import EventEmitter from '../event-emitter/index.js'
+import EventEmitter from '../event-emitter'
 import produce from 'immer'
 const ON_CHANGE = 'on-change'
 const ON_ACTION = 'on-action'

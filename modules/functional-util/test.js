@@ -1,6 +1,6 @@
 import { describe, it as test } from 'kocha'
 import { strict as t } from 'assert'
-import { curry1, prop, pipe, always, has, or } from './index.js'
+import { curry1, prop, pipe, always, has, or } from './index.ts'
 
 describe('functional-util', () => {
   describe('curry1', () => {

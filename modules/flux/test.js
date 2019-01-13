@@ -2,7 +2,7 @@ import { describe, it as test } from 'kocha'
 import { strict as t } from 'assert'
 import { EventTarget } from 'event-target-shim'
 global.EventTarget = EventTarget
-import { createAction, Store } from './index.js'
+import { createAction, Store } from './index.ts'
 
 const key = {
   INCREMENT: 'increment',

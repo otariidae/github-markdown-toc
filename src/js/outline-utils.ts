@@ -1,5 +1,5 @@
-import { pipe, prop, always, has } from '../../modules/functional-util/index.js'
-import { trimmedText, isRoot } from './functions.js'
+import { pipe, prop, always, has } from '../../modules/functional-util'
+import { trimmedText, isRoot } from './functions'
 import createOutline from 'h5o'
 
 /**

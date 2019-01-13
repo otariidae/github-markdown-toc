@@ -1,5 +1,5 @@
-import { createEmptyHeadingList, createTreeFrom } from './outline-utils.js'
-import PageType from './page-type.js'
+import { createEmptyHeadingList, createTreeFrom } from './outline-utils'
+import PageType from './page-type'
 
 /**
  * @param {string} url

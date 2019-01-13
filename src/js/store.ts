@@ -1,6 +1,6 @@
-import { Store } from '../../modules/flux/index.js'
-import { key } from './action.js'
-import { createEmptyHeadingList } from './outline-utils.js'
+import { Store } from '../../modules/flux'
+import { key } from './action'
+import { createEmptyHeadingList } from './outline-utils'
 import produce from 'immer'
 
 const { START_LOADING, MOVE_TO_PAGE, TOGGLE_NAV } = key

@@ -7,7 +7,7 @@ import {
   outlineSectionIterator,
   isEmptyOutline,
   isEmptyTree
-} from '../src/js/outline-utils.js'
+} from '../src/js/outline-utils.ts'
 
 {
   const { document } = new JSDOM(`

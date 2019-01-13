@@ -1,5 +1,5 @@
-import createFromUrl from './page.js'
-import { isEmptyTree } from './outline-utils.js'
+import createFromUrl from './page'
+import { isEmptyTree } from './outline-utils'
 
 export const key = {
   START_LOADING: 'start-loading',

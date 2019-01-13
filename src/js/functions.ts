@@ -1,4 +1,4 @@
-import { prop, pipe, or } from '../../modules/functional-util/index.js'
+import { prop, pipe, or } from '../../modules/functional-util'
 
 /**
  * @param {string} str

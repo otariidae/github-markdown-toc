@@ -5,7 +5,7 @@ const { CustomEvent } = new JSDOM('').window
 import { EventTarget } from 'event-target-shim'
 global.EventTarget = EventTarget
 global.CustomEvent = CustomEvent
-const { default: EventEmitter } = require('./index.js')
+const { default: EventEmitter } = require('./index.ts')
 
 describe('event-emitter', () => {
   global.EventTarget = EventTarget

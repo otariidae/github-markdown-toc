@@ -1,7 +1,7 @@
 import { describe, it as test } from 'kocha'
 import { strict as t } from 'assert'
 import { JSDOM } from 'jsdom'
-import { trimmedText } from '../src/js/functions.js'
+import { trimmedText } from '../src/js/functions.ts'
 
 describe('trimmedText', () => {
   const frag = JSDOM.fragment(`

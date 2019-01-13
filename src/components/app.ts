@@ -1,5 +1,5 @@
 import { html } from 'lit-html'
-import List from './tree-list.js'
+import List from './tree-list'
 
 const navId = 'github-markdown-toc__nav-panel'
 

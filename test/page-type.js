@@ -1,7 +1,7 @@
 import { describe, it as test, before, after } from 'kocha'
 import { strict as t } from 'assert'
 import { URL } from 'url'
-import PageType from '../src/js/page-type.js'
+import PageType from '../src/js/page-type.ts'
 
 describe('check-page-type', () => {
   before(() => {
