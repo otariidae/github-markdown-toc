@@ -1,14 +1,12 @@
 {
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.1.0",
+    "@typescript-eslint/parser": "^1.1.0",
     "@webcomponents/custom-elements": "^1.2.1",
     "cross-env": "^5.0.1",
-    "eslint": "^5.2.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.6.0",
-    "eslint-plugin-node": "^8.0.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint": "^5.12.1",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "event-target-shim": "^4.0.3",
     "fuse-box": "^3.6.0",
     "h5o": "^0.11.3",
@@ -36,8 +34,11 @@
     "build:meta": "node --experimental-modules ./scripts/manifest.mjs",
     "prebuild": "npm run clean",
     "build": "run-p build:*",
-    "prelint:js": "prettier --single-quote --no-semi --write \"{src/**,scripts,test,modules/*}/*.js\"",
-    "lint:js": "eslint src scripts modules --ext .mjs,.js --fix",
+    "prettier": "prettier --write \"{src/**,scripts,test,modules/*}/*.{mjs,js,ts,tsx}\"",
+    "prelint:js": "npm run prettier",
+    "lint:js": "eslint src scripts --ext .mjs,.js",
+    "prelint:ts": "npm run prettier",
+    "lint:ts": "eslint src modules --ext .ts,.tsx --fix",
     "lint:css": "prettier --write src/css/*.scss",
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
@@ -58,6 +59,9 @@
     "exclude": [
       "postcss.config.js"
     ]
+  },
+  "prettier": {
+    "semi": false
   },
   "dependencies": {}
 }
