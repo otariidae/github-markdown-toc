@@ -6,7 +6,7 @@ const eventHandlerWrapper = eventHandler => customEvent =>
  * event emitter
  */
 export default class EventEmitter extends EventTarget {
-  constructor () {
+  constructor() {
     super()
     /** @private */
     this._handlers = new Map() // map original handler to wrapped handler
@@ -16,7 +16,7 @@ export default class EventEmitter extends EventTarget {
    * @param {function} handler
    * @param {...options} Object
    */
-  on (type, handler, ...options) {
+  on(type, handler, ...options) {
     const wrappedHandler = eventHandlerWrapper(handler)
     this._handlers.set(handler, wrappedHandler)
     this.addEventListener(type, wrappedHandler, ...options)
@@ -26,7 +26,7 @@ export default class EventEmitter extends EventTarget {
    * @param {function} handler
    * @param {...options} Object
    */
-  off (type, handler, ...options) {
+  off(type, handler, ...options) {
     const wrappedHandler = this._handlers.get(handler)
 
     if (wrappedHandler === undefined) {
@@ -39,7 +39,7 @@ export default class EventEmitter extends EventTarget {
    * @param {string} type
    * @param {*} data
    */
-  emit (type, data) {
+  emit(type, data) {
     this.dispatchEvent(
       new CustomEvent(type, {
         detail: data

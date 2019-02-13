@@ -1,4 +1,4 @@
-import { html } from 'lit-html'
+import { html } from "lit-html"
 
 const Link = item => {
   if (item.link) {
@@ -12,14 +12,14 @@ const Link = item => {
 const TreeList = root => html`
   <ol>
     ${
-  root.sections.map(
-    item => html`
+      root.sections.map(
+        item => html`
           <li>
             ${Link(item)} ${item.sections.length !== 0 ? TreeList(item) : null}
           </li>
         `
-  )
-}
+      )
+    }
   </ol>
 `
 

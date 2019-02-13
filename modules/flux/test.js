@@ -1,12 +1,12 @@
-import { describe, it as test } from 'kocha'
-import { strict as t } from 'assert'
-import { EventTarget } from 'event-target-shim'
+import { describe, it as test } from "kocha"
+import { strict as t } from "assert"
+import { EventTarget } from "event-target-shim"
 global.EventTarget = EventTarget
-import { createAction, Store } from './index.ts'
+import { createAction, Store } from "./index.ts"
 
 const key = {
-  INCREMENT: 'increment',
-  DECREMENT: 'decrement'
+  INCREMENT: "increment",
+  DECREMENT: "decrement"
 }
 
 const originalAction = {
@@ -31,32 +31,32 @@ class TestStore extends Store {
   }
 }
 
-describe('flux', () => {
-  describe('action', () => {
+describe("flux", () => {
+  describe("action", () => {
     const store = new TestStore()
     const action = createAction(originalAction, store)
 
-    test('returned value', () => {
+    test("returned value", () => {
       t.deepEqual(action.onClick(), { type: key.INCREMENT })
     })
-    test('state change', () => {
+    test("state change", () => {
       t.deepEqual(store.state, { count: 1 })
     })
   })
 
-  describe('store', () => {
+  describe("store", () => {
     const store = new TestStore()
     const action = createAction(originalAction, store)
 
-    test('initial state', () => {
+    test("initial state", () => {
       t.deepEqual(store.state, { count: 0 })
     })
-    test('onChange', done => {
+    test("onChange", done => {
       store.onChange(done)
       store.dispatch({ type: key.INCREMENT })
       store.removeChangeListener(done)
     })
-    test('removeChangeListener', () => {
+    test("removeChangeListener", () => {
       const func = () => t.fail()
       store.onChange(func)
       store.removeChangeListener(func)

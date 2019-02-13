@@ -1,21 +1,21 @@
-import createFromUrl from './page'
-import { isEmptyTree } from './outline-utils'
+import createFromUrl from "./page"
+import { isEmptyTree } from "./outline-utils"
 
 export const key = {
-  START_LOADING: 'start-loading',
-  MOVE_TO_PAGE: 'move-to-page',
-  TOGGLE_NAV: 'toggle-nav'
+  START_LOADING: "start-loading",
+  MOVE_TO_PAGE: "move-to-page",
+  TOGGLE_NAV: "toggle-nav"
 }
 
 // action creators
 export default {
-  startLoading () {
+  startLoading() {
     return {
       type: key.START_LOADING,
       payload: {}
     }
   },
-  moveToPage () {
+  moveToPage() {
     const page = createFromUrl(location.href)
     const heading = page.getHeadingList(document.body)
     const isAvailable = !isEmptyTree(heading)
@@ -28,7 +28,7 @@ export default {
       }
     }
   },
-  toggleNav () {
+  toggleNav() {
     return {
       type: key.TOGGLE_NAV,
       payload: {}

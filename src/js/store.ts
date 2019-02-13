@@ -1,12 +1,12 @@
-import { Store } from '../../modules/flux'
-import { key } from './action'
-import { createEmptyHeadingList } from './outline-utils'
-import produce from 'immer'
+import { Store } from "../../modules/flux"
+import { key } from "./action"
+import { createEmptyHeadingList } from "./outline-utils"
+import produce from "immer"
 
 const { START_LOADING, MOVE_TO_PAGE, TOGGLE_NAV } = key
 
 export default class AppStore extends Store {
-  get initalState () {
+  get initalState() {
     return {
       isLoading: false,
       isOpen: false,
@@ -14,7 +14,7 @@ export default class AppStore extends Store {
       heading: createEmptyHeadingList()
     }
   }
-  reduce (state, action) {
+  reduce(state, action) {
     return produce(state, state => {
       const { type, payload } = action
 

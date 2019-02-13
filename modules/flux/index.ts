@@ -1,7 +1,7 @@
-import EventEmitter from '../event-emitter'
-import produce from 'immer'
-const ON_CHANGE = 'on-change'
-const ON_ACTION = 'on-action'
+import EventEmitter from "../event-emitter"
+import produce from "immer"
+const ON_CHANGE = "on-change"
+const ON_ACTION = "on-action"
 
 const clone = arg => produce(arg, arg => arg)
 
@@ -22,7 +22,7 @@ export const createAction = (actions, store) => {
 }
 
 export class Store extends EventEmitter {
-  constructor () {
+  constructor() {
     super()
     /** @private */
     this._state = this.initalState
@@ -37,25 +37,25 @@ export class Store extends EventEmitter {
    * dispatch an action
    * @param {action} Object
    */
-  dispatch (action) {
+  dispatch(action) {
     this.emit(ON_ACTION, action)
   }
   /**
    * @returns {object}
    */
-  get state () {
+  get state() {
     return clone(this._state)
   }
   /**
    * @param {function} func
    */
-  onChange (func) {
+  onChange(func) {
     this.on(ON_CHANGE, func)
   }
   /**
    * @param {function} func
    */
-  removeChangeListener (func) {
+  removeChangeListener(func) {
     this.off(ON_CHANGE, func)
   }
 }

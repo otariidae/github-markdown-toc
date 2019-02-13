@@ -1,9 +1,9 @@
-import { describe, it as test, before, after } from 'kocha'
-import { strict as t } from 'assert'
-import { URL } from 'url'
-import PageType from '../src/js/page-type.ts'
+import { describe, it as test, before, after } from "kocha"
+import { strict as t } from "assert"
+import { URL } from "url"
+import PageType from "../src/js/page-type.ts"
 
-describe('check-page-type', () => {
+describe("check-page-type", () => {
   before(() => {
     global.URL = URL
   })
@@ -11,47 +11,47 @@ describe('check-page-type', () => {
     delete global.URL
   })
 
-  test('code', () => {
+  test("code", () => {
     t.ok(
-      new PageType('https://github.com/example/example-project').isCodePage()
+      new PageType("https://github.com/example/example-project").isCodePage()
     )
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/tree/master/test'
+        "https://github.com/example/example-project/tree/master/test"
       ).isCodePage()
     )
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/blob/master/package.json'
+        "https://github.com/example/example-project/blob/master/package.json"
       ).isCodePage()
     )
   })
-  test('release', () => {
+  test("release", () => {
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/releases'
+        "https://github.com/example/example-project/releases"
       ).isReleasePage()
     )
   })
-  test('wiki', () => {
+  test("wiki", () => {
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/wiki'
+        "https://github.com/example/example-project/wiki"
       ).isWikiPage()
     )
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/wiki/API-changes'
+        "https://github.com/example/example-project/wiki/API-changes"
       ).isWikiPage()
     )
   })
-  test('unknown', () => {
+  test("unknown", () => {
     t.ok(
       new PageType(
-        'https://github.com/example/example-project/releases/tag/v1.0.0'
+        "https://github.com/example/example-project/releases/tag/v1.0.0"
       ).isUnknownPage()
     )
-    t.ok(new PageType('https://github.com/example').isUnknownPage())
-    t.ok(new PageType('https://github.com').isUnknownPage())
+    t.ok(new PageType("https://github.com/example").isUnknownPage())
+    t.ok(new PageType("https://github.com").isUnknownPage())
   })
 })

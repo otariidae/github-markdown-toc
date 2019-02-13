@@ -2,7 +2,7 @@
  * @param {function} fun
  * @returns {function}
  */
-export function curry1 (fun) {
+export function curry1(fun) {
   return (...arg) => {
     if (arg.length < fun.length) return fun.bind(null, ...arg)
     return fun(...arg)
@@ -54,7 +54,7 @@ export const or = (f, g) => (...args) => f(...args) || g(...args)
  * @param {object} object
  * @returns {*}
  */
-function _prop (property, object) {
+function _prop(property, object) {
   return object[property]
 }
 

@@ -1,13 +1,13 @@
-import { pipe, prop, always, has } from '../../modules/functional-util'
-import { trimmedText, isRoot } from './functions'
-import createOutline from 'h5o'
+import { pipe, prop, always, has } from "../../modules/functional-util"
+import { trimmedText, isRoot } from "./functions"
+import createOutline from "h5o"
 
 /**
  * @function
  * @returns {Object}
  */
 export const createEmptyHeadingList = always({
-  text: '',
+  text: "",
   link: null,
   sections: []
 })
@@ -16,20 +16,20 @@ export const createEmptyHeadingList = always({
  * @param {Element} element
  * @returns {Object}
  */
-export function createOutlineFrom (element) {
+export function createOutlineFrom(element) {
   const root = isRoot(element) ? element : wrapWithRoot(element)
   return createOutline(root)
 }
 
-function wrapWithRoot (element) {
+function wrapWithRoot(element) {
   const frag = document.createDocumentFragment()
-  const root = document.createElement('body')
+  const root = document.createElement("body")
   root.appendChild(element.cloneNode(true))
   frag.appendChild(root)
   return root
 }
 
-export function createTreeFrom (element) {
+export function createTreeFrom(element) {
   const outline = createOutlineFrom(element)
   return outline2tree(outline)
 }
@@ -38,17 +38,17 @@ export function createTreeFrom (element) {
  * traverse outline
  * @param {Object} outline
  */
-function outline2tree (outline) {
+function outline2tree(outline) {
   const sections = outline.sections.map(outline2tree)
 
   if (outline.heading === undefined || isEmptyHeading(outline)) {
     return {
       link: null,
-      text: '',
+      text: "",
       sections
     }
   } else {
-    const a = outline.heading.querySelector('a')
+    const a = outline.heading.querySelector("a")
     return {
       link: a ? a.href : null,
       text: trimmedText(outline.heading),
@@ -61,10 +61,10 @@ function outline2tree (outline) {
  * @param {object} outline
  * @returns {Generator}
  */
-export function * outlineSectionIterator (outline) {
+export function* outlineSectionIterator(outline) {
   for (const section of outline.sections) {
     yield section
-    yield * outlineSectionIterator(section)
+    yield* outlineSectionIterator(section)
   }
 }
 
@@ -74,15 +74,15 @@ export function * outlineSectionIterator (outline) {
  * @returns {boolean}
  */
 const isEmptyHeading = pipe(
-  prop('heading'),
-  has('implied')
+  prop("heading"),
+  has("implied")
 )
 
 /**
  * @param {object} outline
  * @returns {boolean}
  */
-export function isEmptyOutline (outline) {
+export function isEmptyOutline(outline) {
   if (outline.sections.length === 0) {
     return true
   }
@@ -91,11 +91,11 @@ export function isEmptyOutline (outline) {
   return !hasNonEmptySection
 }
 
-export function isEmptyTree (tree) {
+export function isEmptyTree(tree) {
   if (tree.sections.length === 0) {
     return true
   }
   const sections = Array.from(outlineSectionIterator(tree))
-  const hasNonEmptyNode = sections.some(section => section.text !== '')
+  const hasNonEmptyNode = sections.some(section => section.text !== "")
   return !hasNonEmptyNode
 }

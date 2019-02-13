@@ -1,4 +1,4 @@
-import { prop, pipe, or } from '../../modules/functional-util'
+import { prop, pipe, or } from "../../modules/functional-util"
 
 /**
  * @param {string} str
@@ -12,7 +12,7 @@ const trim = str => str.trim()
  * @returns {string}
  */
 export const trimmedText = pipe(
-  prop('textContent'),
+  prop("textContent"),
   trim
 )
 
@@ -28,7 +28,7 @@ const toLowerCase = str => str.toLowerCase()
  * @returns {string}
  */
 const toLowerTagName = pipe(
-  prop('tagName'),
+  prop("tagName"),
   toLowerCase
 )
 
@@ -36,7 +36,7 @@ const toLowerTagName = pipe(
  * @param {string[]}
  * @returns {function(Element): boolean}
  */
-function createTagNameMatcher (tagNames) {
+function createTagNameMatcher(tagNames) {
   const loweredTagNames = tagNames.map(toLowerCase)
   return pipe(
     toLowerTagName,
@@ -50,13 +50,13 @@ function createTagNameMatcher (tagNames) {
  * @returns {booelan}
  */
 const isSectioningRoot = createTagNameMatcher([
-  'blockquote',
-  'body',
-  'details',
-  'dialog',
-  'fieldset',
-  'figure',
-  'td'
+  "blockquote",
+  "body",
+  "details",
+  "dialog",
+  "fieldset",
+  "figure",
+  "td"
 ])
 
 /**
@@ -65,10 +65,10 @@ const isSectioningRoot = createTagNameMatcher([
  * @returns {booelan}
  */
 const isSectioningContent = createTagNameMatcher([
-  'article',
-  'aside',
-  'nav',
-  'section'
+  "article",
+  "aside",
+  "nav",
+  "section"
 ])
 
 /**

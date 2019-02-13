@@ -1,7 +1,7 @@
-import { html } from 'lit-html'
-import List from './tree-list'
+import { html } from "lit-html"
+import List from "./tree-list"
 
-const navId = 'github-markdown-toc__nav-panel'
+const navId = "github-markdown-toc__nav-panel"
 
 export default ({
   isEnabled,
