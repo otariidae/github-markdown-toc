@@ -44,7 +44,7 @@
     "build": "run-p build:*",
     "prelint:js": "prettier --single-quote --no-semi --write \"{src/**,scripts,test,modules/*}/*.js\"",
     "lint:js": "eslint src scripts modules --ext .mjs,.js --fix",
-    "lint:css": "prettier --write src/css/*.css",
+    "lint:css": "prettier --write src/css/*.scss",
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
     "test": "cross-env NODE_ENV=test kocha --require @babel/register test/*.js modules/*/test.js",

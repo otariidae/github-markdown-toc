@@ -6,7 +6,8 @@ $log-in-header-height: 60px;
 $log-out-header-height: 88px;
 $toggle-button-size: 30px;
 $toggle-button-margin_log-in: ($log-in-header-height - $toggle-button-size) / 2;
-$toggle-button-margin_log-out: ($log-out-header-height - $toggle-button-size) / 2;
+$toggle-button-margin_log-out: ($log-out-header-height - $toggle-button-size) /
+  2;
 $nav-inner-padding: 12px;
 $header-padding_log-in: $toggle-button-margin_log-in + $toggle-button-size;
 $header-padding_log-out: $toggle-button-margin_log-out + $toggle-button-size;
