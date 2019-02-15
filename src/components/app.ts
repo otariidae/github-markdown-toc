@@ -1,7 +1,16 @@
-import { html } from 'lit-html'
-import List from './tree-list.js'
+import { html } from "lit-html"
+import List from "./tree-list"
+import { Tree } from "../js/outline-utils"
 
-const navId = 'github-markdown-toc__nav-panel'
+const navId = "github-markdown-toc__nav-panel"
+
+interface AppProp {
+  isEnabled: boolean
+  isLoading: boolean
+  isOpen: boolean
+  heading: Tree
+  onButtonClick: (event: Event) => void
+}
 
 export default ({
   isEnabled,
@@ -9,7 +18,7 @@ export default ({
   isOpen,
   heading,
   onButtonClick
-}) => html`
+}: AppProp) => html`
   <div
     class="github-markdown-toc"
     ?aria-disabled="${!isEnabled}"

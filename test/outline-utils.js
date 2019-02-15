@@ -1,13 +1,13 @@
-import { describe, it as test } from 'kocha'
-import { strict as t } from 'assert'
-import { JSDOM } from 'jsdom'
+import { describe, it as test } from "kocha"
+import { strict as t } from "assert"
+import { JSDOM } from "jsdom"
 import {
   createOutlineFrom,
   createTreeFrom,
   outlineSectionIterator,
   isEmptyOutline,
   isEmptyTree
-} from '../src/js/outline-utils.js'
+} from "../src/js/outline-utils.ts"
 
 {
   const { document } = new JSDOM(`
@@ -15,22 +15,22 @@ import {
       <h1>TEST</h1>
     </div>
   `).window
-  const root = document.getElementById('root')
+  const root = document.getElementById("root")
 
-  describe('createOutlineFrom', () => {
-    test('div', () => {
+  describe("createOutlineFrom", () => {
+    test("div", () => {
       global.document = document
 
       const outline = createOutlineFrom(root)
 
       delete global.document
 
-      t.equal(outline.sections[0].startingNode.tagName.toLowerCase(), 'body')
+      t.equal(outline.sections[0].startingNode.tagName.toLowerCase(), "body")
     })
   })
 
-  describe('createTreeFrom', () => {
-    test('div', () => {
+  describe("createTreeFrom", () => {
+    test("div", () => {
       global.document = document
 
       const tree = createTreeFrom(root)
@@ -39,11 +39,11 @@ import {
 
       t.deepStrictEqual(tree, {
         link: null,
-        text: '',
+        text: "",
         sections: [
           {
             link: null,
-            text: 'TEST',
+            text: "TEST",
             sections: []
           }
         ]
@@ -52,15 +52,15 @@ import {
   })
 }
 
-describe('outlineSectionIterator', () => {
-  test('iterator', () => {
+describe("outlineSectionIterator", () => {
+  test("iterator", () => {
     const outline = {
       sections: []
     }
     const iterator = outlineSectionIterator(outline)
     t.ok(Symbol.iterator in iterator)
   })
-  test('count', () => {
+  test("count", () => {
     const outline = {
       sections: [
         { sections: [] }, // 1
@@ -78,8 +78,8 @@ describe('outlineSectionIterator', () => {
   })
 })
 
-describe('isEmptyOutline', () => {
-  test('embeded empty sections', () => {
+describe("isEmptyOutline", () => {
+  test("embeded empty sections", () => {
     const { document } = new JSDOM(`
     <section>
       <section>
@@ -89,12 +89,12 @@ describe('isEmptyOutline', () => {
     const outline = createOutlineFrom(document.body)
     t.ok(isEmptyOutline(outline))
   })
-  test('0 length', () => {
-    const { document } = new JSDOM('').window
+  test("0 length", () => {
+    const { document } = new JSDOM("").window
     const outline = createOutlineFrom(document.body)
     t.ok(isEmptyOutline(outline))
   })
-  test('not empty', () => {
+  test("not empty", () => {
     const { document } = new JSDOM(`
       <h1>TEST</h1>
     `).window
@@ -103,8 +103,8 @@ describe('isEmptyOutline', () => {
   })
 })
 
-describe('isEmptyTree', () => {
-  test('embeded empty sections', () => {
+describe("isEmptyTree", () => {
+  test("embeded empty sections", () => {
     const { document } = new JSDOM(`
     <section>
       <section>
@@ -114,12 +114,12 @@ describe('isEmptyTree', () => {
     const tree = createTreeFrom(document.body)
     t.ok(isEmptyTree(tree))
   })
-  test('0 length', () => {
-    const { document } = new JSDOM('').window
+  test("0 length", () => {
+    const { document } = new JSDOM("").window
     const tree = createTreeFrom(document.body)
     t.ok(isEmptyTree(tree))
   })
-  test('not empty', () => {
+  test("not empty", () => {
     const { document } = new JSDOM(`
       <h1>TEST</h1>
     `).window

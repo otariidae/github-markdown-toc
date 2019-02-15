@@ -1,10 +1,17 @@
+parser: "@typescript-eslint/parser"
+parserOptions:
+  project: ./tsconfig.json
+  tsconfigRootDir: ./
 extends:
-  - standard
-  - plugin:security/recommended
+  - "plugin:@typescript-eslint/recommended"
+  - "plugin:prettier/recommended"
+  - "prettier/standard"
 plugins:
-  - security
+  - "@typescript-eslint"
+rules:
+  "@typescript-eslint/indent": off
+  "@typescript-eslint/member-delimiter-style": off
 env:
   browser: true
 globals:
   chrome: true
-parser: babel-eslint

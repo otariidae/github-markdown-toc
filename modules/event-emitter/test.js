@@ -1,18 +1,18 @@
-import { describe, it as test } from 'kocha'
-import { strict as t } from 'assert'
-import { JSDOM } from 'jsdom'
-const { CustomEvent } = new JSDOM('').window
-import { EventTarget } from 'event-target-shim'
+import { describe, it as test } from "kocha"
+import { strict as t } from "assert"
+import { JSDOM } from "jsdom"
+const { CustomEvent } = new JSDOM("").window
+import { EventTarget } from "event-target-shim"
 global.EventTarget = EventTarget
 global.CustomEvent = CustomEvent
-const { default: EventEmitter } = require('./index.js')
+const { default: EventEmitter } = require("./index.ts")
 
-describe('event-emitter', () => {
+describe("event-emitter", () => {
   global.EventTarget = EventTarget
   global.CustomEvent = CustomEvent
-  test('off', () => {
+  test("off", () => {
     const emitter = new EventEmitter()
-    const type = 'foo'
+    const type = "foo"
     const func = () => {
       t.fail()
     }
@@ -20,15 +20,15 @@ describe('event-emitter', () => {
 
     emitter.off(type, func)
     emitter.off(type, () => {})
-    emitter.off('undefined-type', () => {})
+    emitter.off("undefined-type", () => {})
 
     emitter.emit(type)
   })
 
-  test('on-emit', done => {
+  test("on-emit", done => {
     const emitter = new EventEmitter()
-    const type = 'foo'
-    const data = 'baz'
+    const type = "foo"
+    const data = "baz"
     const func = arg => {
       t.equal(arg, data)
       done()
