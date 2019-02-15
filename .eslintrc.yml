@@ -9,9 +9,8 @@ extends:
 plugins:
   - "@typescript-eslint"
 rules:
-  "@typescript-eslint/indent":
-    - error
-    - 2
+  "@typescript-eslint/indent": off
+  "@typescript-eslint/member-delimiter-style": off
 env:
   browser: true
 globals:

@@ -30,6 +30,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "postclean": "mkdir dist",
+    "check": "tsc --noEmit",
     "build:css": "sass -I ./node_modules src/css/index.scss dist/index.css",
     "postbuild:css": "postcss dist/index.css --output dist/index.css",
     "build:js": "node fuse.js",
@@ -44,7 +45,7 @@
     "lint:css": "prettier --write src/css/*.scss",
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
-    "test": "cross-env NODE_ENV=test kocha --require ts-node/register test/*.js modules/*/test.js",
+    "test": "cross-env NODE_ENV=test kocha --require ts-node-test-register test/*.js modules/*/test.js",
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=json",
     "preversion": "run-p lint test",
