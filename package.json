@@ -21,6 +21,7 @@
     "kocha": "^1.8.0",
     "lit-html": "^1.0.0",
     "npm-run-all": "^4.1.0",
+    "nyc": "^13.3.0",
     "postcss-cli": "^6.0.0",
     "postcss-url": "^8.0.0",
     "prettier": "^1.7.2",
@@ -47,8 +48,8 @@
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
     "test": "cross-env NODE_ENV=test kocha --require @babel/register test/*.js modules/*/test.js",
-    "precov": "npx nyc npm test",
-    "cov": "npx nyc report --reporter=json",
+    "precov": "nyc npm test",
+    "cov": "nyc report --reporter=json",
     "preversion": "run-p lint test",
     "version": "npm run build:meta"
   },
