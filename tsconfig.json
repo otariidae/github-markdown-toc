@@ -2,10 +2,18 @@
   "compilerOptions": {
     "target": "es2018",
     "module": "commonjs",
-    "allowJs": true,
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "experimentalDecorators": true,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["types/*"]
+    }
   },
   "include": ["src/**/*", "modules/**/*"]
 }

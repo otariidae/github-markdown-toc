@@ -9,7 +9,6 @@ import {
   createEmptyHeadingList
 } from "../src/js/outline-utils.ts"
 import createFromUrl, {
-  GitHubPage,
   ReleasePage,
   CodePage,
   WikiPage,
@@ -43,9 +42,6 @@ const emptyOutline = createEmptyHeadingList()
 describe("UnknownPage", () => {
   const page = new UnknownPage()
 
-  test("inheritance", () => {
-    t.ok(page instanceof GitHubPage)
-  })
   test("getHeadingList", () => {
     t.deepStrictEqual(page.getHeadingList(), emptyOutline)
   })
@@ -55,9 +51,6 @@ describe("ReleasePage", () => {
   const frag = fragmentFromFile("fixtures/release.html")
   const page = new ReleasePage()
 
-  test("inheritance", () => {
-    t.ok(page instanceof GitHubPage)
-  })
   test("getHeadingList", () => {
     const outline = page.getHeadingList(frag)
     t.ok(allSectionHasTextAndLink(outline))
@@ -72,9 +65,6 @@ describe("Code Page", () => {
   const frag = fragmentFromFile("./fixtures/code.html")
   const page = new CodePage()
 
-  test("inheritance", () => {
-    t.ok(page instanceof GitHubPage)
-  })
   test("getHeadingList", () => {
     const outline = page.getHeadingList(frag)
     t.ok(allSectionHasTextAndLink(outline))
@@ -89,9 +79,6 @@ describe("Wiki Page", () => {
   const frag = DOMFromFile("./fixtures/wiki.html")
   const page = new WikiPage()
 
-  test("inheritance", () => {
-    t.ok(page instanceof GitHubPage)
-  })
   test("getHeadingList", () => {
     global.document = frag
 

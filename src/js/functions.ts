@@ -1,54 +1,14 @@
-import { prop, pipe, or } from "../../modules/functional-util"
+const trim = (str: string): string => str.trim()
 
-/**
- * @param {string} str
- * @returns {string}
- */
-const trim = str => str.trim()
+export const trimmedText = (node: Node): string => trim(node.textContent || "")
 
-/**
- * @function
- * @param {Node}
- * @returns {string}
- */
-export const trimmedText = pipe(
-  prop("textContent"),
-  trim
-)
+const toLowerCase = (str: string): string => str.toLowerCase()
 
-/**
- * @param {string} str
- * @returns {string}
- */
-const toLowerCase = str => str.toLowerCase()
+const toLowerTagName = (elm: Element): string => toLowerCase(elm.tagName)
 
-/**
- * @function
- * @param {Element}
- * @returns {string}
- */
-const toLowerTagName = pipe(
-  prop("tagName"),
-  toLowerCase
-)
+const createTagNameMatcher = (tagNames: string[]) => (elm: Element): boolean =>
+  tagNames.map(toLowerCase).includes(toLowerTagName(elm))
 
-/**
- * @param {string[]}
- * @returns {function(Element): boolean}
- */
-function createTagNameMatcher(tagNames) {
-  const loweredTagNames = tagNames.map(toLowerCase)
-  return pipe(
-    toLowerTagName,
-    loweredTagNames.includes.bind(loweredTagNames)
-  )
-}
-
-/**
- * @function
- * @param {Element}
- * @returns {booelan}
- */
 const isSectioningRoot = createTagNameMatcher([
   "blockquote",
   "body",
@@ -59,11 +19,6 @@ const isSectioningRoot = createTagNameMatcher([
   "td"
 ])
 
-/**
- * @function
- * @param {Element}
- * @returns {booelan}
- */
 const isSectioningContent = createTagNameMatcher([
   "article",
   "aside",
@@ -71,9 +26,9 @@ const isSectioningContent = createTagNameMatcher([
   "section"
 ])
 
-/**
- * @function
- * @param {Element}
- * @returns {booelan}
- */
+type Pred = (...args: any[]) => boolean
+
+const or = (fun1: Pred, fun2: Pred): Pred => (...args) =>
+  fun1(...args) || fun2(...args)
+
 export const isRoot = or(isSectioningRoot, isSectioningContent)

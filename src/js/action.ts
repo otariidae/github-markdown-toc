@@ -1,37 +1,18 @@
-import createFromUrl from "./page"
-import { isEmptyTree } from "./outline-utils"
+import actionCreatorFactory from "typescript-fsa"
 
-export const key = {
-  START_LOADING: "start-loading",
-  MOVE_TO_PAGE: "move-to-page",
-  TOGGLE_NAV: "toggle-nav"
+enum key {
+  START_LOADING = "start-loading",
+  MOVE_TO_PAGE = "move-to-page",
+  TOGGLE_NAV = "toggle-nav"
 }
 
-// action creators
-export default {
-  startLoading() {
-    return {
-      type: key.START_LOADING,
-      payload: {}
-    }
-  },
-  moveToPage() {
-    const page = createFromUrl(location.href)
-    const heading = page.getHeadingList(document.body)
-    const isAvailable = !isEmptyTree(heading)
+const actionCreator = actionCreatorFactory()
 
-    return {
-      type: key.MOVE_TO_PAGE,
-      payload: {
-        heading,
-        isAvailable
-      }
-    }
-  },
-  toggleNav() {
-    return {
-      type: key.TOGGLE_NAV,
-      payload: {}
-    }
-  }
-}
+export const startLoading = actionCreator<void>(key.START_LOADING)
+
+export const moveToPage = actionCreator<{
+  url: string
+  html: HTMLBodyElement
+}>(key.MOVE_TO_PAGE)
+
+export const toggleNav = actionCreator<void>(key.TOGGLE_NAV)

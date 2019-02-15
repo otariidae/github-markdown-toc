@@ -2,13 +2,11 @@
 
 import "@webcomponents/custom-elements"
 import App from "./components/app"
-import { createAction } from "../modules/flux"
-import originalAction from "./js/action"
+import { startLoading, moveToPage, toggleNav } from "./js/action"
 import AppStore from "./js/store"
 import { render } from "lit-html"
 
 const store = new AppStore()
-const action: any = createAction(originalAction, store)
 
 const dataAttr = "githubMarkdownTocOpen"
 const body = document.body
@@ -19,7 +17,7 @@ const onButtonClick = () => {
   if (!isEnabled) {
     return
   }
-  action.toggleNav()
+  store.dispatch(toggleNav())
 }
 body.appendChild(rootElm)
 store.onChange(() => {
@@ -33,7 +31,21 @@ store.onChange(() => {
     delete body.dataset[dataAttr]
   }
 })
-window.addEventListener("pjax:start", action.startLoading)
-window.addEventListener("pjax:end", action.moveToPage)
+window.addEventListener("pjax:start", () => {
+  store.dispatch(startLoading())
+})
+window.addEventListener("pjax:end", () => {
+  store.dispatch(
+    moveToPage({
+      url: location.href,
+      html: document.body as HTMLBodyElement
+    })
+  )
+})
 // init
-action.moveToPage()
+store.dispatch(
+  moveToPage({
+    url: location.href,
+    html: document.body as HTMLBodyElement
+  })
+)

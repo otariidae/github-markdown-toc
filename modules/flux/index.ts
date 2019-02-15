@@ -1,61 +1,39 @@
 import EventEmitter from "../event-emitter"
-import produce from "immer"
-const ON_CHANGE = "on-change"
-const ON_ACTION = "on-action"
 
-const clone = arg => produce(arg, arg => arg)
-
-export const createAction = (actions, store) => {
-  const copy = {}
-
-  // Wrap action creators
-  // When an action creator is called, trigger store.dispatch
-  for (const [prop, actionCreator] of Object.entries(actions)) {
-    copy[prop] = (...args) => {
-      const action = actionCreator(...args)
-      store.dispatch(action)
-      return action
-    }
-  }
-
-  return copy
+export interface AnyAction {
+  type: string | symbol
+  payload?: any
 }
 
-export class Store extends EventEmitter {
+enum Types {
+  ON_CHANGE = "on-change",
+  ON_ACTION = "on-action"
+}
+
+export abstract class Store<T> extends EventEmitter {
+  private _state: T
+  protected abstract getInitialState(): T
+  protected abstract reduce(state: T, action: AnyAction): T
   constructor() {
     super()
-    /** @private */
-    this._state = this.initalState
+    this._state = this.getInitialState()
 
-    this.on(ON_ACTION, action => {
+    this.on(Types.ON_ACTION, (action: AnyAction) => {
       // update state
       this._state = this.reduce(this._state, action)
-      this.emit(ON_CHANGE)
+      this.emit(Types.ON_CHANGE)
     })
   }
-  /**
-   * dispatch an action
-   * @param {action} Object
-   */
-  dispatch(action) {
-    this.emit(ON_ACTION, action)
+  public dispatch(action: AnyAction) {
+    this.emit(Types.ON_ACTION, action)
   }
-  /**
-   * @returns {object}
-   */
-  get state() {
-    return clone(this._state)
+  public get state(): T {
+    return this._state
   }
-  /**
-   * @param {function} func
-   */
-  onChange(func) {
-    this.on(ON_CHANGE, func)
+  public onChange(func: () => void) {
+    this.on(Types.ON_CHANGE, func)
   }
-  /**
-   * @param {function} func
-   */
-  removeChangeListener(func) {
-    this.off(ON_CHANGE, func)
+  public removeChangeListener(func: () => void) {
+    this.off(Types.ON_CHANGE, func)
   }
 }

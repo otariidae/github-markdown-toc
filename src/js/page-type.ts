@@ -1,51 +1,40 @@
+enum Types {
+  RELEASE,
+  CODE,
+  WIKI,
+  UNKNOWN
+}
+
 export default class PageType {
-  /**
-   * @param {string} url
-   */
-  constructor(url) {
+  private readonly _type: Types
+  constructor(url: string) {
     const { pathname } = new URL(url)
     // the first element is empty
     const [, user, project, type, ...paths] = pathname.split("/")
     if (type === "releases" && paths.length === 0) {
-      this._type = PageType.RELEASE
+      this._type = Types.RELEASE
     } else if (
       type === "blob" ||
       type === "tree" ||
       (user && project && !type)
     ) {
-      this._type = PageType.CODE
+      this._type = Types.CODE
     } else if (type === "wiki") {
-      this._type = PageType.WIKI
+      this._type = Types.WIKI
     } else {
-      this._type = PageType.UNKNOWN
+      this._type = Types.UNKNOWN
     }
   }
-  /**
-   * @returns {boolean}
-   */
-  isReleasePage() {
-    return this._type === PageType.RELEASE
+  public isReleasePage(): boolean {
+    return this._type === Types.RELEASE
   }
-  /**
-   * @returns {boolean}
-   */
-  isCodePage() {
-    return this._type === PageType.CODE
+  public isCodePage(): boolean {
+    return this._type === Types.CODE
   }
-  /**
-   * @returns {boolean}
-   */
-  isWikiPage() {
-    return this._type === PageType.WIKI
+  public isWikiPage(): boolean {
+    return this._type === Types.WIKI
   }
-  /**
-   * @returns {boolean}
-   */
-  isUnknownPage() {
-    return this._type === PageType.UNKNOWN
+  public isUnknownPage(): boolean {
+    return this._type === Types.UNKNOWN
   }
 }
-PageType.RELEASE = Symbol("release")
-PageType.CODE = Symbol("code")
-PageType.WIKI = Symbol("wiki")
-PageType.UNKNOWN = Symbol("unknown")

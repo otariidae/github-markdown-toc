@@ -1,6 +1,7 @@
-import { html } from "lit-html"
+import { html, TemplateResult } from "lit-html"
+import { Tree } from "../js/outline-utils"
 
-const Link = item => {
+const Link = (item: Tree): TemplateResult | string => {
   if (item.link) {
     return html`
       <a href="${item.link}">${item.text}</a>
@@ -9,7 +10,7 @@ const Link = item => {
   return item.text
 }
 
-const TreeList = root => html`
+const TreeList = (root: Tree): TemplateResult => html`
   <ol>
     ${
       root.sections.map(
