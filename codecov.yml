@@ -1,6 +1,6 @@
 coverage:
   ignore:
-    - "modules/*/test.js"
+    - "modules/*/test.ts"
     - "test/*"
   status:
       patch:

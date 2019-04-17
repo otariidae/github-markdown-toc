@@ -1,32 +1,32 @@
 import { describe, it as test } from "kocha"
 import { strict as t } from "assert"
-import { URL } from "url"
 import { readFileSync } from "fs"
 import { join } from "path"
 import { JSDOM } from "jsdom"
 import {
   outlineSectionIterator,
-  createEmptyHeadingList
-} from "../src/js/outline-utils.ts"
+  createEmptyHeadingList,
+  Tree
+} from "../src/js/outline-utils"
 import createFromUrl, {
   ReleasePage,
   CodePage,
   WikiPage,
   UnknownPage
-} from "../src/js/page.ts"
+} from "../src/js/page"
 
-function fragmentFromFile(path) {
+function fragmentFromFile(path: string) {
   const file = readFileSync(join(__dirname, path))
   return JSDOM.fragment(file.toString())
 }
 
-function DOMFromFile(path) {
+function DOMFromFile(path: string) {
   const file = readFileSync(join(__dirname, path))
   const { document } = new JSDOM(file.toString()).window
   return document
 }
 
-function allSectionHasTextAndLink(outline) {
+function allSectionHasTextAndLink(outline: Tree) {
   for (const section of outlineSectionIterator(outline)) {
     if (!("text" in section) || !("link" in section)) {
       return false
@@ -36,7 +36,7 @@ function allSectionHasTextAndLink(outline) {
 }
 
 // shared class
-const { document: emptyDoc, HTMLHeadingElement } = new JSDOM("").window
+const { document: emptyDoc } = new JSDOM("").window
 const emptyOutline = createEmptyHeadingList()
 
 describe("UnknownPage", () => {
@@ -80,11 +80,11 @@ describe("Wiki Page", () => {
   const page = new WikiPage()
 
   test("getHeadingList", () => {
-    global.document = frag
+    ;(global as any).document = frag
 
     const outline = page.getHeadingList(frag.body)
 
-    delete global.document
+    delete (global as any).document
 
     t.ok(allSectionHasTextAndLink(outline))
   })
@@ -95,8 +95,6 @@ describe("Wiki Page", () => {
 })
 
 test("PageFactory", () => {
-  global.URL = URL
-
   const p0 = createFromUrl("https://github.com/example/example-project")
   const p1 = createFromUrl(
     "https://github.com/example/example-project/tree/master/test"
@@ -114,6 +112,4 @@ test("PageFactory", () => {
   t.ok(p3 instanceof WikiPage)
   t.ok(p4 instanceof UnknownPage)
   t.ok(p5 instanceof UnknownPage)
-
-  delete global.URL
 })

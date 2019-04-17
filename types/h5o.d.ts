@@ -12,6 +12,7 @@ export interface Outline {
 export interface Section {
   heading: heading;
   sections: Section[];
+  startingNode: HTMLElement;
 }
 
 export default function createOutline(

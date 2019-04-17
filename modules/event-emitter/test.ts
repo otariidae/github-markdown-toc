@@ -3,13 +3,13 @@ import { strict as t } from "assert"
 import { JSDOM } from "jsdom"
 const { CustomEvent } = new JSDOM("").window
 import { EventTarget } from "event-target-shim"
-global.EventTarget = EventTarget
-global.CustomEvent = CustomEvent
-const { default: EventEmitter } = require("./index.ts")
+;(global as any).EventTarget = EventTarget
+;(global as any).CustomEvent = CustomEvent
+import EventEmitter from "./index"
 
 describe("event-emitter", () => {
-  global.EventTarget = EventTarget
-  global.CustomEvent = CustomEvent
+  ;(global as any).EventTarget = EventTarget
+  ;(global as any).CustomEvent = CustomEvent
   test("off", () => {
     const emitter = new EventEmitter()
     const type = "foo"

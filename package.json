@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@types/jsdom": "^12.2.2",
     "@typescript-eslint/eslint-plugin": "^1.1.0",
     "@typescript-eslint/parser": "^1.1.0",
     "@webcomponents/custom-elements": "^1.2.1",
@@ -45,7 +46,7 @@
     "lint:css": "prettier --write src/css/*.scss",
     "lint:md": "prettier --write *.md",
     "lint": "run-p lint:*",
-    "test": "cross-env NODE_ENV=test kocha --require ts-node-test-register test/*.js modules/*/test.js",
+    "test": "cross-env NODE_ENV=test kocha --require ts-node-test-register test/*.ts modules/*/test.ts",
     "precov": "nyc npm test",
     "cov": "nyc report --reporter=json",
     "preversion": "run-p lint test",

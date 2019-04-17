@@ -1,8 +1,8 @@
 import { describe, it as test } from "kocha"
 import { strict as t } from "assert"
 import { EventTarget } from "event-target-shim"
-global.EventTarget = EventTarget
-import { Store } from "./index.ts"
+;(global as any).EventTarget = EventTarget
+import { Store } from "./index"
 
 const key = {
   INCREMENT: "increment",
@@ -17,7 +17,7 @@ const action = {
   }
 }
 
-class TestStore extends Store {
+class TestStore extends Store<{ count: number }> {
   getInitialState() {
     return {
       count: 0

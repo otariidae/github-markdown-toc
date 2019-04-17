@@ -8,6 +8,13 @@ extends:
   - "prettier/standard"
 plugins:
   - "@typescript-eslint"
+settings:
+  node:
+    tryExtensions:
+      - .js
+      - .ts
+      - .json
+      - .node
 rules:
   "@typescript-eslint/indent": off
   "@typescript-eslint/member-delimiter-style": off

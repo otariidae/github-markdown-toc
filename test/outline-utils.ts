@@ -7,7 +7,8 @@ import {
   outlineSectionIterator,
   isEmptyOutline,
   isEmptyTree
-} from "../src/js/outline-utils.ts"
+} from "../src/js/outline-utils"
+import { Section } from "../types/h5o"
 
 {
   const { document } = new JSDOM(`
@@ -19,11 +20,11 @@ import {
 
   describe("createOutlineFrom", () => {
     test("div", () => {
-      global.document = document
+      ;(global as any).document = document
 
       const outline = createOutlineFrom(root)
 
-      delete global.document
+      delete (global as any).document
 
       t.equal(outline.sections[0].startingNode.tagName.toLowerCase(), "body")
     })
@@ -31,11 +32,11 @@ import {
 
   describe("createTreeFrom", () => {
     test("div", () => {
-      global.document = document
+      ;(global as any).document = document
 
       const tree = createTreeFrom(root)
 
-      delete global.document
+      delete (global as any).document
 
       t.deepStrictEqual(tree, {
         link: null,
@@ -55,13 +56,15 @@ import {
 describe("outlineSectionIterator", () => {
   test("iterator", () => {
     const outline = {
+      text: "",
+      link: null,
       sections: []
     }
     const iterator = outlineSectionIterator(outline)
     t.ok(Symbol.iterator in iterator)
   })
   test("count", () => {
-    const outline = {
+    const outline = ({
       sections: [
         { sections: [] }, // 1
         {
@@ -72,7 +75,7 @@ describe("outlineSectionIterator", () => {
           ]
         }
       ]
-    }
+    } as any) as Section
     const iterator = outlineSectionIterator(outline)
     t.equal([...iterator].length, 4)
   })

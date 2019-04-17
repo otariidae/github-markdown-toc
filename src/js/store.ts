@@ -1,4 +1,4 @@
-import { AnyAction, Store } from "../../modules/flux";
+import { AnyAction, Store } from "../../modules/flux"
 import { startLoading, moveToPage, toggleNav } from "./action"
 import { createEmptyHeadingList, isEmptyTree, Tree } from "./outline-utils"
 import produce from "immer"

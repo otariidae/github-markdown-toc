@@ -1,16 +1,8 @@
-import { describe, it as test, before, after } from "kocha"
+import { describe, it as test } from "kocha"
 import { strict as t } from "assert"
-import { URL } from "url"
-import PageType from "../src/js/page-type.ts"
+import PageType from "../src/js/page-type"
 
 describe("check-page-type", () => {
-  before(() => {
-    global.URL = URL
-  })
-  after(() => {
-    delete global.URL
-  })
-
   test("code", () => {
     t.ok(
       new PageType("https://github.com/example/example-project").isCodePage()
