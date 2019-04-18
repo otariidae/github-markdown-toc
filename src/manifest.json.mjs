@@ -35,9 +35,7 @@ export default ({ version, repository }) => ({
         "apps",
         "styleguide",
         "topics"
-      ]
-        .map(url => [`${github}/${url}/*`, `${github}/${url}?*`])
-        .reduce((a, b) => a.concat(b)),
+      ].flatMap(url => [`${github}/${url}/*`, `${github}/${url}?*`]),
       css: ["index.css"],
       js: ["index.js"]
     }
