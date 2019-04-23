@@ -9,8 +9,8 @@ $toggle-button-margin_log-in: ($log-in-header-height - $toggle-button-size) / 2;
 $toggle-button-margin_log-out: ($log-out-header-height - $toggle-button-size) /
   2;
 $nav-inner-padding: 12px;
-$header-padding_log-in: $toggle-button-margin_log-in + $toggle-button-size;
-$header-padding_log-out: $toggle-button-margin_log-out + $toggle-button-size;
+$header-padding_log-in: $toggle-button-margin_log-in * 2 + $toggle-button-size;
+$header-padding_log-out: $toggle-button-margin_log-out * 2 + $toggle-button-size;
 
 body {
   transition: $animation-time 0s margin-right ease-in-out;
