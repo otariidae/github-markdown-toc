@@ -1,5 +1,6 @@
 const github = "https://github.com"
 
+/* eslint-disable @typesctipt-eslint/camelcase */
 export default ({ version, repository }) => ({
   manifest_version: 2,
   name: "GitHub Markdown Table of Contents",
@@ -42,3 +43,4 @@ export default ({ version, repository }) => ({
   ],
   permissions: [`${github}/*`]
 })
+/* eslint-enable @typesctipt-eslint/camelcase */
