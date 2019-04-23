@@ -24,10 +24,10 @@ body[data-github-markdown-toc-open] {
   transition: $animation-time 0s padding-right ease-in-out;
 
   body.logged-in & {
-    padding-right: $header-padding_log-in;
+    padding-right: $header-padding_log-in !important;
   }
   body.logged-out & {
-    padding-right: $header-padding_log-out;
+    padding-right: $header-padding_log-out !important;
   }
   body[data-github-markdown-toc-open] & {
     padding-right: inherit;
