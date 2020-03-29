@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.14.0](https://github.com/otariidae/github-markdown-toc/compare/v0.13.0...v0.14.0)
+
+## Changed
+
+- Use Redux
+- More Typescript
+
 ## [0.13.0](https://github.com/otariidae/github-markdown-toc/compare/v0.12.0...v0.13.0)
 
 ### Changed
