@@ -1,5 +1,5 @@
 import fs from "fs"
-import makeManifest from "../src/manifest.json.mjs"
+import makeManifest from "../src/manifest.json"
 
 const res = fs.readFileSync("package.json")
 const pkg = JSON.parse(res.toString())

@@ -1,7 +1,11 @@
 const github = "https://github.com"
 
-/* eslint-disable @typesctipt-eslint/camelcase */
-export default ({ version, repository }) => ({
+type Props = {
+  version: string
+  repository: string
+}
+
+export default ({ version, repository }: Props) => ({
   manifest_version: 2,
   name: "GitHub Markdown Table of Contents",
   description: "Show a table of contents of markdown on GitHub",
@@ -43,4 +47,3 @@ export default ({ version, repository }) => ({
   ],
   permissions: [`${github}/*`]
 })
-/* eslint-enable @typesctipt-eslint/camelcase */

@@ -9,7 +9,7 @@ describe("trimmedText", () => {
     <p>  bar</p>
     <p>   </p>
   `)
-  const [foo, bar, space] = frag.children
+  const [foo, bar, space] = Array.from(frag.children)
 
   test("right", () => {
     t.equal(trimmedText(foo), "foo")
