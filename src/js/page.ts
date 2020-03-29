@@ -1,5 +1,5 @@
 import { createEmptyHeadingList, createTreeFrom, Tree } from "./outline-utils"
-import PageType from "./page-type"
+import { createPageTypesFromURL, PageTypes } from "./page-type"
 
 interface GitHubPage {
   getHeadingList(root?: ParentNode): Tree
@@ -45,9 +45,10 @@ export class UnknownPage implements GitHubPage {
 }
 
 export default function createFromUrl(url: string): GitHubPage {
-  const pagetype = new PageType(url)
-  if (pagetype.isReleasePage()) return new ReleasePage()
-  if (pagetype.isCodePage()) return new CodePage()
-  if (pagetype.isWikiPage()) return new WikiPage()
-  return new UnknownPage()
+  const pagetype = createPageTypesFromURL(url)
+  if (pagetype === PageTypes.RELEASE) return new ReleasePage()
+  if (pagetype === PageTypes.CODE) return new CodePage()
+  if (pagetype === PageTypes.WIKI) return new WikiPage()
+  if (pagetype === PageTypes.UNKNOWN) return new UnknownPage()
+  throw new Error("invalid pagetype detected")
 }
