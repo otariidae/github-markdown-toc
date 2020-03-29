@@ -2,29 +2,30 @@
 
 import "@webcomponents/custom-elements"
 import App from "./components/app"
-import { startLoading, moveToPage, toggleNav } from "./js/action"
-import AppStore from "./js/store"
+import { actions, reducer } from "./js/slice"
 import { render } from "lit-html"
-
-const store = new AppStore()
+import { configureStore } from "@reduxjs/toolkit"
 
 const dataAttr = "githubMarkdownTocOpen"
 const body = document.body
+const store = configureStore({
+  reducer: reducer
+})
 
 const rootElm = document.createElement("github-markdown-toc-container")
 const onButtonClick = () => {
-  const { isEnabled } = store.state
+  const { isEnabled } = store.getState()
   if (!isEnabled) {
     return
   }
-  store.dispatch(toggleNav())
+  store.dispatch(actions.toggleNav())
 }
 body.appendChild(rootElm)
-store.onChange(() => {
-  render(App(Object.assign({}, store.state, { onButtonClick })), rootElm)
+store.subscribe(() => {
+  render(App(Object.assign({}, store.getState(), { onButtonClick })), rootElm)
 })
-store.onChange(() => {
-  const { isOpen } = store.state
+store.subscribe(() => {
+  const { isOpen } = store.getState()
   if (isOpen) {
     body.dataset[dataAttr] = ""
   } else {
@@ -32,11 +33,11 @@ store.onChange(() => {
   }
 })
 window.addEventListener("pjax:start", () => {
-  store.dispatch(startLoading())
+  store.dispatch(actions.startLoading())
 })
 window.addEventListener("pjax:end", () => {
   store.dispatch(
-    moveToPage({
+    actions.moveToPage({
       url: location.href,
       html: document.body as HTMLBodyElement
     })
@@ -44,7 +45,7 @@ window.addEventListener("pjax:end", () => {
 })
 // init
 store.dispatch(
-  moveToPage({
+  actions.moveToPage({
     url: location.href,
     html: document.body as HTMLBodyElement
   })
