@@ -1,6 +1,6 @@
 # GitHub Markdown Table of Contents
 
-[![CircleCI](https://img.shields.io/circleci/project/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://circleci.com/gh/otariidae/github-markdown-toc)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/otariidae/github-markdown-toc/Node.js%20CI?style=flat-square)
 [![Codecov](https://img.shields.io/codecov/c/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://codecov.io/gh/otariidae/github-markdown-toc)
 [![GitHub release](https://img.shields.io/github/release/otariidae/github-markdown-toc.svg?style=flat-square)](https://github.com/otariidae/github-markdown-toc/releases)
 [![CC0-1.0](https://img.shields.io/badge/license-CC0-orange.svg?style=flat-square)](http://creativecommons.org/publicdomain/zero/1.0/)
