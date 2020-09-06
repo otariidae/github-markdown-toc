@@ -1,4 +1,4 @@
-import { describe, it as test } from "kocha"
+import { describe, it as test, beforeEach, afterEach } from "kocha"
 import { strict as t } from "assert"
 import { readFileSync } from "fs"
 import { join } from "path"
@@ -14,6 +14,14 @@ import createFromUrl, {
   WikiPage,
   UnknownPage,
 } from "../src/js/page"
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      document: Document
+    }
+  }
+}
 
 function fragmentFromFile(path: string) {
   const file = readFileSync(join(__dirname, path))
@@ -38,6 +46,13 @@ function allSectionHasTextAndLink(outline: Tree) {
 // shared class
 const { document: emptyDoc } = new JSDOM("").window
 const emptyOutline = createEmptyHeadingList()
+
+beforeEach(() => {
+  global.document = emptyDoc
+})
+afterEach(() => {
+  delete global.document
+})
 
 describe("UnknownPage", () => {
   const page = new UnknownPage()

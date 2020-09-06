@@ -1,4 +1,4 @@
-import { describe, it as test } from "kocha"
+import { describe, it as test, beforeEach } from "kocha"
 import { strict as t } from "assert"
 import { JSDOM } from "jsdom"
 import {
@@ -8,7 +8,19 @@ import {
   isEmptyOutline,
   isEmptyTree,
 } from "../src/js/outline-utils"
-import { Section } from "../types/h5o"
+import { Section } from "h5o"
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      document: Document
+    }
+  }
+}
+
+beforeEach(() => {
+  delete global.document
+})
 
 {
   const { document } = new JSDOM(`
@@ -16,27 +28,22 @@ import { Section } from "../types/h5o"
       <h1>TEST</h1>
     </div>
   `).window
-  const root = document.getElementById("root")
+  const root = document.getElementById("root") as HTMLElement
 
   describe("createOutlineFrom", () => {
     test("div", () => {
-      ;(global as any).document = document
+      global.document = document
 
       const outline = createOutlineFrom(root)
-
-      delete (global as any).document
-
       t.equal(outline.sections[0].startingNode.tagName.toLowerCase(), "body")
     })
   })
 
   describe("createTreeFrom", () => {
     test("div", () => {
-      ;(global as any).document = document
+      global.document = document
 
       const tree = createTreeFrom(root)
-
-      delete (global as any).document
 
       t.deepStrictEqual(tree, {
         link: null,
@@ -89,11 +96,17 @@ describe("isEmptyOutline", () => {
       </section>
     </section>
     `).window
+
+    global.document = document
+
     const outline = createOutlineFrom(document.body)
     t.ok(isEmptyOutline(outline))
   })
   test("0 length", () => {
     const { document } = new JSDOM("").window
+
+    global.document = document
+
     const outline = createOutlineFrom(document.body)
     t.ok(isEmptyOutline(outline))
   })
@@ -101,6 +114,9 @@ describe("isEmptyOutline", () => {
     const { document } = new JSDOM(`
       <h1>TEST</h1>
     `).window
+
+    global.document = document
+
     const outline = createOutlineFrom(document.body)
     t.ok(!isEmptyOutline(outline))
   })
@@ -114,11 +130,16 @@ describe("isEmptyTree", () => {
       </section>
     </section>
     `).window
+
+    global.document = document
+
     const tree = createTreeFrom(document.body)
     t.ok(isEmptyTree(tree))
   })
   test("0 length", () => {
     const { document } = new JSDOM("").window
+    global.document = document
+
     const tree = createTreeFrom(document.body)
     t.ok(isEmptyTree(tree))
   })
@@ -126,7 +147,11 @@ describe("isEmptyTree", () => {
     const { document } = new JSDOM(`
       <h1>TEST</h1>
     `).window
+
+    global.document = document
+
     const tree = createTreeFrom(document.body)
+    console.log(tree)
     t.ok(!isEmptyTree(tree))
   })
 })
