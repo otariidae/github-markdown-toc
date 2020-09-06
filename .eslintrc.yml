@@ -19,7 +19,6 @@ rules:
   "@typescript-eslint/indent": off
   "@typescript-eslint/member-delimiter-style": off
   "@typescript-eslint/explicit-member-accessibility": warn
-  "@typescript-eslint/camelcase": warn
 env:
   browser: true
 globals:
