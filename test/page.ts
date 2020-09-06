@@ -6,13 +6,13 @@ import { JSDOM } from "jsdom"
 import {
   outlineSectionIterator,
   createEmptyHeadingList,
-  Tree
+  Tree,
 } from "../src/js/outline-utils"
 import createFromUrl, {
   ReleasePage,
   CodePage,
   WikiPage,
-  UnknownPage
+  UnknownPage,
 } from "../src/js/page"
 
 function fragmentFromFile(path: string) {

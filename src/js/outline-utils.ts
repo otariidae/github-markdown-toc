@@ -10,7 +10,7 @@ export interface Tree {
 export const createEmptyHeadingList = (): Tree => ({
   text: "",
   link: null,
-  sections: []
+  sections: [],
 })
 
 function wrapWithRoot(element: Element): HTMLElement {
@@ -38,13 +38,13 @@ function outline2tree(outline: Outline | Section): Tree {
     return {
       link: a ? a.href : null,
       text: trimmedText(heading),
-      sections
+      sections,
     }
   }
   return {
     link: null,
     text: "",
-    sections
+    sections,
   }
 }
 
@@ -69,7 +69,9 @@ export function isEmptyOutline(outline: Outline): boolean {
     return true
   }
   const sections = [...outlineSectionIterator(outline)]
-  const hasNonEmptySection = sections.some(section => !isEmptyHeading(section))
+  const hasNonEmptySection = sections.some(
+    (section) => !isEmptyHeading(section)
+  )
   return !hasNonEmptySection
 }
 

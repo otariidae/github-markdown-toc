@@ -6,7 +6,7 @@ import {
   createTreeFrom,
   outlineSectionIterator,
   isEmptyOutline,
-  isEmptyTree
+  isEmptyTree,
 } from "../src/js/outline-utils"
 import { Section } from "../types/h5o"
 
@@ -45,9 +45,9 @@ import { Section } from "../types/h5o"
           {
             link: null,
             text: "TEST",
-            sections: []
-          }
-        ]
+            sections: [],
+          },
+        ],
       })
     })
   })
@@ -58,7 +58,7 @@ describe("outlineSectionIterator", () => {
     const outline = {
       text: "",
       link: null,
-      sections: []
+      sections: [],
     }
     const iterator = outlineSectionIterator(outline)
     t.ok(Symbol.iterator in iterator)
@@ -71,10 +71,10 @@ describe("outlineSectionIterator", () => {
           sections: [
             // 2
             { sections: [] }, // 3
-            { sections: [] } //4
-          ]
-        }
-      ]
+            { sections: [] }, //4
+          ],
+        },
+      ],
     } as any) as Section
     const iterator = outlineSectionIterator(outline)
     t.equal([...iterator].length, 4)

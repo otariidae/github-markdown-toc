@@ -2,7 +2,7 @@ export enum PageTypes {
   RELEASE,
   CODE,
   WIKI,
-  UNKNOWN
+  UNKNOWN,
 }
 
 export function createPageTypesFromURL(url: string): PageTypes {

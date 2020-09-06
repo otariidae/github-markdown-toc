@@ -17,7 +17,7 @@ export default ({
   isLoading,
   isOpen,
   heading,
-  onButtonClick
+  onButtonClick,
 }: AppProp) => html`
   <div
     class="github-markdown-toc"

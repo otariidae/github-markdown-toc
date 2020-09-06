@@ -13,14 +13,14 @@ const initialState: State = {
   isLoading: false,
   isOpen: false,
   isEnabled: false,
-  heading: createEmptyHeadingList()
+  heading: createEmptyHeadingList(),
 }
 
 const slice = createSlice({
   name: "toc",
   initialState,
   reducers: {
-    startLoading: state => {
+    startLoading: (state) => {
       state.isLoading = true
     },
     moveToPage: (state, action) => {
@@ -33,10 +33,10 @@ const slice = createSlice({
       state.isEnabled = isAvailable
       state.isOpen = isAvailable ? state.isOpen : false
     },
-    toggleNav: state => {
+    toggleNav: (state) => {
       state.isOpen = !state.isOpen
-    }
-  }
+    },
+  },
 })
 
 export const { actions, reducer } = slice
