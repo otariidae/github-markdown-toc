@@ -1,4 +1,4 @@
-import { trimmedText } from "./functions"
+import { isSectioningRoot, trimmedText } from "./functions"
 import createOutline, { Outline, Section } from "h5o"
 
 export interface Tree {
@@ -22,7 +22,7 @@ function wrapWithRoot(element: Element): HTMLElement {
 }
 
 export function createOutlineFrom(element: Element): Outline {
-  const root = wrapWithRoot(element)
+  const root = isSectioningRoot(element) ? element : wrapWithRoot(element)
   return createOutline(root)
 }
 
