@@ -16,10 +16,6 @@ body {
   transition: $animation-time 0s margin-right ease-in-out;
 }
 
-body[data-github-markdown-toc-open] {
-  margin-right: $nav-width;
-}
-
 .Header {
   transition: $animation-time 0s padding-right ease-in-out;
 
