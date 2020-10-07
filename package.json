@@ -8,7 +8,6 @@
     "cross-env": "^7.0.2",
     "eslint": "^7.8.1",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.0.1",
     "fuse-box": "^3.6.0",
     "h5o": "^0.11.3",
     "jsdom": "^16.2.1",

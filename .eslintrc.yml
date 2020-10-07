@@ -4,7 +4,7 @@ parserOptions:
   tsconfigRootDir: ./
 extends:
   - "plugin:@typescript-eslint/recommended"
-  - "plugin:prettier/recommended"
+  - "prettier"
   - "prettier/standard"
 plugins:
   - "@typescript-eslint"
