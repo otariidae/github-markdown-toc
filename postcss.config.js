@@ -1,15 +1,15 @@
-const { resolve } = require('path')
+const { resolve } = require("path")
 
 module.exports = {
   map: {
     inline: false,
-    annotation: true
+    annotation: true,
   },
   plugins: [
-    require('postcss-url')({
-      url: 'inline',
-      basePath: resolve(__dirname, './src/css'),
-      encodeType: 'base64',
-    })
-  ]
+    require("postcss-url")({
+      url: "inline",
+      basePath: resolve(__dirname, "./src/css"),
+      encodeType: "base64",
+    }),
+  ],
 }

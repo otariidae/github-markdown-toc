@@ -3,14 +3,13 @@ coverage:
     - "modules/*/test.ts"
     - "test/*"
   status:
-      patch:
-        default:
-          enabled: false
-      project:
-        default:
-          enabled: true
-          target: 90%
+    patch:
+      default:
+        enabled: false
+    project:
+      default:
+        enabled: true
+        target: 90%
 parsers:
   javascript:
     enable_partials: yes
-

@@ -9,7 +9,7 @@ import { configureStore } from "@reduxjs/toolkit"
 const dataAttr = "githubMarkdownTocOpen"
 const body = document.body
 const store = configureStore({
-  reducer: reducer
+  reducer: reducer,
 })
 
 const rootElm = document.createElement("github-markdown-toc-container")
@@ -39,7 +39,7 @@ window.addEventListener("pjax:end", () => {
   store.dispatch(
     actions.moveToPage({
       url: location.href,
-      html: document.body as HTMLBodyElement
+      html: document.body as HTMLBodyElement,
     })
   )
 })
@@ -47,6 +47,6 @@ window.addEventListener("pjax:end", () => {
 store.dispatch(
   actions.moveToPage({
     url: location.href,
-    html: document.body as HTMLBodyElement
+    html: document.body as HTMLBodyElement,
   })
 )

@@ -39,11 +39,11 @@ export default ({ version, repository }: Props) => ({
         "marketplace",
         "apps",
         "styleguide",
-        "topics"
-      ].flatMap(url => [`${github}/${url}/*`, `${github}/${url}?*`]),
+        "topics",
+      ].flatMap((url) => [`${github}/${url}/*`, `${github}/${url}?*`]),
       css: ["index.css"],
-      js: ["index.js"]
-    }
+      js: ["index.js"],
+    },
   ],
-  permissions: [`${github}/*`]
+  permissions: [`${github}/*`],
 })

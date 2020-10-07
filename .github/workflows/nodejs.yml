@@ -5,13 +5,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,19 +18,19 @@ jobs:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: |
-        curl -s https://codecov.io/bash > codecov
-        chmod +x codecov
-    - run: yarn install --pure-lockfile
-    - run: npm run build
-    - run: npm run cov
-    - run: ./codecov -f coverage/coverage-final.json
-    - uses: actions/upload-artifact@v2
-      with:
-        name: github-markdown-toc.zip
-        path: dist/
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: |
+          curl -s https://codecov.io/bash > codecov
+          chmod +x codecov
+      - run: yarn install --pure-lockfile
+      - run: npm run build
+      - run: npm run cov
+      - run: ./codecov -f coverage/coverage-final.json
+      - uses: actions/upload-artifact@v2
+        with:
+          name: github-markdown-toc.zip
+          path: dist/
