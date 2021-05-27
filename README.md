@@ -1,5 +1,9 @@
 # GitHub Markdown Table of Contents
 
+CAUTION: This project is no longer in development since [GitHub officially supports the table of contents in Markdown files](https://github.blog/changelog/2021-04-13-table-of-contents-support-in-markdown-files/).
+
+---
+
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/otariidae/github-markdown-toc/Node.js%20CI?style=flat-square)
 [![Codecov](https://img.shields.io/codecov/c/github/otariidae/github-markdown-toc.svg?style=flat-square)](https://codecov.io/gh/otariidae/github-markdown-toc)
 [![GitHub release](https://img.shields.io/github/release/otariidae/github-markdown-toc.svg?style=flat-square)](https://github.com/otariidae/github-markdown-toc/releases)
